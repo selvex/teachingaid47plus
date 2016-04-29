@@ -39,10 +39,8 @@ public class MainLoginTest extends ActivityInstrumentationTestCase2 {
 
     public void testLogin()
     {
-        EditText name = (EditText) mySolo.getCurrentActivity().findViewById(R.id.name);
         EditText password = (EditText) mySolo.getCurrentActivity().findViewById(R.id.password);
-        mySolo.enterText(name, "teacher");
-        mySolo.enterText(password, "aaaaa");
+        mySolo.enterText(password, "1234");
         mySolo.clickOnButton("Sign in");
 
     }
