@@ -10,20 +10,20 @@ import com.robotium.solo.Solo;
 import junit.framework.TestCase;
 
 import siriuscyberneticscorporation.teachingaid47plus.AddStudentActivity;
-import siriuscyberneticscorporation.teachingaid47plus.MainLogin;
+import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
 
 
 /**
  * Created by SeLveX on 22.04.2016.
  */
-public class MainLoginTest extends ActivityInstrumentationTestCase2 {
+public class MainActivityTest extends ActivityInstrumentationTestCase2 {
 
     private Solo mySolo;
 
-    public MainLoginTest()
+    public MainActivityTest()
     {
-        super(MainLogin.class);
+        super(MainActivity.class);
 
     }
 
@@ -38,28 +38,15 @@ public class MainLoginTest extends ActivityInstrumentationTestCase2 {
         super.tearDown();
     }
 
-    public void testLogin()
+    public void testButtons()
     {
-        EditText password = (EditText) mySolo.getCurrentActivity().findViewById(R.id.password);
-        mySolo.enterText(password, "1234");
-        mySolo.clickOnButton("Sign in");
-        mySolo.goBack();
-    }
-
-    public void testWalkTrough()
-    {
-        EditText password = (EditText) mySolo.getCurrentActivity().findViewById(R.id.password);
-        mySolo.enterText(password, "1234");
-        mySolo.clickOnButton("Sign in");
-        mySolo.clickOnMenuItem("add student");
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_add_student));
         mySolo.assertCurrentActivity("wrong activity", AddStudentActivity.class);
         mySolo.goBack();
-        mySolo.clickOnMenuItem("add class");
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_add_class));
         mySolo.goBack();
-        mySolo.clickOnMenuItem("add subject");
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_add_subject));
         mySolo.goBack();
-        mySolo.goBack();
-
 
     }
 }
