@@ -9,6 +9,7 @@ import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
+import siriuscyberneticscorporation.teachingaid47plus.AddStudentActivity;
 import siriuscyberneticscorporation.teachingaid47plus.MainLogin;
 import siriuscyberneticscorporation.teachingaid47plus.R;
 
@@ -42,7 +43,23 @@ public class MainLoginTest extends ActivityInstrumentationTestCase2 {
         EditText password = (EditText) mySolo.getCurrentActivity().findViewById(R.id.password);
         mySolo.enterText(password, "1234");
         mySolo.clickOnButton("Sign in");
-        mySolo.clickOnActionBarItem(R.id.action_add_student);
+        mySolo.goBack();
+    }
+
+    public void testWalkTrough()
+    {
+        EditText password = (EditText) mySolo.getCurrentActivity().findViewById(R.id.password);
+        mySolo.enterText(password, "1234");
+        mySolo.clickOnButton("Sign in");
+        mySolo.clickOnMenuItem("add student");
+        mySolo.assertCurrentActivity("wrong activity", AddStudentActivity.class);
+        mySolo.goBack();
+        mySolo.clickOnMenuItem("add class");
+        mySolo.goBack();
+        mySolo.clickOnMenuItem("add subject");
+        mySolo.goBack();
+        mySolo.goBack();
+
 
     }
 }
