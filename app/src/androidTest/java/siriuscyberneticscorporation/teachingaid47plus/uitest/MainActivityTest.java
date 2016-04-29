@@ -9,20 +9,20 @@ import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
-import siriuscyberneticscorporation.teachingaid47plus.MainLogin;
+import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
 
 
 /**
  * Created by SeLveX on 22.04.2016.
  */
-public class MainLoginTest extends ActivityInstrumentationTestCase2 {
+public class MainActivityTest extends ActivityInstrumentationTestCase2 {
 
     private Solo mySolo;
 
-    public MainLoginTest()
+    public MainActivityTest()
     {
-        super(MainLogin.class);
+        super(MainActivity.class);
 
     }
 
@@ -37,12 +37,11 @@ public class MainLoginTest extends ActivityInstrumentationTestCase2 {
         super.tearDown();
     }
 
-    public void testLogin()
+    public void testButtons()
     {
-        EditText password = (EditText) mySolo.getCurrentActivity().findViewById(R.id.password);
-        mySolo.enterText(password, "1234");
-        mySolo.clickOnButton("Sign in");
         mySolo.clickOnActionBarItem(R.id.action_add_student);
+        mySolo.clickOnActionBarItem(R.id.action_add_class);
+        mySolo.clickOnActionBarItem(R.id.action_add_subject);
 
     }
 }
