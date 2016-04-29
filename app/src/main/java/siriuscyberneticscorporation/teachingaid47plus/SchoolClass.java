@@ -1,5 +1,6 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,10 +14,10 @@ public class SchoolClass {
 
     /* Fehlt noch Fach*/
 
-    public SchoolClass(String name, String classTeacher, List<Student> students, String note) {
+    public SchoolClass(String name, String classTeacher, String note) {
         this.name = name;
         this.classTeacher = classTeacher;
-        this.students = students;
+        this.students = new ArrayList<Student>();
         this.note = note;
     }
 

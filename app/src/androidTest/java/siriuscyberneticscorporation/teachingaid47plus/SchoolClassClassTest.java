@@ -26,22 +26,23 @@ public class SchoolClassClassTest extends TestCase {
     public void testSchoolClass2(){
         Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
         Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
-        List<Student> students = new ArrayList<Student>();
-        students.add(peter);
-        students.add(josef);
-        SchoolClass schoolClass = new SchoolClass("4a", "Huber", students, "Note of Class");
+        SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
+        schoolClass.addStudent(peter);
+        schoolClass.addStudent(josef);
     }
     public void testGetter(){
         Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
         Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
-        List<Student> students = new ArrayList<Student>();
-        students.add(peter);
-        students.add(josef);
-        SchoolClass schoolClass = new SchoolClass("4a", "Huber", students, "Note of Class");
+        SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
+        schoolClass.addStudent(peter);
+        schoolClass.addStudent(josef);
 
-        schoolClass.getName();
-        schoolClass.getClassTeacher();
-        schoolClass.getStudents();
+        assertEquals(schoolClass.getName(), "4a");
+        assertEquals(schoolClass.getClassTeacher(), "Adi");
+        for(Student s : schoolClass.getStudents()){
+            assertEquals(s, peter);
+
+        }
         schoolClass.getNote();
 
     }
@@ -50,7 +51,6 @@ public class SchoolClassClassTest extends TestCase {
         SchoolClass schoolClass = new SchoolClass();
         Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
         Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
-        List<Student> students = new ArrayList<Student>();
         students.add(peter);
         students.add(josef);
 
@@ -64,10 +64,9 @@ public class SchoolClassClassTest extends TestCase {
     public void testAddStudent(){
         Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
         Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
-        List<Student> students = new ArrayList<Student>();
         students.add(peter);
         students.add(josef);
-        SchoolClass schoolClass = new SchoolClass("4a", "Huber", students, "Note of Class");
+        SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
 
         Student michael = new Student("michael", "Kevin", "0123", "asdf@jklö.com", "Graz", "Hallo");
         boolean sucess = schoolClass.addStudent(michael);
@@ -77,10 +76,9 @@ public class SchoolClassClassTest extends TestCase {
     public void testAddStudent2(){
         Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
         Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
-        List<Student> students = new ArrayList<Student>();
         students.add(peter);
         students.add(josef);
-        SchoolClass schoolClass = new SchoolClass("4a", "Huber", students, "Note of Class");
+        SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
 
 
         boolean sucess = schoolClass.addStudent(peter);
@@ -90,10 +88,9 @@ public class SchoolClassClassTest extends TestCase {
     public void testDeleteStudent(){
         Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
         Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
-        List<Student> students = new ArrayList<Student>();
         students.add(peter);
         students.add(josef);
-        SchoolClass schoolClass = new SchoolClass("4a", "Huber", students, "Note of Class");
+        SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
 
         boolean success = schoolClass.deleteStudent(peter);
         assertEquals(success, true);
@@ -102,10 +99,9 @@ public class SchoolClassClassTest extends TestCase {
     public void testDeleteStudent2(){
         Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
         Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
-        List<Student> students = new ArrayList<Student>();
         students.add(peter);
         students.add(josef);
-        SchoolClass schoolClass = new SchoolClass("4a", "Huber", students, "Note of Class");
+        SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
 
         Student michael = new Student("michael", "Kevin", "0123", "asdf@jklö.com", "Graz", "Hallo");
         boolean success = schoolClass.deleteStudent(michael);
