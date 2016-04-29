@@ -40,10 +40,6 @@ public class MainLogin extends AppCompatActivity implements LoaderCallbacks<Curs
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "teacher:aaaaa", "bar@example.com:world"
     };
@@ -180,13 +176,9 @@ public class MainLogin extends AppCompatActivity implements LoaderCallbacks<Curs
         }
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
+
         return password.length() > 2;
     }
 
@@ -281,14 +273,6 @@ public class MainLogin extends AppCompatActivity implements LoaderCallbacks<Curs
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
@@ -298,7 +282,6 @@ public class MainLogin extends AppCompatActivity implements LoaderCallbacks<Curs
                 }
             }
 
-            // TODO: register the new account here.
             return true;
         }
 
