@@ -26,21 +26,21 @@ public class StudentClassTest extends TestCase {
 
     public void testGetter(){
         Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
-        peter.get_name();
-        peter.get_contactPersonName();
-        peter.get_contactPersonTelNumber();
-        peter.get_contactPersonEMail();
-        peter.get_address();
-        peter.get_note();
+        peter.getName();
+        peter.getContactPersonName();
+        peter.getContactPersonTelNumber();
+        peter.getContactPersonEMail();
+        peter.getAddress();
+        peter.getNote();
     }
 
     public void testSetter(){
         Student peter = new Student();
-        peter.set_name("peter");
-        peter.set_contactPersonName("Adi");
-        peter.set_contactPersonTelNumber("123");
-        peter.set_contactPersonEMail("asdf@jklö.at");
-        peter.set_address("Graz");
-        peter.set_note("Hallo");
+        peter.setName("peter");
+        peter.setContactPersonName("Adi");
+        peter.setContactPersonTelNumber("123");
+        peter.setContactPersonEMail("asdf@jklö.at");
+        peter.setAddress("Graz");
+        peter.setNote("Hallo");
     }
 }

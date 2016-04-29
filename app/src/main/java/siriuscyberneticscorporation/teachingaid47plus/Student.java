@@ -4,70 +4,70 @@ package siriuscyberneticscorporation.teachingaid47plus;
  * Created by Johannes on 29.04.2016.
  */
 public class Student{
-        private String _name;
-        private String _contactPersonName;
-        private String _contactPersonTelNumber;
-        private String _contactPersonEMail;
-        private String _address;
-        private String _note;
+        private String name;
+        private String contactPersonName;
+        private String contactPersonTelNumber;
+        private String contactPersonEMail;
+        private String address;
+        private String note;
 
     public Student(String name, String contactPersonName,String contactPersonTelNumber,
                        String contactPersonEMail, String address, String note){
 
-        _name = name;
-        _contactPersonName = contactPersonName;
-        _contactPersonTelNumber = contactPersonTelNumber;
-        _contactPersonEMail = contactPersonEMail;
-        _address = address;
-        _note = note;
+        this.name = name;
+        this.contactPersonName = contactPersonName;
+        this.contactPersonTelNumber = contactPersonTelNumber;
+        this.contactPersonEMail = contactPersonEMail;
+        this.address = address;
+        this.note = note;
         }
 
-    public String get_name() {
-        return _name;
+    public String getName() {
+        return name;
     }
 
-    public String get_contactPersonName() {
-        return _contactPersonName;
+    public String getContactPersonName() {
+        return contactPersonName;
     }
 
-    public String get_contactPersonTelNumber() {
-        return _contactPersonTelNumber;
+    public String getContactPersonTelNumber() {
+        return contactPersonTelNumber;
     }
 
-    public String get_contactPersonEMail() {
-        return _contactPersonEMail;
+    public String getContactPersonEMail() {
+        return contactPersonEMail;
     }
 
-    public String get_address() {
-        return _address;
+    public String getAddress() {
+        return address;
     }
 
-    public String get_note() {
-        return _note;
+    public String getNote() {
+        return note;
     }
 
-    public void set_name(String _name) {
-        this._name = _name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void set_contactPersonName(String _contactPersonName) {
-        this._contactPersonName = _contactPersonName;
+    public void setContactPersonName(String contactPersonName) {
+        this.contactPersonName = contactPersonName;
     }
 
-    public void set_contactPersonTelNumber(String _contactPersonTelNumber) {
-        this._contactPersonTelNumber = _contactPersonTelNumber;
+    public void setContactPersonTelNumber(String contactPersonTelNumber) {
+        this.contactPersonTelNumber = contactPersonTelNumber;
     }
 
-    public void set_contactPersonEMail(String _contactPersonEMail) {
-        this._contactPersonEMail = _contactPersonEMail;
+    public void setContactPersonEMail(String contactPersonEMail) {
+        this.contactPersonEMail = contactPersonEMail;
     }
 
-    public void set_address(String _address) {
-        this._address = _address;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void set_note(String _note) {
-        this._note = _note;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public Student(){
