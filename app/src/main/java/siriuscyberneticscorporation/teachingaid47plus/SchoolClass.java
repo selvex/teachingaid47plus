@@ -52,6 +52,27 @@ public class SchoolClass {
         this.note = note;
     }
 
+
+    public boolean addStudent(Student student){
+        boolean sucess = true;
+        if(students.contains(student)){
+            sucess = false;
+        } else {
+            students.add(student);
+        }
+        return sucess;
+    }
+
+    public boolean deleteStudent(Student student){
+        boolean sucess = true;
+        if(students.contains(student)){
+            students.remove(student);
+        } else {
+            sucess = false;
+        }
+        return sucess;
+    }
+
     public SchoolClass() {
     }
 }
