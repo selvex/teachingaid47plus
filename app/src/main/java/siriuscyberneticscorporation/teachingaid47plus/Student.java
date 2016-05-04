@@ -4,6 +4,7 @@ package siriuscyberneticscorporation.teachingaid47plus;
  * Created by Johannes on 29.04.2016.
  */
 public class Student{
+        private long id;
         private String name;
         private String contactPersonName;
         private String contactPersonTelNumber;
@@ -14,6 +15,16 @@ public class Student{
     public Student(String name, String contactPersonName, String contactPersonTelNumber,
                        String contactPersonEMail, String address, String note)
     {
+        this.name = name;
+        this.contactPersonName = contactPersonName;
+        this.contactPersonTelNumber = contactPersonTelNumber;
+        this.contactPersonEMail = contactPersonEMail;
+        this.address = address;
+        this.note = note;
+    }
+
+    public Student(long id, String name, String contactPersonName, String contactPersonTelNumber, String contactPersonEMail, String address, String note) {
+        this.id = id;
         this.name = name;
         this.contactPersonName = contactPersonName;
         this.contactPersonTelNumber = contactPersonTelNumber;
@@ -71,5 +82,13 @@ public class Student{
     }
 
     public Student() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
