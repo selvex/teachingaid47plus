@@ -2,27 +2,28 @@ package siriuscyberneticscorporation.teachingaid47plus.uitest;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
 import siriuscyberneticscorporation.teachingaid47plus.AddClassActivity;
+import siriuscyberneticscorporation.teachingaid47plus.AddSubjectActivity;
 import siriuscyberneticscorporation.teachingaid47plus.ExistingClassActivity;
-import siriuscyberneticscorporation.teachingaid47plus.MainLoginActivity;
+import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
-import siriuscyberneticscorporation.teachingaid47plus.SettingsActivity;
 
 /**
  * Created by Bettina on 04.05.2016.
  */
-public class AddClassActivityTest extends ActivityInstrumentationTestCase2 {
+public class AddSubjectActivityTest extends ActivityInstrumentationTestCase2 {
 
     private Solo mySolo;
 
-    public AddClassActivityTest()
+    public AddSubjectActivityTest()
     {
-        super(AddClassActivity.class);
+        super(AddSubjectActivity.class);
     }
 
     public void setUp() throws Exception {
@@ -35,11 +36,14 @@ public class AddClassActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testWalkTrough() {
-        mySolo.clickOnButton("new class");
+        mySolo.clickOnButton("done");
+        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
         mySolo.goBack();
-        mySolo.clickOnMenuItem("existing class");
-        mySolo.assertCurrentActivity("wrong activity", ExistingClassActivity.class);
-        mySolo.goBack();
-        mySolo.assertCurrentActivity("wrong activity", AddClassActivity.class);
+        EditText subject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subject_edittext);
+        mySolo.enterText(subject, "geography");
+        mySolo.clickOnButton("done");
+        mySolo.clickOnView(mySolo.getView(R.id.action_add_subject));
+        mySolo.assertCurrentActivity("wrong activity", AddSubjectActivity.class);
     }
+
 }

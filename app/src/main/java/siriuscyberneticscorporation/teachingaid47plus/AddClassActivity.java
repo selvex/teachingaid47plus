@@ -12,7 +12,7 @@ public class AddClassActivity extends AppCompatActivity implements View.OnClickL
     private Button buttonNewClass;
     private Button buttonExistingClass;
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_class);
