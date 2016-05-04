@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
         <activity
-            android:name=".MainLogin"
+            android:name=".MainLoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +23,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".AddStudentActivity" />
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".AddClassActivity" />
-        <activity android:name=".AddSubjectActivity"></activity>
+        <activity android:name=".AddSubjectActivity" />
+        <activity android:name=".NewClassActivity" />
+        <activity android:name=".ExistingClassActivity" />
+        <activity android:name=".AddStudentsActivity" />
+        <activity android:name=".AssignSubjectActivity"></activity>
     </application>
 
 </manifest>

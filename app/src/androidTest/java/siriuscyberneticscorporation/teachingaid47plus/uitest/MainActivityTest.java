@@ -1,15 +1,11 @@
 package siriuscyberneticscorporation.teachingaid47plus.uitest;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.Button;
-import android.widget.EditText;
 
 
 import com.robotium.solo.Solo;
 
-import junit.framework.TestCase;
-
-import siriuscyberneticscorporation.teachingaid47plus.AddStudentActivity;
+import siriuscyberneticscorporation.teachingaid47plus.SettingsActivity;
 import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
 
@@ -38,10 +34,9 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
         super.tearDown();
     }
 
-    public void testButtons()
-    {
-        mySolo.clickOnView(getActivity().findViewById(R.id.action_add_student));
-        mySolo.assertCurrentActivity("wrong activity", AddStudentActivity.class);
+    public void testButtons() {
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_settings));
+        mySolo.assertCurrentActivity("wrong activity", SettingsActivity.class);
         mySolo.goBack();
         mySolo.clickOnView(getActivity().findViewById(R.id.action_add_class));
         mySolo.goBack();

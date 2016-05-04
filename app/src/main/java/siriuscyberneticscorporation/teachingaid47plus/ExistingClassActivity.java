@@ -3,11 +3,11 @@ package siriuscyberneticscorporation.teachingaid47plus;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class AddStudentActivity extends AppCompatActivity {
+public class ExistingClassActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_student);
+        setContentView(R.layout.activity_existing_class);
     }
 }

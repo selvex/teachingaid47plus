@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent class_intent = new Intent(MainActivity.this, AddClassActivity.class);
                 startActivity(class_intent);
                 return true;
-            case R.id.action_add_student:
-                Intent student_intent = new Intent(MainActivity.this, AddStudentActivity.class);
+            case R.id.action_settings:
+                Intent student_intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(student_intent);
                 return true;
             case R.id.action_add_subject:
