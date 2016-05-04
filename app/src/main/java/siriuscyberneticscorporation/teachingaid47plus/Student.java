@@ -11,16 +11,16 @@ public class Student{
         private String address;
         private String note;
 
-    public Student(String name, String contactPersonName,String contactPersonTelNumber,
-                       String contactPersonEMail, String address, String note){
-
+    public Student(String name, String contactPersonName, String contactPersonTelNumber,
+                       String contactPersonEMail, String address, String note)
+    {
         this.name = name;
         this.contactPersonName = contactPersonName;
         this.contactPersonTelNumber = contactPersonTelNumber;
         this.contactPersonEMail = contactPersonEMail;
         this.address = address;
         this.note = note;
-        }
+    }
 
     public String getName() {
         return name;
@@ -70,8 +70,6 @@ public class Student{
         this.note = note;
     }
 
-    public Student(){
-
+    public Student() {
     }
-
-        }
+}
