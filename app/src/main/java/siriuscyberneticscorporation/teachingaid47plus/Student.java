@@ -1,9 +1,11 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import com.orm.SugarRecord;
+
 /**
  * Created by Johannes on 29.04.2016.
  */
-public class Student{
+public class Student extends SugarRecord{
         private String name;
         private String contactPersonName;
         private String contactPersonTelNumber;

@@ -1,5 +1,6 @@
 package siriuscyberneticscorporation.teachingaid47plus.uitest;
 
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import junit.framework.TestCase;
 import siriuscyberneticscorporation.teachingaid47plus.AddStudentActivity;
 import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
+import siriuscyberneticscorporation.teachingaid47plus.Student;
 
 
 /**
@@ -47,6 +49,15 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.goBack();
         mySolo.clickOnView(getActivity().findViewById(R.id.action_add_subject));
         mySolo.goBack();
+
+    }
+
+    public void testSugarDB()
+    {
+        Student paul = new Student("paul", "Nein", "0123", "asdf@jklö.com", "Graz", "Hallo");
+        long id_saved_to = paul.save();
+        Student from_db = Student.findById(Student.class, id_saved_to);
+        assertEquals("paul", from_db.getName());
 
     }
 }
