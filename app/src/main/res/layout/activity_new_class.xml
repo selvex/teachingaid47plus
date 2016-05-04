@@ -9,4 +9,55 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="siriuscyberneticscorporation.teachingaid47plus.NewClassActivity">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/class_edittext"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:hint="@string/promt_class"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:imeActionId="@+id/class_name"
+        android:imeActionLabel="@string/action_enter"
+        android:imeOptions="actionDone" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/teacher_edittext"
+        android:layout_below="@+id/class_edittext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:hint="@string/promt_teacher"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:imeActionId="@+id/teacher"
+        android:imeActionLabel="@string/action_enter"
+        android:imeOptions="actionDone" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/note_edittext"
+        android:layout_below="@+id/teacher_edittext"
+        android:layout_alignRight="@+id/done_button"
+        android:layout_alignEnd="@+id/done_button"
+        android:layout_marginTop="42dp"
+        android:hint="@string/promt_note"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:imeActionId="@+id/note"
+        android:imeActionLabel="@string/action_enter"
+        android:imeOptions="actionDone" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="done"
+        android:id="@+id/done_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
