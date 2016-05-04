@@ -7,14 +7,6 @@ import junit.framework.TestCase;
  */
 public class SubjectClassTest extends TestCase {
 
-    public void setUp() throws Exception {
-        super.setUp();
-
-    }
-
-    public void tearDown() throws Exception {
-
-    }
 
     public void testSubjectClass(){
         Subject mathematic = new Subject();
@@ -26,11 +18,12 @@ public class SubjectClassTest extends TestCase {
 
     public void testGetter(){
         Subject mathematic = new Subject("Mathematic");
-        mathematic.getName();
+        assertEquals(mathematic.getName(),"Mathematic");
     }
 
     public void testSetter(){
         Subject mathematic = new Subject();
         mathematic.setName("Math");
+        assertEquals(mathematic.getName(),"Math");
     }
 }
