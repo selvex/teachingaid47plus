@@ -13,11 +13,14 @@ public class SubjectClassTest extends TestCase {
     }
 
     public void testSubjectClass2(){
-        Subject mathematic = new Subject("Mathematic");
+
+        SchoolClass to_enter = new SchoolClass("1Stern", "Peter Lustig", "der wird niemals alt");
+        Subject mathematic = new Subject("Mathematic", to_enter);
     }
 
     public void testGetter(){
-        Subject mathematic = new Subject("Mathematic");
+        SchoolClass to_enter = new SchoolClass("1Stern", "Peter Lustig", "der wird niemals alt");
+        Subject mathematic = new Subject("Mathematic", to_enter);
         assertEquals(mathematic.getName(),"Mathematic");
     }
 

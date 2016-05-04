@@ -1,15 +1,16 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import com.orm.SugarRecord;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Johannes on 29.04.2016.
  */
-public class SchoolClass {
+public class SchoolClass extends SugarRecord{
     private String name;
     private String classTeacher;
-    private List<Student> students;
     private String note;
 
     /* Fehlt noch Fach*/
@@ -17,7 +18,6 @@ public class SchoolClass {
     public SchoolClass(String name, String classTeacher, String note) {
         this.name = name;
         this.classTeacher = classTeacher;
-        this.students = new ArrayList<Student>();
         this.note = note;
     }
 
@@ -37,41 +37,12 @@ public class SchoolClass {
         this.classTeacher = classTeacher;
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
     public String getNote() {
         return note;
     }
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-
-    public boolean addStudent(Student student){
-        boolean sucess = true;
-        if(students.contains(student)){
-            sucess = false;
-        } else {
-            students.add(student);
-        }
-        return sucess;
-    }
-
-    public boolean deleteStudent(Student student){
-        boolean sucess = true;
-        if(students.contains(student)){
-            students.remove(student);
-        } else {
-            sucess = false;
-        }
-        return sucess;
     }
 
     public SchoolClass() {

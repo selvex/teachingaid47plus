@@ -9,17 +9,21 @@ public class StudentClassTest extends TestCase {
 
     public void testClass2()
     {
-        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
+        SchoolClass to_enter = new SchoolClass("1A", "Peter Lustig", "ziemlich lustig");
+        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo", to_enter);
     }
 
     public void testGetter() {
-        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
+        SchoolClass to_enter = new SchoolClass("1B", "Peter Lustig", "ziemlich lustig");
+
+        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo", to_enter);
         assertEquals("peter", peter.getName());
         assertEquals("Adi", peter.getContactPersonName());
         assertEquals("0123456789", peter.getContactPersonTelNumber());
         assertEquals("asdf@jklö.com", peter.getContactPersonEMail());
         assertEquals("Graz", peter.getAddress());
         assertEquals("Hallo", peter.getNote());
+        assertEquals(to_enter, peter.getSchoolClass());
     }
 
     public void testSetter() {
@@ -30,6 +34,8 @@ public class StudentClassTest extends TestCase {
         peter.setContactPersonEMail("asdf@jklö.com");
         peter.setAddress("Graz");
         peter.setNote("Hallo");
+        SchoolClass to_enter = new SchoolClass("1C", "Peter Lustig", "ziemlich lustig");
+        peter.setSchoolClass(to_enter);
 
         assertEquals("peter", peter.getName());
         assertEquals("Adi", peter.getContactPersonName());
@@ -37,5 +43,6 @@ public class StudentClassTest extends TestCase {
         assertEquals("asdf@jklö.com", peter.getContactPersonEMail());
         assertEquals("Graz", peter.getAddress());
         assertEquals("Hallo", peter.getNote());
+        assertEquals(to_enter, peter.getSchoolClass());
     }
 }
