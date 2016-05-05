@@ -17,6 +17,7 @@ import siriuscyberneticscorporation.teachingaid47plus.R;
  * Created by Bettina on 04.05.2016.
  */
 public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
+
     private Solo mySolo;
 
     public NewClassActivityTest()
