@@ -1,5 +1,7 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,15 +19,8 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
     private EditText textContactPersonEMail;
     private EditText textAddress;
     private EditText textNote;
+    private Intent prevIntent;
 
-    private String[] name = new String[50];
-    private String[] contactPersonName = new String[50];
-    private String[] contactPersonTelNumber = new String[50];
-    private String[] contactPersonEMail = new String[50];
-    private String[] address = new String[50];
-    private String[] note = new String[50];
-
-    int studentsIndex = 0;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -42,56 +37,80 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
 
         buttonDone.setOnClickListener(this);
         buttonAdd.setOnClickListener(this);
+        prevIntent = getIntent();
     }
 
     public void onClick(View v) {
         Button clickedButton = (Button) v;
 
         if (clickedButton.getId() == R.id.done_button) {
+
             Intent intent = new Intent(AddStudentsActivity.this, AssignSubjectActivity.class);
-            studentsIndex = 0;
-            name = new String[50];
-            contactPersonName = new String[50];
-            contactPersonTelNumber = new String[50];
-            contactPersonEMail = new String[50];
-            address = new String[50];
-            note = new String[50];
-            textName.setText("");
-            textContactPersonName.setText("");
-            textContactPersonTelNumber.setText("");
-            textContactPersonEMail.setText("");
-            textAddress.setText("");
-            textNote.setText("");
-            startActivity(intent);
+
+            if(textName.getText().toString().isEmpty() && textContactPersonName.getText().toString().isEmpty() &&
+               textContactPersonTelNumber.getText().toString().isEmpty() &&
+               textContactPersonEMail.getText().toString().isEmpty() && textAddress.getText().toString().isEmpty() &&
+               textNote.getText().toString().isEmpty()) {
+                intent.putExtra("default", prevIntent.getLongExtra("default", 0));
+                startActivity(intent);
+            }
+            else {
+
+                new AlertDialog.Builder(AddStudentsActivity.this)
+                        .setTitle("Attention")
+                        .setMessage("Some fields contain information. If you still need that information, " +
+                                "please click on 'Add Student', befor you click on 'Done'. Continue without saving?")
+
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(AddStudentsActivity.this, AssignSubjectActivity.class);
+                                textName.setText("");
+                                textContactPersonName.setText("");
+                                textContactPersonTelNumber.setText("");
+                                textContactPersonEMail.setText("");
+                                textAddress.setText("");
+                                textNote.setText("");
+                                intent.putExtra("default", prevIntent.getLongExtra("default", 0));
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
         }
         else if (clickedButton.getId() == R.id.add_student_button) {
-            name[studentsIndex] = textName.toString();
-            contactPersonName[studentsIndex] = textContactPersonName.toString();
-            contactPersonTelNumber[studentsIndex] = textContactPersonTelNumber.toString();
-            contactPersonEMail[studentsIndex] = textContactPersonEMail.toString();
-            address[studentsIndex] = textAddress.toString();
-            note[studentsIndex] = textNote.toString();
 
-            textName.setText("");
-            textContactPersonName.setText("");
-            textContactPersonTelNumber.setText("");
-            textContactPersonEMail.setText("");
-            textAddress.setText("");
-            textNote.setText("");
+            if(textName.getText().toString().isEmpty()) {
+                new AlertDialog.Builder(AddStudentsActivity.this)
+                        .setTitle("Error - Empty name")
+                        .setMessage("Please, at least fill out the field 'name'.")
 
-            if (studentsIndex < 49) {
-                studentsIndex = studentsIndex + 1;
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
-            else{
-                textName.setText("Error!!!");
-                textContactPersonName.setText("Please");
-                textContactPersonTelNumber.setText("select");
-                textContactPersonEMail.setText("less");
-                textAddress.setText("Students");
-                textNote.setText("(Maximum 50)");
-                studentsIndex = 0;
+            else {
+                SchoolClass schoolClass = SchoolClass.findById(SchoolClass.class, prevIntent.getLongExtra("default", 0));
+                Student student = new Student(textName.getText().toString(),textContactPersonName.getText().toString(),
+                        textContactPersonTelNumber.getText().toString(), textContactPersonEMail.getText().toString(),
+                        textAddress.getText().toString(), textNote.getText().toString(), schoolClass);
+                student.save();
+
+                textName.setText("");
+                textContactPersonName.setText("");
+                textContactPersonTelNumber.setText("");
+                textContactPersonEMail.setText("");
+                textAddress.setText("");
+                textNote.setText("");
             }
+
         }
-
     }
 }
