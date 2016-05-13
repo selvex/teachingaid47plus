@@ -39,9 +39,6 @@ public class AddSubjectActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testWalkTrough() {
-        mySolo.clickOnButton("done");
-        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
-        mySolo.goBack();
         EditText subject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subject_edittext);
         mySolo.enterText(subject, "geography");
         mySolo.clickOnButton("done");
@@ -50,9 +47,6 @@ public class AddSubjectActivityTest extends ActivityInstrumentationTestCase2 {
     }
     public void testXAddSubjectToDb()
     {
-        mySolo.clickOnButton("done");
-        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
-        mySolo.goBack();
         EditText subject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subject_edittext);
         mySolo.enterText(subject, "physics");
         mySolo.clickOnButton("done");
