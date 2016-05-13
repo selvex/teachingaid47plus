@@ -10,5 +10,26 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="siriuscyberneticscorporation.teachingaid47plus.MainActivity">
 
+    <android.support.v7.widget.ButtonBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <Spinner
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:id="@+id/class_spinner">
+        </Spinner>
+
+        <Spinner
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:id="@+id/subject_spinner">
+        </Spinner>
+
+
+    </android.support.v7.widget.ButtonBarLayout>
+
 </RelativeLayout>
 
