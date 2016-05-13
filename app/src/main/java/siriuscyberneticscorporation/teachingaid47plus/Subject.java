@@ -16,6 +16,10 @@ public class Subject extends SugarRecord{
         this.schoolClass = schoolClass;
     }
 
+    public Subject(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
