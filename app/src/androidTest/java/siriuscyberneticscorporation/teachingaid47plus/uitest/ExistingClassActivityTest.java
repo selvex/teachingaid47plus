@@ -53,4 +53,19 @@ public class ExistingClassActivityTest extends ActivityInstrumentationTestCase2 
 
         mySolo.clickOnButton("Done");
     }
+    public void testAssignSubject()
+    {
+        View dropdown_class = mySolo.getView(Spinner.class, 0);
+        View dropdown_subject = mySolo.getView(Spinner.class, 1);
+        mySolo.clickOnView(dropdown_class);
+        mySolo.scrollToTop();
+        mySolo.clickOnView(mySolo.getView(TextView.class, 0));
+        mySolo.clickOnView(dropdown_subject);
+        mySolo.scrollToTop();
+        mySolo.clickOnView(mySolo.getView(TextView.class, 0));
+
+        mySolo.clickOnButton("Done");
+        mySolo.goBackToActivity("ExistingClassActivity");
+    }
+
 }
