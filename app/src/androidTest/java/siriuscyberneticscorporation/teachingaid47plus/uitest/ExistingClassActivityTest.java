@@ -10,9 +10,12 @@ import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
+import java.util.List;
+
 import siriuscyberneticscorporation.teachingaid47plus.ExistingClassActivity;
 import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
+import siriuscyberneticscorporation.teachingaid47plus.SchoolClass;
 import siriuscyberneticscorporation.teachingaid47plus.Subject;
 
 /**
@@ -67,10 +70,49 @@ public class ExistingClassActivityTest extends ActivityInstrumentationTestCase2 
         mySolo.clickOnView(mySolo.getView(TextView.class, 0));
 
         mySolo.clickOnButton("Done");
-        mySolo.sleep(300);
-        Subject test = Subject.find(Subject.class, "name = ?", "tttt").get(0);
-        assertEquals(test.getSchoolClass().getName(), "56e");
         mySolo.goBackToActivity("ExistingClassActivity");
+    }
+
+    public void testBasicAssignment() {
+        SchoolClass new_class = new SchoolClass("Best Class", "Bernd", "God damnit");
+        Subject new_sub = new Subject("Colleteral");
+        new_class.save();
+        new_sub.save();
+        System.out.println(1);
+        SchoolClass class_to_link = SchoolClass.find(SchoolClass.class, "name = ?", new_class.getName()).get(0);
+        Subject subject_getting_linked = Subject.find(Subject.class, "name = ?", new_sub.getName()).get(0);
+        System.out.println(2);
+
+        subject_getting_linked.setSchoolClass(class_to_link);
+        subject_getting_linked.save();
+        System.out.println(3);
+
+
+        SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", "Best Class").get(0);
+        System.out.println(4);
+
+        System.out.println("Class name: " + class_from_db.getName() + " and id: " + class_from_db.getId());
+        Subject from_db = Subject.find(Subject.class, "school_class = ?", String.valueOf(class_from_db.getId())).get(0);
+        System.out.println(5);
+
+        assertEquals(from_db.getSchoolClass().getClassTeacher(), class_from_db.getClassTeacher());
+
+        class_from_db.delete();
+        from_db.delete();
+    }
+
+    public void testZDeleteWrongTestEntrys()
+    {
+        List<Subject> subjects = Subject.find(Subject.class, "name = ?", "Colleteral");
+        for(Subject s : subjects)
+        {
+            s.delete();
+        }
+        List<SchoolClass> classes = SchoolClass.find(SchoolClass.class, "name = ?", "Best Class");
+        for(SchoolClass c : classes)
+        {
+            c.delete();
+        }
     }
 
 }
