@@ -24,7 +24,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:text="existing class"
+        android:text="assign subject to class"
         android:id="@+id/existing_class_button"
         android:textStyle="bold"
         android:layout_marginTop="39dp"
