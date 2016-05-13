@@ -7,10 +7,15 @@ import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
+import java.util.List;
+
 import siriuscyberneticscorporation.teachingaid47plus.AddStudentsActivity;
+import siriuscyberneticscorporation.teachingaid47plus.AddSubjectActivity;
 import siriuscyberneticscorporation.teachingaid47plus.AssignSubjectActivity;
 import siriuscyberneticscorporation.teachingaid47plus.NewClassActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
+import siriuscyberneticscorporation.teachingaid47plus.SchoolClass;
+import siriuscyberneticscorporation.teachingaid47plus.Student;
 
 /**
  * Created by Bettina on 05.05.2016.
@@ -34,44 +39,52 @@ public class AddStudentsActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testWalkTrough() {
+
+        EditText name = (EditText) mySolo.getCurrentActivity().findViewById(R.id.name_edittext);
+        EditText contactPersonName = (EditText) mySolo.getCurrentActivity().findViewById(R.id.contactPersonName_edittext);
+        EditText contactPersonTelNumber = (EditText) mySolo.getCurrentActivity().findViewById(R.id.contactPersonTelNumber_edittext);
+        EditText contactPersonEMail = (EditText) mySolo.getCurrentActivity().findViewById(R.id.contactPersonEMail_edittext);
+        EditText address = (EditText) mySolo.getCurrentActivity().findViewById(R.id.address_edittext);
+        EditText note = (EditText) mySolo.getCurrentActivity().findViewById(R.id.note_edittext);
+
         mySolo.clickOnButton("Done");
         mySolo.assertCurrentActivity("wrong activity", AssignSubjectActivity.class);
         mySolo.goBack();
-
-        EditText name = (EditText) mySolo.getCurrentActivity().findViewById(R.id.name_edittext);
         mySolo.enterText(name, "Der Schüler Gerber");
-
-        EditText contactPersonName = (EditText) mySolo.getCurrentActivity().findViewById(R.id.contactPersonName_edittext);
         mySolo.enterText(contactPersonName, "Kupfer");
-
-        EditText contactPersonTelNumber = (EditText) mySolo.getCurrentActivity().findViewById(R.id.contactPersonTelNumber_edittext);
         mySolo.enterText(contactPersonTelNumber, "144");
-
-        EditText contactPersonEMail = (EditText) mySolo.getCurrentActivity().findViewById(R.id.contactPersonEMail_edittext);
         mySolo.enterText(contactPersonEMail, "kupfer@gmx.at");
-
-        EditText address = (EditText) mySolo.getCurrentActivity().findViewById(R.id.address_edittext);
         mySolo.enterText(address, "Irgendwo");
-
-        EditText note = (EditText) mySolo.getCurrentActivity().findViewById(R.id.note_edittext);
         mySolo.enterText(note, "Kanonenhütte?");
-
         assertEquals("Der Schüler Gerber", name.getText().toString());
         assertEquals("Kupfer", contactPersonName.getText().toString());
         assertEquals("144", contactPersonTelNumber.getText().toString());
         assertEquals("kupfer@gmx.at", contactPersonEMail.getText().toString());
         assertEquals("Irgendwo", address.getText().toString());
         assertEquals("Kanonenhütte?", note.getText().toString());
-
         mySolo.clickOnButton("Add Student");
         mySolo.sleep(200);
         assertEquals("",name.getText().toString());
     }
 
-    public void testTooManyStudents(){
-        for(int i = 0; i < 50; i++){
-            mySolo.clickOnButton("Add Student");
-        }
+    public void testXInput(){
+        mySolo.sleep(200);
+        List<Student> from_db = Student.find(Student.class, "name = ?", "Der Schüler Gerber");
+        assertEquals(from_db.get(0).getContactPersonName(), "Kupfer");
+    }
+
+    public void testErrorMessage() {
+        EditText name = (EditText) mySolo.getCurrentActivity().findViewById(R.id.name_edittext);
+        mySolo.enterText(name, "Herbert");
+        mySolo.clickOnButton("Done");
+        mySolo.sleep(200);
+        mySolo.clickOnButton("Abbrechen");
+        mySolo.assertCurrentActivity("wrong activity", AddStudentsActivity.class);
+    }
+
+    public void testZKeepDbClean()
+    {
+        getActivity().getBaseContext().deleteDatabase("sugar_example_1.db");
     }
 
 }

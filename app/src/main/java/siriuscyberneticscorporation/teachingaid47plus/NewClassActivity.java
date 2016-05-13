@@ -13,8 +13,6 @@ import java.util.ServiceConfigurationError;
 
 public class NewClassActivity extends AppCompatActivity implements View.OnClickListener{
 
-    public final static String EXTRA_MESSAGE = "com.siriuscyberneticscorporation.teachingaid47plus.MESSAGE";
-
     private Button buttonDone;
     private EditText textName;
     private EditText textTacher;
@@ -52,7 +50,7 @@ public class NewClassActivity extends AppCompatActivity implements View.OnClickL
                 SchoolClass schoolClass = new SchoolClass(textName.getText().toString(),textTacher.getText().toString(),textNote.getText().toString());
                 long class_id = schoolClass.save();
                 Intent intent = new Intent(NewClassActivity.this, AddStudentsActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, class_id);
+                intent.putExtra("default", class_id);
                 textName.setText("");
                 textTacher.setText("");
                 textNote.setText("");
