@@ -37,7 +37,7 @@ public class AddClassActivityTest extends ActivityInstrumentationTestCase2 {
     public void testWalkTrough() {
         mySolo.clickOnButton("new class");
         mySolo.goBack();
-        mySolo.clickOnMenuItem("existing class");
+        mySolo.clickOnMenuItem("assign subject to class");
         mySolo.assertCurrentActivity("wrong activity", ExistingClassActivity.class);
         mySolo.goBack();
         mySolo.assertCurrentActivity("wrong activity", AddClassActivity.class);
