@@ -1,5 +1,7 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,11 +28,25 @@ public class AddSubjectActivity extends AppCompatActivity implements View.OnClic
         Button clickedButton = (Button) v;
 
         if (clickedButton.getId() == R.id.done_button) {
-           Subject new_subject = new Subject(subjectInput.getText().toString());
-            new_subject.save();
+            if(subjectInput.getText().toString().isEmpty()) {
+                new AlertDialog.Builder(AddSubjectActivity.this)
+                        .setTitle("Error - Empty Name")
+                        .setMessage("Please fill out all required fields!")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
 
-            Intent intent = new Intent(AddSubjectActivity.this, MainActivity.class);
-            startActivity(intent);
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+            else{
+                Subject new_subject = new Subject(subjectInput.getText().toString());
+                new_subject.save();
+
+                Intent intent = new Intent(AddSubjectActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
 
         }
 
