@@ -12,7 +12,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:theme="@style/Theme.AppCompat.Light"
+        android:name="com.orm.SugarApp">
+
+        <meta-data android:name="DATABASE" android:value="sugar_example_1.db" />
+        <meta-data android:name="VERSION" android:value="2" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="siriuscyberneticscorporation.teachingaid47plus" />
+
         <activity
             android:name=".MainLoginActivity"
             android:label="@string/app_name">

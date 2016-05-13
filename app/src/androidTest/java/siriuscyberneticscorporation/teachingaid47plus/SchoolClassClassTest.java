@@ -16,27 +16,17 @@ public class SchoolClassClassTest extends TestCase {
     }
 
     public void testSchoolClass2(){
-        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
-        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
         SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
-        schoolClass.addStudent(peter);
-        schoolClass.addStudent(josef);
+        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
     }
     public void testGetter(){
-        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
-        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
         SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
-        schoolClass.addStudent(peter);
-        schoolClass.addStudent(josef);
+        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
 
-        assertEquals(schoolClass.getName(), "4a");
+        assertEquals(josef.getSchoolClass().getName(), "4a");
         assertEquals(schoolClass.getClassTeacher(), "Huber");
-        Student[] array = new Student[] {peter, josef};
-        int i = 0;
-        for(Student s : schoolClass.getStudents()){
-            assertEquals(s, array[i]);
-            i = i + 1;
-        }
         assertEquals(schoolClass.getNote(), "Note of Class");
 
 
@@ -44,8 +34,8 @@ public class SchoolClassClassTest extends TestCase {
 
     public void testSetter(){
         SchoolClass schoolClass = new SchoolClass();
-        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
-        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
+        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
 
 
         schoolClass.setName("4a");
@@ -53,63 +43,53 @@ public class SchoolClassClassTest extends TestCase {
         schoolClass.setNote("New Note of Class");
 
         assertEquals(schoolClass.getName(), "4a");
-        assertEquals(schoolClass.getClassTeacher(), "Hoellerbauer");
+        assertEquals(josef.getSchoolClass().getClassTeacher(), "Hoellerbauer");
         assertEquals(schoolClass.getNote(), "New Note of Class");
 
     }
 
     public void testAddStudent(){
-        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
-        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
-        Student michael = new Student("michael", "Kevin", "0123", "asdf@jklö.com", "Graz", "Hallo");
-
         SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
-
-        boolean success = schoolClass.addStudent(peter);
-        assertEquals(success, true);
-        success = schoolClass.addStudent(josef);
-        assertEquals(success, true);
-        success = schoolClass.addStudent(michael);
-        assertEquals(success, true);
+        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+        Student michael = new Student("michael", "Kevin", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+        /* function to test removed, build this into db test */
     }
 
     public void testAddStudent2(){
-        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
-
-
         SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
-        boolean success = schoolClass.addStudent(peter);
-        assertEquals(success, true);
-
-        success = schoolClass.addStudent(peter);
-        assertEquals(success, false);
+        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+        /* function to test removed, build this into db test */
     }
 
     public void testDeleteStudent(){
-        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
-        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
-
         SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
+        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
 
+        /*
         boolean success = schoolClass.addStudent(peter);
         assertEquals(success, true);
         success = schoolClass.addStudent(josef);
         assertEquals(success, true);
         success = schoolClass.deleteStudent(peter);
         assertEquals(success, true);
+        */
     }
 
     public void testDeleteStudent2(){
-        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo");
-        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo");
-        Student michael = new Student("michael", "Kevin", "0123", "asdf@jklö.com", "Graz", "Hallo");
         SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Note of Class");
-        
+        Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+        Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+        Student michael = new Student("michael", "Kevin", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
+
+        /*
         boolean success = schoolClass.addStudent(peter);
         assertEquals(success, true);
         success = schoolClass.addStudent(josef);
         assertEquals(success, true);
         success = schoolClass.deleteStudent(michael);
         assertEquals(success, false);
+        */
     }
 }
