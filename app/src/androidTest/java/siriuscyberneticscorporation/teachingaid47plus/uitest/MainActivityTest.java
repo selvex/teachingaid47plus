@@ -10,6 +10,8 @@ import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
+import java.util.List;
+
 import siriuscyberneticscorporation.teachingaid47plus.AddStudentActivity;
 import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
@@ -72,14 +74,19 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
         Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
         Student michael = new Student("michael", "Kevin", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
 
+        long returned_id = schoolClass.save();
         peter.save();
         josef.save();
         long returned_student_id = michael.save();
-        long returned_id = schoolClass.save();
         SchoolClass from_db = SchoolClass.findById(SchoolClass.class, returned_id);
         assertEquals(from_db.getNote(), "Databasssssssseeeeeee");
         assertEquals(Student.findById(Student.class, returned_student_id).getName(), "michael");
 
+        List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(from_db.getId()));
+        for (Student s : students)
+        {
+            System.out.println("Student name: " + s.getName());
+        }
     }
 
     public void testZKeepDbClean()
