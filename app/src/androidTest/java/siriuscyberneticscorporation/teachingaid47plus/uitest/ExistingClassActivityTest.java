@@ -13,6 +13,7 @@ import junit.framework.TestCase;
 import siriuscyberneticscorporation.teachingaid47plus.ExistingClassActivity;
 import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
+import siriuscyberneticscorporation.teachingaid47plus.Subject;
 
 /**
  * Created by Bettina on 05.05.2016.
@@ -44,27 +45,31 @@ public class ExistingClassActivityTest extends ActivityInstrumentationTestCase2 
         View view1 = mySolo.getView(Spinner.class, 0);
         mySolo.clickOnView(view1);
         mySolo.scrollToTop();
-        mySolo.clickOnView(mySolo.getView(TextView.class, 2));
+        mySolo.clickOnView(mySolo.getView(TextView.class, 1));
 
         View view2 = mySolo.getView(Spinner.class, 1);
         mySolo.clickOnView(view2);
         mySolo.scrollToTop();
-        mySolo.clickOnView(mySolo.getView(TextView.class, 1));
+        mySolo.clickOnView(mySolo.getView(TextView.class, 0));
 
         mySolo.clickOnButton("Done");
     }
+
     public void testAssignSubject()
     {
         View dropdown_class = mySolo.getView(Spinner.class, 0);
         View dropdown_subject = mySolo.getView(Spinner.class, 1);
         mySolo.clickOnView(dropdown_class);
         mySolo.scrollToTop();
-        mySolo.clickOnView(mySolo.getView(TextView.class, 0));
+        mySolo.clickOnView(mySolo.getView(TextView.class, 3));
         mySolo.clickOnView(dropdown_subject);
         mySolo.scrollToTop();
         mySolo.clickOnView(mySolo.getView(TextView.class, 0));
 
         mySolo.clickOnButton("Done");
+        mySolo.sleep(300);
+        Subject test = Subject.find(Subject.class, "name = ?", "tttt").get(0);
+        assertEquals(test.getSchoolClass().getName(), "56e");
         mySolo.goBackToActivity("ExistingClassActivity");
     }
 

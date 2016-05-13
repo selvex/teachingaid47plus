@@ -75,9 +75,4 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.assertCurrentActivity("wrong activity", NewClassActivity.class);
     }
 
-    public void testZKeepDbClean()
-    {
-        getActivity().getBaseContext().deleteDatabase("sugar_example_1.db");
-    }
-
 }

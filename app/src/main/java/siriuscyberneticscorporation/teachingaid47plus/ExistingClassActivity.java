@@ -7,9 +7,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class ExistingClassActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 //public class ExistingClassActivity extends AppCompatActivity implements View.OnClickListener{
@@ -17,11 +21,6 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
     private Button buttonDone;
     private Spinner classDropdown;
     private Spinner subjectDropdown;
-
-    //----------------------------------------------------------------------------------------------DELETE
-    String test1[] = {"Geschichte", "Mathe", "Sport", "Musik"};
-    String test2[] = {"4c", "3e", "2d", "7b"};
-    //----------------------------------------------------------------------------------------------DELETE
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -36,9 +35,20 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
 
         classDropdown.setOnItemSelectedListener(this);
         subjectDropdown.setOnItemSelectedListener(this);
-
-        fillClassDropdown(test1);
-        fillSubjectsDropdown(test2);
+        Iterator<SchoolClass> classes = SchoolClass.findAll(SchoolClass.class);
+        Iterator<Subject> subjects = Subject.findAll(Subject.class);
+        ArrayList<String> classArray = new ArrayList<String>();
+        ArrayList<String> subjectArray = new ArrayList<String>();
+        while(classes.hasNext())
+        {
+            classArray.add(classes.next().getName());
+        }
+        while(subjects.hasNext())
+        {
+            subjectArray.add(subjects.next().getName());
+        }
+        fillClassDropdown(classArray);
+        fillSubjectsDropdown(subjectArray);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -53,18 +63,26 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
         Button clickedButton = (Button) v;
 
         if (clickedButton.getId() == R.id.done_button) {
-            classDropdown.getSelectedItem();
+            String s_class = classDropdown.getSelectedItem().toString();
+            String s_subject = subjectDropdown.getSelectedItem().toString();
+
+            SchoolClass class_to_link = SchoolClass.find(SchoolClass.class, "name = ?", s_class).get(0);
+            Subject subject_getting_linked = Subject.find(Subject.class, "name = ?", s_subject).get(0);
+
+            subject_getting_linked.setSchoolClass(class_to_link);
+            subject_getting_linked.save();
+
             Intent intent = new Intent(ExistingClassActivity.this, MainActivity.class);
             startActivity(intent);
         }
     }
 
-    public void fillClassDropdown(String classes[]) {
+    public void fillClassDropdown(ArrayList<String> classes) {
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, classes);
         classDropdown.setAdapter(adapter1);
     }
 
-    public void fillSubjectsDropdown(String subjects[]) {
+    public void fillSubjectsDropdown(ArrayList<String> subjects) {
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, subjects);
         subjectDropdown.setAdapter(adapter2);
     }

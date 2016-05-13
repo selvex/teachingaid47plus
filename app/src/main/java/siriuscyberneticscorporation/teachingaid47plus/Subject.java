@@ -28,5 +28,13 @@ public class Subject extends SugarRecord{
         this.name = name;
     }
 
+    public SchoolClass getSchoolClass() {
+        return schoolClass;
+    }
+
+    public void setSchoolClass(SchoolClass schoolClass) {
+        this.schoolClass = schoolClass;
+    }
+
     public Subject() {}
 }
