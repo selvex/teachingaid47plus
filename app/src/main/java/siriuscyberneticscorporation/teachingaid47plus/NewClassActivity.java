@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class AddSubjectActivity extends AppCompatActivity implements View.OnClickListener{
+public class NewClassActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonDone;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_subject);
+        setContentView(R.layout.activity_new_class);
 
         buttonDone = (Button) findViewById(R.id.done_button);
 
@@ -23,7 +23,7 @@ public class AddSubjectActivity extends AppCompatActivity implements View.OnClic
         Button clickedButton = (Button) v;
 
         if (clickedButton.getId() == R.id.done_button) {
-            Intent intent = new Intent(AddSubjectActivity.this, MainActivity.class);
+            Intent intent = new Intent(NewClassActivity.this, AddStudentsActivity.class);
             startActivity(intent);
         }
 

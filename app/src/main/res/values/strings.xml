@@ -3,16 +3,25 @@
 
     <!-- Strings related to login -->
     <string name="prompt_username">Username</string>
-    <string name="prompt_email">Email</string>
+    <string name="prompt_subject">Add new Subject</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_class">Class name</string>
+    <string name="prompt_teacher">Class teacher</string>
+    <string name="prompt_note">Note</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_contact_person_name">Contact Person Name</string>
+    <string name="prompt_contact_person_tel_number">Contact Person Tel. Number</string>
+    <string name="prompt_contact_person_e_mail">Contact Person E-Mail</string>
+    <string name="prompt_address">Address</string>
+    <string name="action_enter_subject">Enter Subject</string>
+    <string name="action_enter">Enter</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_new_class">NewClassActivity</string>
+    <string name="title_activity_existing_class">ExistingClassActivity</string>
+    <string name="title_activity_add_students">AddStudentsActivity</string>
 </resources>
