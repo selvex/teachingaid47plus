@@ -105,20 +105,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 TableLayout studentTable = (TableLayout) findViewById(R.id.student_table);
                 studentTable.removeAllViews();
 
+                int counter = 0;
                 for(Student s : students) {
 
                     System.out.println("Student: " + s.getName());
                     TableRow row = new TableRow(this);
                     TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+
+                    if(counter % 2 == 1) {
+                        row.setBackgroundResource(R.color.colorStudentTable);
+                    }
+                    counter++;
+
                     row.setLayoutParams(lp);
                     TextView student = new TextView(this);
                     student.setOnClickListener(this);
                     student.setText(s.getName());
-
+                    student.setTextSize(40);
                     row.addView(student);
                     studentTable.addView(row);
-
                 }
+
                 break;
         }
 
@@ -126,12 +133,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void onNothingSelected(AdapterView<?> arg0) {
-        //TODO Auto-generated method stub
+
     }
 
     @Override
     public void onClick (View v) {
+        TextView clickedTextView = (TextView) v;
 
+        
     }
 
 
