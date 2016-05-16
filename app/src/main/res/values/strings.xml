@@ -24,4 +24,6 @@
     <string name="title_activity_new_class">NewClassActivity</string>
     <string name="title_activity_existing_class">ExistingClassActivity</string>
     <string name="title_activity_add_students">AddStudentsActivity</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

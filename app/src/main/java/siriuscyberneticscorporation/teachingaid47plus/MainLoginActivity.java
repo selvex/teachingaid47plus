@@ -25,6 +25,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.orm.SugarContext;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -37,7 +39,7 @@ public class MainLoginActivity extends AppCompatActivity implements LoaderCallba
     private static final int REQUEST_READ_CONTACTS = 0;
 
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "1234", "admin"
+            "", "admin"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
