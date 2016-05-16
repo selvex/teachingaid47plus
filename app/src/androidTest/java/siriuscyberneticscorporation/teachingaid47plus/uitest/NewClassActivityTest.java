@@ -78,7 +78,6 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testExtendedWalkTrough() {
-        getActivity().getBaseContext().deleteDatabase("sugar_example_11.db");
 
         EditText className = (EditText) mySolo.getCurrentActivity().findViewById(R.id.class_edittext);
         EditText classTeacher = (EditText) mySolo.getCurrentActivity().findViewById(R.id.teacher_edittext);
