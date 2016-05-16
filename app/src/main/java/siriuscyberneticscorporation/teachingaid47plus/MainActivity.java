@@ -140,9 +140,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onClick (View v) {
         TextView clickedTextView = (TextView) v;
 
-        
-    }
+        String studentName = clickedTextView.getText().toString();
 
+        Student student = Student.find(Student.class, "name = ?", studentName).get(0);
+        Intent student_intent = new Intent(MainActivity.this, StudentInfoActivity.class);
+        student_intent.putExtra("default",student.getId());
+        startActivity(student_intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
