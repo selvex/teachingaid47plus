@@ -16,10 +16,10 @@
         android:theme="@style/Theme.AppCompat.Light">
         <meta-data
             android:name="DATABASE"
-            android:value="sugar_example_11.db" />
+            android:value="sugar_db_50.db" />
         <meta-data
             android:name="VERSION"
-            android:value="2" />
+            android:value="20" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />

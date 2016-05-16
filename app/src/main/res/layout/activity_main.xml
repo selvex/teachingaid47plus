@@ -18,14 +18,16 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            android:id="@+id/class_spinner">
+            android:id="@+id/class_spinner"
+            android:gravity="center">
         </Spinner>
 
         <Spinner
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            android:id="@+id/subject_spinner">
+            android:id="@+id/subject_spinner"
+            android:gravity="center">
         </Spinner>
 
 

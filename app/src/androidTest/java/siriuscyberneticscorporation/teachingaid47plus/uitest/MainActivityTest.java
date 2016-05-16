@@ -1,7 +1,11 @@
 package siriuscyberneticscorporation.teachingaid47plus.uitest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 
 import com.robotium.solo.Solo;
@@ -16,6 +20,7 @@ import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
 import siriuscyberneticscorporation.teachingaid47plus.SchoolClass;
 import siriuscyberneticscorporation.teachingaid47plus.Student;
+import siriuscyberneticscorporation.teachingaid47plus.Subject;
 
 
 /**
@@ -66,7 +71,9 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testDatabaseBasic()
     {
-
+        SchoolClass.findById(SchoolClass.class, (long) 1);
+        Subject.findById(Subject.class, (long) 1);
+        Student.findById(Student.class, (long) 1);
         SchoolClass schoolClass = new SchoolClass("4a", "Huber", "Databasssssssseeeeeee");
         Student peter = new Student("peter", "Adi", "0123456789", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
         Student josef = new Student("josef", "Bettina", "0123", "asdf@jklö.com", "Graz", "Hallo", schoolClass);
@@ -85,10 +92,37 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
         {
             System.out.println("Student name: " + s.getName());
         }
+
+        peter.delete();
+        josef.delete();
+        michael.delete();
+        schoolClass.delete();
+    }
+
+    public void testDropDowns()
+    {
+        SchoolClass dropdown_class_ob = new SchoolClass("Dropdown", "ewq", "12");
+        Subject dropdown_subject_ob = new Subject("Dropdown sub", dropdown_class_ob);
+        dropdown_class_ob.save();
+        dropdown_subject_ob.save();
+        Activity activity = getActivity();
+        getInstrumentation().callActivityOnRestart(activity);
+        View dropdown_class = mySolo.getView(Spinner.class, 0);
+        View dropdown_subject = mySolo.getView(Spinner.class, 1);
+        mySolo.clickOnView(dropdown_class);
+        mySolo.scrollToTop();
+        mySolo.clickOnView(mySolo.getView(TextView.class, 0));
+        mySolo.clickOnView(dropdown_subject);
+        mySolo.scrollToTop();
+        mySolo.clickOnView(mySolo.getView(TextView.class, 0));
+        dropdown_class_ob.delete();
+        dropdown_subject_ob.delete();
+
+
     }
 
     public void testZKeepDbClean()
     {
-        getActivity().getBaseContext().deleteDatabase("sugar_example_11.db");
+        getActivity().getBaseContext().deleteDatabase("sugar_db_50.db");
     }
 }

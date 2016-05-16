@@ -11,8 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.orm.SugarContext;
+import com.orm.SugarDb;
+
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -24,12 +28,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         ActionBar wat = getSupportActionBar();
         wat.show();
-
         classDropdown = (Spinner) findViewById(R.id.class_spinner);
         subjectDropdown = (Spinner) findViewById(R.id.subject_spinner);
 
         classDropdown.setOnItemSelectedListener(this);
         subjectDropdown.setOnItemSelectedListener(this);
+        SchoolClass add = new SchoolClass("ewq", "ew", "ew");
+        add.save();
+        add.delete();
         Iterator<SchoolClass> classes = SchoolClass.findAll(SchoolClass.class);
         Iterator<Subject> subjects = Subject.findAll(Subject.class);
         ArrayList<String> classArray = new ArrayList<String>();
@@ -44,10 +50,40 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         fillClassDropdown(classArray);
         fillSubjectsDropdown(subjectArray);
+
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = parent.getItemAtPosition(position).toString();
+        System.out.println("Looking for: " + selectedItem);
+        switch (parent.getId())
+        {
+            case R.id.class_spinner:
+                List<SchoolClass> list_to_check = SchoolClass.find(SchoolClass.class, "name = ?", selectedItem);
+                if(list_to_check.isEmpty()) {
+                    System.out.println("list was empty");
+                    return;
+                }
+                SchoolClass selected = list_to_check.get(0);
+                ArrayList<String> subjectArray = new ArrayList<String>();
+
+                List<Subject> subjects = Subject.find(Subject.class, "school_class = ?", String.valueOf(selected.getId()));
+
+                for(Subject s : subjects)
+                {
+                    System.out.println("Subject found: " + s.getName());
+                    subjectArray.add(s.getName());
+                }
+                if(subjects.isEmpty()) {
+                    subjectArray.add("---");
+                }
+                fillSubjectsDropdown(subjectArray);
+                break;
+            case R.id.subject_spinner:
+
+                break;
+        }
+
 
     }
 
