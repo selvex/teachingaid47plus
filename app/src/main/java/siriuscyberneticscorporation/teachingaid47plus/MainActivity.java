@@ -1,6 +1,7 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,15 +11,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.orm.SugarContext;
 import com.orm.SugarDb;
+import com.orm.dsl.Table;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     private Spinner classDropdown;
     private Spinner subjectDropdown;
@@ -69,18 +74,51 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 List<Subject> subjects = Subject.find(Subject.class, "school_class = ?", String.valueOf(selected.getId()));
 
-                for(Subject s : subjects)
-                {
+                for(Subject s : subjects) {
                     System.out.println("Subject found: " + s.getName());
                     subjectArray.add(s.getName());
                 }
                 if(subjects.isEmpty()) {
-                    subjectArray.add("---");
+                    subjectArray.add("   ---  ");
                 }
                 fillSubjectsDropdown(subjectArray);
                 break;
             case R.id.subject_spinner:
+                System.out.println("Subject 123 ;)");
+                Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
+                String selected_class = class_spinner.getSelectedItem().toString();
+                List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
+                System.out.println("class : " + selected_class);
 
+                if(schoolClassestoCheck.isEmpty()) {
+                    System.out.println("list was empty");
+                    return;
+                }
+                SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
+                List <Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
+
+                if(students.isEmpty()) {
+                    System.out.println("Student list empty");
+                    return;
+                }
+
+                TableLayout studentTable = (TableLayout) findViewById(R.id.student_table);
+                studentTable.removeAllViews();
+
+                for(Student s : students) {
+
+                    System.out.println("Student: " + s.getName());
+                    TableRow row = new TableRow(this);
+                    TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+                    row.setLayoutParams(lp);
+                    TextView student = new TextView(this);
+                    student.setOnClickListener(this);
+                    student.setText(s.getName());
+
+                    row.addView(student);
+                    studentTable.addView(row);
+
+                }
                 break;
         }
 
@@ -89,6 +127,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void onNothingSelected(AdapterView<?> arg0) {
         //TODO Auto-generated method stub
+    }
+
+    @Override
+    public void onClick (View v) {
+
     }
 
 
