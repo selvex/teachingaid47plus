@@ -50,9 +50,4 @@ public class AssignSubjectActivityTest extends ActivityInstrumentationTestCase2 
 
     }
 
-
-    public void testZKeepDbClean()
-    {
-        getActivity().getBaseContext().deleteDatabase("sugar_example_11.db");
-    }
 }
