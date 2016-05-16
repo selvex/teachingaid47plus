@@ -43,7 +43,7 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
         EditText className = (EditText) mySolo.getCurrentActivity().findViewById(R.id.class_edittext);
         EditText classTeacher = (EditText) mySolo.getCurrentActivity().findViewById(R.id.teacher_edittext);
         EditText note = (EditText) mySolo.getCurrentActivity().findViewById(R.id.note_edittext);
-        mySolo.enterText(className, "3e");
+        mySolo.enterText(className, "77");
         mySolo.enterText(classTeacher, "Gunther Peichl");
         mySolo.enterText(note, "Böse Klasse");
         mySolo.clickOnButton("done");
@@ -92,7 +92,7 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.enterText(0,"");
 
         mySolo.enterText(0,"Hippi");
-        mySolo.enterText(studentNote, "Ist Vegetarier");
+        mySolo.enterText(5, "Ist Vegetarier");
         mySolo.sleep(200);
         mySolo.clickOnButton("Add Student");
         mySolo.sleep(200);
