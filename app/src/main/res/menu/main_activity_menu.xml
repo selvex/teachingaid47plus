@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_settings"
+        android:title="settings"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_add_class"
+        android:title="add class"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/action_add_subject"
+        android:title="add subject"
+        app:showAsAction="always"
+        />
+
+</menu>
