@@ -19,7 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ExistingClassActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-//public class ExistingClassActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonDone;
     private Spinner classDropdown;
