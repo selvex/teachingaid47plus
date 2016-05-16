@@ -42,7 +42,7 @@ public class AddSubjectActivityTest extends ActivityInstrumentationTestCase2 {
         EditText subject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subject_edittext);
         mySolo.enterText(subject, "geography");
         mySolo.clickOnButton("done");
-        mySolo.clickOnView(mySolo.getView(R.id.action_add_subject));
+        mySolo.goBack();
         mySolo.assertCurrentActivity("wrong activity", AddSubjectActivity.class);
     }
     public void testXAddSubjectToDb()
@@ -50,7 +50,7 @@ public class AddSubjectActivityTest extends ActivityInstrumentationTestCase2 {
         EditText subject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subject_edittext);
         mySolo.enterText(subject, "physics");
         mySolo.clickOnButton("done");
-        mySolo.clickOnView(mySolo.getView(R.id.action_add_subject));
+        mySolo.goBack();
         mySolo.assertCurrentActivity("wrong activity", AddSubjectActivity.class);
         mySolo.sleep(200);
         List<Subject> from_db = Subject.find(Subject.class, "name = ?", "physics");

@@ -101,12 +101,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testDropDowns()
     {
-        SchoolClass dropdown_class_ob = new SchoolClass("Dropdown", "ewq", "12");
-        Subject dropdown_subject_ob = new Subject("Dropdown sub", dropdown_class_ob);
-        dropdown_class_ob.save();
-        dropdown_subject_ob.save();
-        Activity activity = getActivity();
-        getInstrumentation().callActivityOnRestart(activity);
         View dropdown_class = mySolo.getView(Spinner.class, 0);
         View dropdown_subject = mySolo.getView(Spinner.class, 1);
         mySolo.clickOnView(dropdown_class);
@@ -115,14 +109,10 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.clickOnView(dropdown_subject);
         mySolo.scrollToTop();
         mySolo.clickOnView(mySolo.getView(TextView.class, 0));
-        dropdown_class_ob.delete();
-        dropdown_subject_ob.delete();
-
-
     }
 
     public void testZKeepDbClean()
     {
-        getActivity().getBaseContext().deleteDatabase("sugar_db_50.db");
+        getActivity().getBaseContext().deleteDatabase("sugar_db_53.db");
     }
 }

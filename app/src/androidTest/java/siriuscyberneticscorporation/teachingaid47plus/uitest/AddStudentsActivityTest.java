@@ -78,13 +78,13 @@ public class AddStudentsActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.enterText(name, "Herbert");
         mySolo.clickOnButton("Done");
         mySolo.sleep(200);
-        mySolo.clickOnButton("Abbrechen");
+        mySolo.clickOnView(mySolo.getView(android.R.id.button2));
         mySolo.assertCurrentActivity("wrong activity", AddStudentsActivity.class);
     }
 
     public void testZKeepDbClean()
     {
-        getActivity().getBaseContext().deleteDatabase("sugar_example_1.db");
+        getActivity().getBaseContext().deleteDatabase("sugar_example_53.db");
     }
 
 }
