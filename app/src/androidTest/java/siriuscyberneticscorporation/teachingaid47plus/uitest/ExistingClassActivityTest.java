@@ -2,14 +2,17 @@ package siriuscyberneticscorporation.teachingaid47plus.uitest;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import java.util.ArrayList;
 
 import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import siriuscyberneticscorporation.teachingaid47plus.ExistingClassActivity;
@@ -39,26 +42,8 @@ public class ExistingClassActivityTest extends ActivityInstrumentationTestCase2 
         super.tearDown();
     }
 
-    public void testWalkTrough() {
-        mySolo.clickOnButton("Done");
-        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
-        mySolo.goBack();
-        mySolo.assertCurrentActivity("wrong activity", ExistingClassActivity.class);
 
-        View view1 = mySolo.getView(Spinner.class, 0);
-        mySolo.clickOnView(view1);
-        mySolo.scrollToTop();
-        mySolo.clickOnView(mySolo.getView(TextView.class, 1));
-
-        View view2 = mySolo.getView(Spinner.class, 1);
-        mySolo.clickOnView(view2);
-        mySolo.scrollToTop();
-        mySolo.clickOnView(mySolo.getView(TextView.class, 0));
-
-        mySolo.clickOnButton("Done");
-    }
-
-    public void testAssignSubject()
+    public void testWalkTrough()
     {
         View dropdown_class = mySolo.getView(Spinner.class, 0);
         View dropdown_subject = mySolo.getView(Spinner.class, 1);
@@ -99,6 +84,10 @@ public class ExistingClassActivityTest extends ActivityInstrumentationTestCase2 
 
         class_from_db.delete();
         from_db.delete();
+    }
+
+    public void testExistingCombination(){
+        
     }
 
     public void testZDeleteWrongTestEntrys()

@@ -1,6 +1,9 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.browse.MediaBrowser;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +35,7 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
         subjectDropdown = (Spinner) findViewById(R.id.subject_spinner);
 
         buttonDone.setOnClickListener(this);
+        String subjectName;
 
         classDropdown.setOnItemSelectedListener(this);
         subjectDropdown.setOnItemSelectedListener(this);
@@ -39,13 +43,16 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
         Iterator<Subject> subjects = Subject.findAll(Subject.class);
         ArrayList<String> classArray = new ArrayList<String>();
         ArrayList<String> subjectArray = new ArrayList<String>();
-        while(classes.hasNext())
-        {
+        classArray.add("-----");
+        subjectArray.add("-----");
+        while(classes.hasNext()) {
             classArray.add(classes.next().getName());
         }
-        while(subjects.hasNext())
-        {
-            subjectArray.add(subjects.next().getName());
+        while(subjects.hasNext()) {
+            subjectName = subjects.next().getName();
+            if (!subjectArray.contains(subjectName)) {
+                subjectArray.add(subjectName);
+            }
         }
         fillClassDropdown(classArray);
         fillSubjectsDropdown(subjectArray);
@@ -66,14 +73,48 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
             String s_class = classDropdown.getSelectedItem().toString();
             String s_subject = subjectDropdown.getSelectedItem().toString();
 
-            SchoolClass class_to_link = SchoolClass.find(SchoolClass.class, "name = ?", s_class).get(0);
-            Subject subject_getting_linked = Subject.find(Subject.class, "name = ?", s_subject).get(0);
+            if (s_class.equals("-----") || s_subject.equals("-----")){
+                new AlertDialog.Builder(ExistingClassActivity.this)
+                        .setTitle("Attention")
+                        .setMessage("Please select a valid class and subject")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+            else {
+                SchoolClass class_to_link = SchoolClass.find(SchoolClass.class, "name = ?", s_class).get(0);
+                List<Subject> subject_getting_linked = Subject.find(Subject.class, "name = ?", s_subject);
 
-            subject_getting_linked.setSchoolClass(class_to_link);
-            subject_getting_linked.save();
+                boolean doesNotExist = true;
 
-            Intent intent = new Intent(ExistingClassActivity.this, MainActivity.class);
-            startActivity(intent);
+                for (Subject s: subject_getting_linked) {
+
+                    if (s.getSchoolClass() != null && s.getSchoolClass().getName().equals(class_to_link.getName())) {
+                        doesNotExist = false;
+                    }
+                }
+                if (doesNotExist) {
+                    Subject newSubject = new Subject(s_subject,class_to_link);
+                    newSubject.save();
+
+                    Intent intent = new Intent(ExistingClassActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    new AlertDialog.Builder(ExistingClassActivity.this)
+                            .setTitle("Attention")
+                            .setMessage("This combination of class and subject already exists.")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            }
         }
     }
 

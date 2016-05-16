@@ -10,10 +10,13 @@ import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
+import java.util.List;
+
 import siriuscyberneticscorporation.teachingaid47plus.AssignSubjectActivity;
 import siriuscyberneticscorporation.teachingaid47plus.ExistingClassActivity;
 import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
+import siriuscyberneticscorporation.teachingaid47plus.Subject;
 
 /**
  * Created by Bettina on 05.05.2016.
@@ -37,21 +40,19 @@ public class AssignSubjectActivityTest extends ActivityInstrumentationTestCase2 
     }
 
     public void testWalkTrough() {
-
         mySolo.clickOnButton("Done");
-        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
-        mySolo.goBack();
-        mySolo.assertCurrentActivity("wrong activity", AssignSubjectActivity.class);
-
-        View view1 = mySolo.getView(Spinner.class, 0);
-        mySolo.clickOnView(view1);
-        mySolo.scrollToTop();
-        mySolo.clickOnView(mySolo.getView(TextView.class, 1));
 
         EditText subject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subjects_editText);
         mySolo.enterText(subject, "Mathematik");
         assertEquals("Mathematik", subject.getText().toString());
 
-        mySolo.clickOnButton("Done");
+
+
+    }
+
+
+    public void testZKeepDbClean()
+    {
+        getActivity().getBaseContext().deleteDatabase("sugar_example_11.db");
     }
 }

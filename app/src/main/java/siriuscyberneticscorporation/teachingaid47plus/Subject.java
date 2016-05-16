@@ -18,6 +18,7 @@ public class Subject extends SugarRecord{
 
     public Subject(String name) {
         this.name = name;
+        this.schoolClass = null;
     }
 
     public String getName() {
@@ -35,6 +36,8 @@ public class Subject extends SugarRecord{
     public void setSchoolClass(SchoolClass schoolClass) {
         this.schoolClass = schoolClass;
     }
+
+    //public boolean
 
     public Subject() {}
 }
