@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Iterator<Subject> subjects = Subject.findAll(Subject.class);
         ArrayList<String> classArray = new ArrayList<String>();
         ArrayList<String> subjectArray = new ArrayList<String>();
+
+        classArray.add("-----");
+        subjectArray.add("-----");
         while(classes.hasNext())
         {
             classArray.add(classes.next().getName());
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = parent.getItemAtPosition(position).toString();
         System.out.println("Looking for: " + selectedItem);
+        if (selectedItem == "-----")
+            return;
         switch (parent.getId())
         {
             case R.id.class_spinner:
@@ -87,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 System.out.println("Subject 123 ;)");
                 Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
                 String selected_class = class_spinner.getSelectedItem().toString();
+                if(selected_class == "-----")
+                    return;
                 List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
                 System.out.println("class : " + selected_class);
 

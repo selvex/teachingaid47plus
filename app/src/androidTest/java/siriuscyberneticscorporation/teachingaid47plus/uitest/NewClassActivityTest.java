@@ -103,6 +103,7 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.sleep(200);
         mySolo.clickOnButton("Done");
         mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
+        mySolo.sleep(500);
 
         Student student_db = Student.find(Student.class,"name = ?","Hippi").get(0);
         SchoolClass class_db = SchoolClass.find(SchoolClass.class,"name = ?","25e").get(0);

@@ -49,7 +49,7 @@ public class ExistingClassActivityTest extends ActivityInstrumentationTestCase2 
         View dropdown_subject = mySolo.getView(Spinner.class, 1);
         mySolo.clickOnView(dropdown_class);
         mySolo.scrollToTop();
-        mySolo.clickOnView(mySolo.getView(TextView.class, 3));
+        mySolo.clickOnView(mySolo.getView(TextView.class, 0));
         mySolo.clickOnView(dropdown_subject);
         mySolo.scrollToTop();
         mySolo.clickOnView(mySolo.getView(TextView.class, 0));
