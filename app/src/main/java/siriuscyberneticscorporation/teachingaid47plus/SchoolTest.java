@@ -22,11 +22,24 @@ public class SchoolTest extends SugarRecord {
     public SchoolTest() {
     }
 
-    public SchoolTest(Date testDate, Student student, Subject subject) {
-        this.testDate = testDate;
+    public SchoolTest(int rating) {
+        this.rating = rating;
+        this.dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    }
+
+    public SchoolTest(String testDate, Student student, Subject subject) throws ParseException {
         this.student = student;
         this.subject = subject;
         this.dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        this.testDate = this.dateFormat.parse(testDate);
+    }
+
+    public SchoolTest(String testDate, Student student, int rating, Subject subject) throws ParseException {
+        this.student = student;
+        this.rating = rating;
+        this.subject = subject;
+        this.dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        this.testDate = this.dateFormat.parse(testDate);
     }
 
     public String getTestDate() {
