@@ -14,7 +14,7 @@ public class Homework extends SugarRecord{
     private Student student;
     private Subject subject;
     private Date date;
-    private int tag;
+    private Tags tag;
     private String note;
     @Ignore
     private SimpleDateFormat dateFormat;
@@ -26,7 +26,7 @@ public class Homework extends SugarRecord{
     public Homework() {
     }
 
-    public Homework(Student student, Subject subject, String date, int tag, String note) throws ParseException {
+    public Homework(Student student, Subject subject, String date, Tags tag, String note) throws ParseException {
         this.student = student;
         this.subject = subject;
         this.tag = tag;
@@ -35,11 +35,12 @@ public class Homework extends SugarRecord{
         this.date = this.dateFormat.parse(date);
     }
 
-    public Homework(int tag) {
+    public Homework(Tags tag) {
         this.tag = tag;
+        this.dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     }
 
-    public Homework(Student student, Subject subject, String date, int tag) throws ParseException {
+    public Homework(Student student, Subject subject, String date, Tags tag) throws ParseException {
         this.student = student;
         this.subject = subject;
         this.tag = tag;
@@ -76,11 +77,11 @@ public class Homework extends SugarRecord{
         this.date = dateFormat.parse(date);
     }
 
-    public int getTag() {
+    public Tags getTag() {
         return tag;
     }
 
-    public void setTag(int tag) {
+    public void setTag(Tags tag) {
         this.tag = tag;
     }
 
