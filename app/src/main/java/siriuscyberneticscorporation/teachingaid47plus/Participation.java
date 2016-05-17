@@ -1,5 +1,6 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
 import java.text.ParseException;
@@ -9,7 +10,7 @@ import java.util.Date;
 /**
  * Created by Johannes on 17.05.2016.
  */
-public class Participation {
+public class Participation extends SugarRecord{
     private Student student;
     private int rating;
     private Date date;
@@ -17,6 +18,7 @@ public class Participation {
     private Subject subject;
     @Ignore
     private SimpleDateFormat dateFormat;
+
 
     public Participation() {
     }
@@ -47,6 +49,14 @@ public class Participation {
         this.rating = rating;
         this.dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
+    }
+
+    public Participation(Student student, Subject subject, String date) throws ParseException {
+        this.student = student;
+        this.subject = subject;
+
+        this.dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        this.date = this.dateFormat.parse(date);
     }
 
     public SimpleDateFormat getDateFormat() {
