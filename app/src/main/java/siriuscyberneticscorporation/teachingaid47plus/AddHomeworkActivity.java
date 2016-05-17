@@ -98,8 +98,15 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
                         rating = Homework.Tags.EXCELLENT;
                         break;
                 }
-                Student student = Student.findById(Student.class, 1);
-                Subject subject = Subject.findById(Subject.class, 1);
+                SchoolClass schoolClass = new SchoolClass("sd","sdf","");
+                Student to_add = new Student("asfd","asdf","","","","", schoolClass);
+                Subject rudi = new Subject("Tf", schoolClass);
+                schoolClass.save();
+                to_add.save();
+                rudi.save();
+
+                Student student = Student.findById(Student.class, 2);
+                Subject subject = Subject.findById(Subject.class, 2);
 
                 List<Homework> check_if_existing = Homework.find(Homework.class, "date = ? and student = ? and subject = ?",
                                                     dateEdit.getText().toString(), String.valueOf(student.getId()), String.valueOf(subject.getId()));
@@ -117,6 +124,10 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
                     }
                     to_be_created.save();
 
+                    schoolClass.delete();
+                    to_add.delete();
+                    rudi.delete();
+
                     Intent intent = new Intent(AddHomeworkActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -131,11 +142,15 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
                     to_edit.setNote(noteEdit.getText().toString());
                     to_edit.setTag(rating);
                     to_edit.save();
+                    schoolClass.delete();
+                    to_add.delete();
+                    rudi.delete();
                     Intent intent = new Intent(AddHomeworkActivity.this, MainActivity.class);
                     startActivity(intent);
 
 
                 }
+
 
             }
 
