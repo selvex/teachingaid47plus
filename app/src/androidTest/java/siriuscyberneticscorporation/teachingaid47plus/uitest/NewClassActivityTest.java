@@ -36,9 +36,9 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
     public void setUp() throws Exception {
         super.setUp();
         mySolo = new Solo(getInstrumentation(), getActivity());
-        className = (EditText) mySolo.getView(R.id.class_edittext);
-        classTeacher = (EditText) mySolo.getView(R.id.teacher_edittext);
-        note = (EditText) mySolo.getView(R.id.note_edittext);
+        className = (EditText) mySolo.getCurrentActivity().findViewById(R.id.class_edittext);
+        classTeacher = (EditText) mySolo.getCurrentActivity().findViewById(R.id.teacher_edittext);
+        note = (EditText) mySolo.getCurrentActivity().findViewById(R.id.note_edittext);
     }
 
     public void tearDown() throws Exception {
@@ -52,6 +52,7 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.enterText(note, "Böse Klasse");
         mySolo.clickOnButton("done");
         mySolo.assertCurrentActivity("wrong activity", AddStudentsActivity.class);
+        mySolo.sleep(200);
         mySolo.goBack();
     }
 
