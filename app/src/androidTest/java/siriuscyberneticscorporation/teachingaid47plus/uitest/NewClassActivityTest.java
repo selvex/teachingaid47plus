@@ -24,6 +24,9 @@ import siriuscyberneticscorporation.teachingaid47plus.Subject;
 public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
 
     private Solo mySolo;
+    private EditText className;
+    private EditText classTeacher;
+    private EditText note;
 
     public NewClassActivityTest()
     {
@@ -33,6 +36,9 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
     public void setUp() throws Exception {
         super.setUp();
         mySolo = new Solo(getInstrumentation(), getActivity());
+        className = (EditText) mySolo.getView(R.id.class_edittext);
+        classTeacher = (EditText) mySolo.getView(R.id.teacher_edittext);
+        note = (EditText) mySolo.getView(R.id.note_edittext);
     }
 
     public void tearDown() throws Exception {
@@ -40,9 +46,7 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testWalkTrough() {
-        EditText className = (EditText) mySolo.getCurrentActivity().findViewById(R.id.class_edittext);
-        EditText classTeacher = (EditText) mySolo.getCurrentActivity().findViewById(R.id.teacher_edittext);
-        EditText note = (EditText) mySolo.getCurrentActivity().findViewById(R.id.note_edittext);
+
         mySolo.enterText(className, "77");
         mySolo.enterText(classTeacher, "Gunther Peichl");
         mySolo.enterText(note, "Böse Klasse");
@@ -52,9 +56,7 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testInput() {
-        EditText className = (EditText) mySolo.getCurrentActivity().findViewById(R.id.class_edittext);
-        EditText classTeacher = (EditText) mySolo.getCurrentActivity().findViewById(R.id.teacher_edittext);
-        EditText note = (EditText) mySolo.getCurrentActivity().findViewById(R.id.note_edittext);
+
         mySolo.enterText(className, "3e");
         mySolo.enterText(classTeacher, "Gunther Peichl");
         mySolo.enterText(note, "Böse Klasse");
@@ -67,9 +69,7 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testNoInput() {
-        EditText className = (EditText) mySolo.getCurrentActivity().findViewById(R.id.class_edittext);
-        EditText classTeacher = (EditText) mySolo.getCurrentActivity().findViewById(R.id.teacher_edittext);
-        EditText note = (EditText) mySolo.getCurrentActivity().findViewById(R.id.note_edittext);
+
         assertEquals(true, note.getText().toString().isEmpty());
         assertEquals(true, className.getText().toString().isEmpty());
         assertEquals(true, classTeacher.getText().toString().isEmpty());
@@ -79,8 +79,7 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testExtendedWalkTrough() {
 
-        EditText className = (EditText) mySolo.getCurrentActivity().findViewById(R.id.class_edittext);
-        EditText classTeacher = (EditText) mySolo.getCurrentActivity().findViewById(R.id.teacher_edittext);
+
         mySolo.enterText(className, "25e");
         mySolo.enterText(classTeacher, "P");
         mySolo.sleep(200);
