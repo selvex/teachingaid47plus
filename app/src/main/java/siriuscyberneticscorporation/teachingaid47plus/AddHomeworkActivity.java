@@ -98,6 +98,9 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
                         rating = Homework.Tags.EXCELLENT;
                         break;
                 }
+
+                //replace this after ID is passed over intent - START
+
                 SchoolClass schoolClass = new SchoolClass("sd","sdf","");
                 Student to_add = new Student("asfd","asdf","","","","", schoolClass);
                 Subject rudi = new Subject("Tf", schoolClass);
@@ -108,6 +111,8 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
                 Student student = Student.findById(Student.class, 2);
                 Subject subject = Subject.findById(Subject.class, 2);
 
+                //replace this after ID is passed over intent - END
+                
                 List<Homework> check_if_existing = Homework.find(Homework.class, "date = ? and student = ? and subject = ?",
                                                     dateEdit.getText().toString(), String.valueOf(student.getId()), String.valueOf(subject.getId()));
                 if(check_if_existing.isEmpty())
