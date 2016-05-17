@@ -45,14 +45,23 @@ public class AddParticipationActivityTest extends ActivityInstrumentationTestCas
         mySolo.enterText(note, "Sweet");
         mySolo.clickOnButton("done");
         mySolo.sleep(300);
-        //mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
+        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
     }
 
-    public void testDropdown()
-    {
+    public void testDropdown() {
         View dropdown_rating = mySolo.getView(Spinner.class, 0);
         mySolo.clickOnView(dropdown_rating);
         mySolo.scrollToTop();
         mySolo.clickOnView(mySolo.getView(TextView.class, 0));
+    }
+
+    public void testHDate(){
+        EditText date = (EditText) mySolo.getCurrentActivity().findViewById(R.id.participation_date_edit);
+        mySolo.enterText(date, "11.11.2011");
+        assertEquals("11.11.2011", date.getText().toString());
+    }
+
+    public void testDBFunctionality() {
+        
     }
 }
