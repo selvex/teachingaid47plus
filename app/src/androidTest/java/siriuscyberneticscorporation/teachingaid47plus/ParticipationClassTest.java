@@ -6,7 +6,7 @@ import junit.framework.TestCase;
  * Created by Kevin on 29.04.2016.
  */
 public class ParticipationClassTest extends TestCase {
-
+    /* db stuff
     public void testClass2()
     {
         SchoolClass clas = new SchoolClass("16F", "Peter Lustig", "Lustig echt");
@@ -42,4 +42,40 @@ public class ParticipationClassTest extends TestCase {
     public void testSetter() {
 
     }
+    */
+    public void testClass2()
+    {
+        SchoolClass clas = new SchoolClass("16F", "Peter Lustig", "Lustig echt");
+        Student paul = new Student("HERTA OMG", "Gjoern", "", "", "Graz", "Bad boy bad boy", clas);
+        String date = "1.5.2016";
+        Subject lustig_class = new Subject("Lustig Class", clas);
+        Participation test = new Participation(paul, -3, date, lustig_class);
+    }
+
+    public void testGetter()
+    {
+        SchoolClass clas = new SchoolClass("16F", "Peter Lustig", "Lustig echt");
+        Student paul = new Student("HERTA OMG", "Gjoern", "", "", "Graz", "Bad boy bad boy", clas);
+        String date = "1.5.2016";
+        Subject lustig_class = new Subject("Lustig Class", clas);
+        Participation test = new Participation(paul, -3, date, lustig_class);
+
+        assertEquals("HERTA OMG", test.getStudent.getName());
+        assertEquals("01.05.2016", test.getDate());
+        assertEquals("16F", test.getSchoolClass.getName());
+    }
+
+    public void testSetter()
+    {
+        SchoolClass clas = new SchoolClass("16F", "Peter Lustig", "Lustig echt");
+        Student paul = new Student("HERTA OMG", "Gjoern", "", "", "Graz", "Bad boy bad boy", clas);
+        String date = "1.5.2016";
+        Subject lustig_class = new Subject("Lustig Class", clas)
+        Participation test = new Participation();
+        test.setStudent(paul);
+        test.setDate(date);
+        test.setSubject(lustig_class);
+        assertEquals("HERTA OMG", test.getStudent.getName());
+    }
+
 }
