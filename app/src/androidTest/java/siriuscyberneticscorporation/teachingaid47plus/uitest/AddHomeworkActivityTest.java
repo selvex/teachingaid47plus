@@ -45,6 +45,7 @@ public class AddHomeworkActivityTest extends ActivityInstrumentationTestCase2 {
     public void testWalkTrough() {
 
         View dropdown_rating = mySolo.getView(Spinner.class, 0);
+        View button_done = mySolo.getView(R.id.homework_button_done);
         mySolo.clickOnView(dropdown_rating);
         mySolo.scrollToTop();
         mySolo.clickOnView(mySolo.getView(TextView.class, 2));
@@ -52,7 +53,8 @@ public class AddHomeworkActivityTest extends ActivityInstrumentationTestCase2 {
         EditText date = (EditText) mySolo.getCurrentActivity().findViewById(R.id.homework_date_edit);
         mySolo.enterText(date, "11.11.2011");
         mySolo.enterText(note, "Sweet");
-        mySolo.clickOnButton("done");
+        mySolo.sleep(300);
+        mySolo.clickOnView(button_done);
         mySolo.sleep(300);
         mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
     }
