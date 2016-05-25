@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="siriuscyberneticscorporation.teachingaid47plus" >
+    package="siriuscyberneticscorporation.teachingaid47plus">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -13,10 +13,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light" >
+        android:theme="@style/Theme.AppCompat.Light">
         <meta-data
             android:name="DATABASE"
-            android:value="sugar_db_54.db" />
+            android:value="sugar_db_55.db" />
         <meta-data
             android:name="VERSION"
             android:value="20" />
@@ -30,7 +30,7 @@
         <activity
             android:name=".MainLoginActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,8 +60,8 @@
             android:name=".AssignSubjectActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".StudentInfoActivity" />
-        <activity android:name=".AddParticipationActivity" >
-        </activity>
+        <activity android:name=".AddParticipationActivity"></activity>
+        <activity android:name=".AddHomeworkActivity"></activity>
     </application>
 
 </manifest>

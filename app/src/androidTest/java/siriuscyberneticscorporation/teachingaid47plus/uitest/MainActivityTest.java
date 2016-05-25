@@ -113,6 +113,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testZKeepDbClean()
     {
-        getActivity().getBaseContext().deleteDatabase("sugar_db_54.db");
+        getActivity().getBaseContext().deleteDatabase("sugar_db_55.db");
     }
 }
