@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 participationButton.setBackgroundResource(R.drawable.mybutton);
                 homeworkButton.setBackgroundResource(R.color.colorTransparent);
                 testButton.setBackgroundResource(R.color.colorTransparent);
-                //Intent participation_intent = new Intent(MainActivity.this)
+                Intent participation_intent = new Intent(MainActivity.this, );
                 break;
             case R.id.homework_button:
                 homeworkButton.setBackgroundResource(R.drawable.mybutton);
