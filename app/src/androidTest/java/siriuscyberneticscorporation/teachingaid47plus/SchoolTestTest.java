@@ -19,7 +19,7 @@ public class SchoolTestTest extends TestCase {
         Subject mathematic = new Subject("Mathematic", schoolClass);
         String date = "16.02.2016";
         try {
-            SchoolTest schoolTest = new SchoolTest(date, peter ,50, mathematic);
+            SchoolTest schoolTest = new SchoolTest(date, peter ,50, mathematic, "Hat geschummelt");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -32,7 +32,7 @@ public class SchoolTestTest extends TestCase {
         String date = "16.02.2016";
         SchoolTest schoolTest = null;
         try {
-            schoolTest = new SchoolTest(date, peter ,50, mathematic);
+            schoolTest = new SchoolTest(date, peter ,50, mathematic, "Hat geschummelt");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -41,6 +41,7 @@ public class SchoolTestTest extends TestCase {
         assertEquals(schoolTest.getStudent().getName(),"WWEQEWQ!");
         assertEquals(schoolTest.getRating(), 50);
         assertEquals(schoolTest.getSubject().getName(), "Mathematic");
+        assertEquals(schoolTest.getNote(),"Hat geschummelt");
     }
     public void testSetter(){
         SchoolTest schoolTest = new SchoolTest(50);
@@ -55,11 +56,13 @@ public class SchoolTestTest extends TestCase {
         schoolTest.setStudent(peter);
         schoolTest.setRating(49);
         schoolTest.setSubject(subject_for_test);
+        schoolTest.setNote("Bonusaufgabe gerechnet");
 
         assertEquals(schoolTest.getTestDate(), "01.01.2016");
         assertEquals(schoolTest.getStudent().getName(), "eqkljhkweqhkeqw");
         assertEquals(schoolTest.getRating(), 49);
         assertEquals(schoolTest.getSubject().getName(), "Test suib");
+        assertEquals(schoolTest.getNote(),"Bonusaufgabe gerechnet");
     }
 
 }
