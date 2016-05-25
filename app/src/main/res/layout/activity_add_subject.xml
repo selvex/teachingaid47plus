@@ -21,7 +21,8 @@
         android:singleLine="true"
         android:imeActionId="@+id/subject"
         android:imeActionLabel="@string/action_enter_subject"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences"/>
 
     <Button
         android:layout_width="wrap_content"

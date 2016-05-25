@@ -21,7 +21,8 @@
         android:singleLine="true"
         android:imeActionId="@+id/name"
         android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -35,7 +36,8 @@
         android:singleLine="true"
         android:imeActionId="@+id/contactPersonName"
         android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone" />
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -49,7 +51,8 @@
         android:singleLine="true"
         android:imeActionId="@+id/contactPersonTelNumber"
         android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:inputType="number"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -63,7 +66,8 @@
         android:singleLine="true"
         android:imeActionId="@+id/contactPersonEMail"
         android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -77,7 +81,8 @@
         android:singleLine="true"
         android:imeActionId="@+id/adress"
         android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -91,7 +96,8 @@
         android:maxLines="3"
         android:imeActionId="@+id/note"
         android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences"/>
 
     <Button
         android:layout_width="wrap_content"
