@@ -1,15 +1,19 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -27,6 +31,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private Spinner classDropdown;
     private Spinner subjectDropdown;
+    private Button participationButton;
+    private Button homeworkButton;
+    private Button testButton;
+    private ArrayList<TextView> textViews = new ArrayList<TextView>();
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +45,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         wat.show();
         classDropdown = (Spinner) findViewById(R.id.class_spinner);
         subjectDropdown = (Spinner) findViewById(R.id.subject_spinner);
+        participationButton = (Button) findViewById(R.id.participation_button);
+        homeworkButton = (Button) findViewById(R.id.homework_button);
+        testButton = (Button) findViewById(R.id.test_button);
 
         classDropdown.setOnItemSelectedListener(this);
         subjectDropdown.setOnItemSelectedListener(this);
+        participationButton.setOnClickListener(this);
+        homeworkButton.setOnClickListener(this);
+        testButton.setOnClickListener(this);
+
         SchoolClass add = new SchoolClass("ewq", "ew", "ew");
         add.save();
         add.delete();
@@ -56,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         fillClassDropdown(classArray);
         fillSubjectsDropdown(subjectArray);
 
+        participationButton.setBackgroundResource(R.drawable.mybutton);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -115,21 +133,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     if(counter % 2 == 1) {
                         row.setBackgroundResource(R.color.colorStudentTable);
                     }
-                    counter++;
 
                     row.setLayoutParams(lp);
-                    TextView student = new TextView(this);
-                    student.setOnClickListener(this);
-                    student.setText(s.getName());
-                    student.setTextSize(40);
-                    row.addView(student);
+                    TextView tx = new TextView(this);
+                    textViews.add(tx);
+                    textViews.get(counter).setId(counter + 1);
+                    textViews.get(counter).setOnClickListener(this);
+                    textViews.get(counter).setText(s.getName());
+                    textViews.get(counter).setTextSize(40);
+                    if(textViews.get(counter).getParent()!= null)
+                        ((ViewGroup)textViews.get(counter).getParent()).removeView(textViews.get(counter));
+                    row.addView(textViews.get(counter));
                     studentTable.addView(row);
+                    counter++;
                 }
 
                 break;
         }
-
-
     }
 
     public void onNothingSelected(AdapterView<?> arg0) {
@@ -138,14 +158,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onClick (View v) {
-        TextView clickedTextView = (TextView) v;
+        for(TextView tx : textViews) {
 
-        String studentName = clickedTextView.getText().toString();
-
-        Student student = Student.find(Student.class, "name = ?", studentName).get(0);
-        Intent student_intent = new Intent(MainActivity.this, StudentInfoActivity.class);
-        student_intent.putExtra("default",student.getId());
-        startActivity(student_intent);
+            if (v == tx) {
+                String studentName = tx.getText().toString();
+                Student student = Student.find(Student.class, "name = ?", studentName).get(0);
+                Intent student_intent = new Intent(MainActivity.this, StudentInfoActivity.class);
+                student_intent.putExtra("default", student.getId());
+                startActivity(student_intent);
+            }
+        }
+        switch (v.getId()) {
+            case R.id.participation_button:
+                participationButton.setBackgroundResource(R.drawable.mybutton);
+                homeworkButton.setBackgroundResource(R.color.colorTransparent);
+                testButton.setBackgroundResource(R.color.colorTransparent);
+                //Intent participation_intent = new Intent(MainActivity.this)
+                break;
+            case R.id.homework_button:
+                homeworkButton.setBackgroundResource(R.drawable.mybutton);
+                participationButton.setBackgroundResource(R.color.colorTransparent);
+                testButton.setBackgroundResource(R.color.colorTransparent);
+                break;
+            case R.id.test_button:
+                testButton.setBackgroundResource(R.drawable.mybutton);
+                participationButton.setBackgroundResource(R.color.colorTransparent);
+                homeworkButton.setBackgroundResource(R.color.colorTransparent);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
