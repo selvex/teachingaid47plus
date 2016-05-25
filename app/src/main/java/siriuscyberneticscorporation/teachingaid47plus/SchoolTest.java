@@ -15,6 +15,7 @@ public class SchoolTest extends SugarRecord {
     private Student student;
     private int rating;
     private Subject subject;
+    private String note;
     @Ignore
     private SimpleDateFormat dateFormat;
 
@@ -34,12 +35,13 @@ public class SchoolTest extends SugarRecord {
         this.testDate = this.dateFormat.parse(testDate);
     }
 
-    public SchoolTest(String testDate, Student student, int rating, Subject subject) throws ParseException {
+    public SchoolTest(String testDate, Student student, int rating, Subject subject, String note) throws ParseException {
         this.student = student;
         this.rating = rating;
         this.subject = subject;
         this.dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         this.testDate = this.dateFormat.parse(testDate);
+        this.note = note;
     }
 
     public String getTestDate() {
@@ -78,6 +80,10 @@ public class SchoolTest extends SugarRecord {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
+    public String getNote() {return  note;}
+
+    public void setNote(String note) {this.note = note;}
 
     public SimpleDateFormat getDateFormat() {
         return dateFormat;

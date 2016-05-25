@@ -60,8 +60,9 @@
             android:name=".AssignSubjectActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".StudentInfoActivity" />
-        <activity android:name=".AddParticipationActivity"></activity>
-        <activity android:name=".AddHomeworkActivity"></activity>
+        <activity android:name=".AddParticipationActivity" />
+        <activity android:name=".AddHomeworkActivity" />
+        <activity android:name=".AddTestActivity"></activity>
     </application>
 
 </manifest>
