@@ -41,7 +41,7 @@
         android:background="@color/colorApp">
 
         <Button
-            android:layout_width="140dp"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:text="@string/participation_button"
             android:id="@+id/participation_button"

@@ -1,12 +1,9 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +16,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.orm.SugarContext;
-import com.orm.SugarDb;
-import com.orm.dsl.Table;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +27,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Button participationButton;
     private Button homeworkButton;
     private Button testButton;
-    private ArrayList<TextView> textViews = new ArrayList<TextView>();
+    private ArrayList<TextView> textViewsStudents = new ArrayList<TextView>();
+    private ArrayList<TextView> textViewsDate = new ArrayList<TextView>();
+    private TableLayout studentTable;
 
 
 
@@ -48,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         participationButton = (Button) findViewById(R.id.participation_button);
         homeworkButton = (Button) findViewById(R.id.homework_button);
         testButton = (Button) findViewById(R.id.test_button);
+        studentTable = (TableLayout) findViewById(R.id.student_table);
 
         classDropdown.setOnItemSelectedListener(this);
         subjectDropdown.setOnItemSelectedListener(this);
@@ -126,35 +122,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     System.out.println("Student list empty");
                     return;
                 }
-
-                TableLayout studentTable = (TableLayout) findViewById(R.id.student_table);
-                studentTable.removeAllViews();
-
-                int counter = 0;
-                for(Student s : students) {
-
-                    System.out.println("Student: " + s.getName());
-                    TableRow row = new TableRow(this);
-                    TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
-
-                    if(counter % 2 == 1) {
-                        row.setBackgroundResource(R.color.colorStudentTable);
-                    }
-
-                    row.setLayoutParams(lp);
-                    TextView tx = new TextView(this);
-                    textViews.add(tx);
-                    textViews.get(counter).setId(counter + 1);
-                    textViews.get(counter).setOnClickListener(this);
-                    textViews.get(counter).setText(s.getName());
-                    textViews.get(counter).setTextSize(40);
-                    if(textViews.get(counter).getParent()!= null)
-                        ((ViewGroup)textViews.get(counter).getParent()).removeView(textViews.get(counter));
-                    row.addView(textViews.get(counter));
-                    studentTable.addView(row);
-                    counter++;
+                else {
+                    createTableParticipation(students);
                 }
-
                 break;
         }
     }
@@ -165,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onClick (View v) {
-        for(TextView tx : textViews) {
+        for(TextView tx : textViewsStudents) {
 
             if (v == tx) {
                 String studentName = tx.getText().toString();
@@ -180,17 +150,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 participationButton.setBackgroundResource(R.drawable.mybutton);
                 homeworkButton.setBackgroundResource(R.color.colorTransparent);
                 testButton.setBackgroundResource(R.color.colorTransparent);
-                Intent participation_intent = new Intent(MainActivity.this, );
+
                 break;
             case R.id.homework_button:
                 homeworkButton.setBackgroundResource(R.drawable.mybutton);
                 participationButton.setBackgroundResource(R.color.colorTransparent);
                 testButton.setBackgroundResource(R.color.colorTransparent);
+
                 break;
             case R.id.test_button:
                 testButton.setBackgroundResource(R.drawable.mybutton);
                 participationButton.setBackgroundResource(R.color.colorTransparent);
                 homeworkButton.setBackgroundResource(R.color.colorTransparent);
+
                 break;
             default:
                 break;
@@ -231,6 +203,65 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void fillSubjectsDropdown(ArrayList<String> subjects) {
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, subjects);
         subjectDropdown.setAdapter(adapter2);
+    }
+
+    public void createTableParticipation(List<Student> students){
+        studentTable.removeAllViews();
+
+        int counter = 0;
+
+        TableRow row = new TableRow(this);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+        TextView date = new TextView(this);
+        date.setId(counter + 1);
+        date.setText("Date:");
+        date.setTextSize(40);
+        if(date.getParent()!= null) {
+
+            ((ViewGroup) date.getParent()).removeView(date);
+        }
+        row.addView(date);
+
+        List<Participation> participations = Participation.find(Participation.class,"student=?",students.get(0).getName());
+
+        for(Participation p: participations) {
+            TextView date_student = new TextView(this);
+            date_student.setText(p.getDate());
+
+            row.addView(date_student);
+        }
+
+        studentTable.addView(row);
+
+
+        for(Student s : students) {
+
+            row = new TableRow(this);
+            //tableRows.add(row);
+            //TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+
+
+
+
+            if(counter % 2 == 1) {
+                row.setBackgroundResource(R.color.colorStudentTable);
+            }
+            row.setLayoutParams(lp);
+            TextView tx = new TextView(this);
+            textViewsStudents.add(tx);
+            textViewsStudents.get(counter).setId(counter + 1);
+            textViewsStudents.get(counter).setOnClickListener(this);
+            textViewsStudents.get(counter).setText(s.getName());
+            textViewsStudents.get(counter).setTextSize(40);
+            if(textViewsStudents.get(counter).getParent()!= null) {
+
+                ((ViewGroup) textViewsStudents.get(counter).getParent()).removeView(textViewsStudents.get(counter));
+            }
+            row.addView(textViewsStudents.get(counter));
+            //row.addView();
+            studentTable.addView(row);
+            counter++;
+        }
     }
 }
 
