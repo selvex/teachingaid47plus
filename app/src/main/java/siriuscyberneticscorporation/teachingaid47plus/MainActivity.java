@@ -1,9 +1,13 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,11 +15,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,7 +35,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Button participationButton;
     private Button homeworkButton;
     private Button testButton;
+    private Button addDate;
+    private TextView errorMsg;
     private ArrayList<TextView> textViewsStudents = new ArrayList<TextView>();
+    private ArrayList<ArrayList<Button>> buttonsParticipationsMatrix = new ArrayList<>();
     private ArrayList<TextView> textViewsDate = new ArrayList<TextView>();
     private TableLayout studentTable;
 
@@ -44,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         homeworkButton = (Button) findViewById(R.id.homework_button);
         testButton = (Button) findViewById(R.id.test_button);
         studentTable = (TableLayout) findViewById(R.id.student_table);
+
 
         classDropdown.setOnItemSelectedListener(this);
         subjectDropdown.setOnItemSelectedListener(this);
@@ -145,6 +157,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(student_intent);
             }
         }
+        if(v == addDate) {
+            SimpleDateFormat dateFromUser;
+
+            SchoolClass schoolClass = SchoolClass.find(SchoolClass.class, "name = ?", classDropdown.getSelectedItem().toString()).get(0);
+            List<Subject> subjects = Subject.find(Subject.class, "name=?", subjectDropdown.getSelectedItem().toString());
+            for(Subject s: subjects) {
+                if(s.getSchoolClass().getName().equals(schoolClass.getName())) {
+                    Log.d("No plan","Really no plan");
+                    showInputDialog(schoolClass,s);
+                }
+                Log.d("Why doesn't it work?","Subject" + s.getName());
+            }
+
+
+        }
         switch (v.getId()) {
             case R.id.participation_button:
                 participationButton.setBackgroundResource(R.drawable.mybutton);
@@ -164,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 homeworkButton.setBackgroundResource(R.color.colorTransparent);
 
                 break;
+
             default:
                 break;
         }
@@ -208,12 +236,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void createTableParticipation(List<Student> students){
         studentTable.removeAllViews();
 
-        int counter = 0;
+        int counterRows = 0;
 
         TableRow row = new TableRow(this);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
         TextView date = new TextView(this);
-        date.setId(counter + 1);
+        date.setId(counterRows + 1);
         date.setText("Date:");
         date.setTextSize(40);
         if(date.getParent()!= null) {
@@ -225,11 +253,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         List<Participation> participations = Participation.find(Participation.class,"student=?",students.get(0).getName());
 
         for(Participation p: participations) {
-            TextView date_student = new TextView(this);
-            date_student.setText(p.getDate());
+            TextView dateStudent = new TextView(this);
+            dateStudent.setText(p.getDate());
 
-            row.addView(date_student);
+            row.addView(dateStudent);
         }
+
+        addDate = new Button(this);
+        addDate.setText("+");
+        addDate.setTextSize(40);
+        addDate.setOnClickListener(this);
+
+        row.addView(addDate);
+
+
 
         studentTable.addView(row);
 
@@ -241,27 +278,84 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             //TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
 
 
-
-
-            if(counter % 2 == 1) {
+            if(counterRows % 2 == 0) {
                 row.setBackgroundResource(R.color.colorStudentTable);
             }
             row.setLayoutParams(lp);
             TextView tx = new TextView(this);
             textViewsStudents.add(tx);
-            textViewsStudents.get(counter).setId(counter + 1);
-            textViewsStudents.get(counter).setOnClickListener(this);
-            textViewsStudents.get(counter).setText(s.getName());
-            textViewsStudents.get(counter).setTextSize(40);
-            if(textViewsStudents.get(counter).getParent()!= null) {
+            textViewsStudents.get(counterRows).setId(counterRows + 1);
+            textViewsStudents.get(counterRows).setOnClickListener(this);
+            textViewsStudents.get(counterRows).setText(s.getName());
+            textViewsStudents.get(counterRows).setTextSize(40);
+            if(textViewsStudents.get(counterRows).getParent()!= null) {
 
-                ((ViewGroup) textViewsStudents.get(counter).getParent()).removeView(textViewsStudents.get(counter));
+                ((ViewGroup) textViewsStudents.get(counterRows).getParent()).removeView(textViewsStudents.get(counterRows));
             }
-            row.addView(textViewsStudents.get(counter));
+            row.addView(textViewsStudents.get(counterRows));
+
+            ArrayList<Button> buttonsParticipation = new ArrayList<Button>();
+
+
+            for(Participation p: participations) {
+                Button ratingStudent = new Button(this);
+                ratingStudent.setText(p.getRating());
+                ratingStudent.setOnClickListener(this);
+                buttonsParticipation.add(ratingStudent);
+                row.addView(ratingStudent);
+            }
+
+            Button addDateForStudent = new Button(this);
+            addDateForStudent.setText("");
+            addDateForStudent.setTextSize(40);
+            addDateForStudent.setOnClickListener(this);
+            buttonsParticipation.add(addDateForStudent);
+
+            row.addView(addDateForStudent);
+
+            buttonsParticipationsMatrix.add(buttonsParticipation);
+
             //row.addView();
             studentTable.addView(row);
-            counter++;
+            counterRows++;
         }
+    }
+    protected void showInputDialog(SchoolClass schoolClass, Subject subject) {
+
+        // get prompts.xml view
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        final View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setView(promptView);
+
+        final EditText editText = (EditText) promptView.findViewById(R.id.date_editText);
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        try {
+                            SimpleDateFormat date = (SimpleDateFormat) editText.getText();
+                            Log.d("Try","Try");
+                            dialog.cancel();
+                        }
+                        catch (ClassCastException e) {
+                            Log.d("Catch","Catch");
+                            TextView errorText = (TextView) promptView.findViewById(R.id.error_textView);
+                            errorText.setText("Please, enter a correct date!");
+                            //dialog.
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
     }
 }
 

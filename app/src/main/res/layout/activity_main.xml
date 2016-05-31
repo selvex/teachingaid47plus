@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,87 +13,85 @@
     tools:context="siriuscyberneticscorporation.teachingaid47plus.MainActivity"
     android:clickable="false">
 
-    <android.support.v7.widget.ButtonBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorApp">
-        ​
-        ​<Spinner
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"
-        android:id="@+id/class_spinner"
-        android:gravity="center">
-    </Spinner>
-
-        ​<Spinner
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"
-        android:id="@+id/subject_spinner"
-        android:gravity="center">
-    </Spinner>
-
-    </android.support.v7.widget.ButtonBarLayout>
-
-    <android.support.v7.widget.ButtonBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:background="@color/colorApp">
-
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:text="@string/participation_button"
-            android:id="@+id/participation_button"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:background="#00ffffff" />
-
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="@string/homework_button"
-            android:id="@+id/homework_button"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:background="#00ffffff" />
-
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="@string/test_button"
-            android:id="@+id/test_button"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:background="#00ffffff" />
-
-    </android.support.v7.widget.ButtonBarLayout>
-
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/horizontalScrollView"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="100dp">
+        android:layout_alignParentStart="true" >
 
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/scrollView"
-            android:layout_below="@+id/spinner"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <android.support.v7.widget.ButtonBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="50dp"
+                android:background="@color/colorApp">
+                ​<Spinner
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    android:id="@+id/class_spinner"
+                    android:gravity="center">
+                </Spinner>
+
+                ​<Spinner
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    android:id="@+id/subject_spinner"
+                    android:gravity="center">
+                </Spinner>
+
+            </android.support.v7.widget.ButtonBarLayout>
+
+            <android.support.v7.widget.ButtonBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorApp">
+
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:text="@string/participation_button"
+                    android:id="@+id/participation_button"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00ffffff" />
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="@string/homework_button"
+                    android:id="@+id/homework_button"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00ffffff" />
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="@string/test_button"
+                    android:id="@+id/test_button"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00ffffff" />
+
+            </android.support.v7.widget.ButtonBarLayout>
+
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/horizontalScrollView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -101,14 +101,11 @@
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-                        ​
-                        ​
-                        ​
+ ​
                     </TableRow>
-
-                </TableLayout>
-            </LinearLayout>
-        </ScrollView>
-    </HorizontalScrollView>
+                 </TableLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
 

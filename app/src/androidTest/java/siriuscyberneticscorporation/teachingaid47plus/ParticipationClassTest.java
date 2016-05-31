@@ -51,9 +51,9 @@ public class ParticipationClassTest extends TestCase {
         SchoolClass clas = new SchoolClass("16F", "Peter Lustig", "Lustig echt");
         Student paul = new Student("HERTA OMG", "Gjoern", "", "", "Graz", "Bad boy bad boy", clas);
         String date = "1.5.2016";
-        Subject lustig_class = new Subject("Lustig Class", clas);
+        Subject lustigClass = new Subject("Lustig Class", clas);
         try {
-            Participation test = new Participation(paul, lustig_class, date, -3);
+            Participation test = new Participation(paul, lustigClass, date, -3);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -64,10 +64,10 @@ public class ParticipationClassTest extends TestCase {
         SchoolClass clas = new SchoolClass("16F", "Peter Lustig", "Lustig echt");
         Student paul = new Student("HERTA OMG", "Gjoern", "", "", "Graz", "Bad boy bad boy", clas);
         String date = "1.5.2016";
-        Subject lustig_class = new Subject("Lustig Class", clas);
+        Subject lustigClass = new Subject("Lustig Class", clas);
         Participation test = null;
         try {
-            test = new Participation(paul, lustig_class, date, -3);
+            test = new Participation(paul, lustigClass, date, -3);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -81,11 +81,11 @@ public class ParticipationClassTest extends TestCase {
         SchoolClass clas = new SchoolClass("16F", "Peter Lustig", "Lustig echt");
         Student paul = new Student("HERTA OMG", "Gjoern", "", "", "Graz", "Bad boy bad boy", clas);
         String date = "1.5.2016";
-        Subject lustig_class = new Subject("Lustig Class", clas);
+        Subject lustigClass = new Subject("Lustig Class", clas);
         Participation test = new Participation(30);
         test.setStudent(paul);
         test.setDate(date);
-        test.setSubject(lustig_class);
+        test.setSubject(lustigClass);
         assertEquals("HERTA OMG", test.getStudent().getName());
     }
 
