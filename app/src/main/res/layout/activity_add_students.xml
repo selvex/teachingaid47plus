@@ -9,106 +9,155 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="siriuscyberneticscorporation.teachingaid47plus.AddStudentsActivity">
 
-    <EditText
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/name_edittext"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:hint="@string/prompt_name"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:imeActionId="@+id/name"
-        android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone"/>
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView3" >
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/contactPersonName_edittext"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/name_edittext"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/prompt_contact_person_name"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:imeActionId="@+id/contactPersonName"
-        android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/contactPersonTelNumber_edittext"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/contactPersonName_edittext"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/prompt_contact_person_tel_number"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:imeActionId="@+id/contactPersonTelNumber"
-        android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone"/>
+            <android.support.v7.widget.ButtonBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorApp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_height="30dp"
+                    android:text="Add students:"
+                    android:textSize="25dp"
+                    android:id="@+id/add_students_textView" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/contactPersonEMail_edittext"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/contactPersonTelNumber_edittext"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/prompt_contact_person_e_mail"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:imeActionId="@+id/contactPersonEMail"
-        android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone"/>
+            </android.support.v7.widget.ButtonBarLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/address_edittext"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/contactPersonEMail_edittext"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/prompt_address"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:imeActionId="@+id/adress"
-        android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/name_edittext"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:hint="@string/prompt_name"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeActionId="@+id/name"
+                android:imeActionLabel="@string/action_enter"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/note_edittext"
-        android:layout_below="@+id/address_edittext"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="15dp"
-        android:hint="@string/prompt_note"
-        android:maxLines="3"
-        android:imeActionId="@+id/note"
-        android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/contactPersonTelNumber_edittext"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/contactPersonName_edittext"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/prompt_contact_person_tel_number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeActionId="@+id/contactPersonTelNumber"
+                android:imeActionLabel="@string/action_enter"
+                android:imeOptions="actionDone"
+                android:inputType="number"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Done"
-        android:id="@+id/done_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/note_edittext"
-        android:layout_alignEnd="@+id/note_edittext" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/contactPersonName_edittext"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/name_edittext"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/prompt_contact_person_name"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeActionId="@+id/contactPersonName"
+                android:imeActionLabel="@string/action_enter"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Student"
-        android:id="@+id/add_student_button"
-        android:layout_below="@+id/note_edittext"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/contactPersonEMail_edittext"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/contactPersonTelNumber_edittext"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/prompt_contact_person_e_mail"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeActionId="@+id/contactPersonEMail"
+                android:imeActionLabel="@string/action_enter"
+                android:imeOptions="actionDone"
+                android:inputType="textEmailAddress"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/address_edittext"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/contactPersonEMail_edittext"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/prompt_address"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeActionId="@+id/adress"
+                android:imeActionLabel="@string/action_enter"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/note_edittext"
+                android:layout_below="@+id/address_edittext"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:hint="@string/prompt_note"
+                android:maxLines="3"
+                android:imeActionId="@+id/note"
+                android:imeActionLabel="@string/action_enter"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences"/>
+
+
+            <android.support.v7.widget.ButtonBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/add_student_button_bar"
+                android:background="@color/colorApp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Add Student"
+                    android:id="@+id/add_student_button"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="#8dbab3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text=""
+                    android:layout_marginLeft="10dp"
+                    android:textSize="20dp"
+                    android:id="@+id/student_counter_textView" />
+
+            </android.support.v7.widget.ButtonBarLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:id="@+id/done_button"
+                android:layout_gravity="right"
+                android:layout_above="@+id/add_student_button" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

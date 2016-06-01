@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Teachingaid47plus</string>
-
-    <!-- Strings related to login -->
     <string name="prompt_username">Username</string>
     <string name="prompt_subject">Add new Subject</string>
     <string name="prompt_password">Password</string>
@@ -26,4 +24,7 @@
     <string name="title_activity_add_students">AddStudentsActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="action_settings">Settings</string>
+    <string name="participation_button">"Participation"</string>
+    <string name="homework_button">"Homework"</string>
+    <string name="test_button">"Test"</string>
 </resources>

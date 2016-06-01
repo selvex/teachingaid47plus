@@ -16,7 +16,7 @@
         android:theme="@style/Theme.AppCompat.Light">
         <meta-data
             android:name="DATABASE"
-            android:value="sugar_db_53.db" />
+            android:value="sugar_db_55.db" />
         <meta-data
             android:name="VERSION"
             android:value="20" />
@@ -54,12 +54,14 @@
             android:name=".ExistingClassActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddStudentsActivity"
-            android:screenOrientation="portrait" />
+            android:name=".AddStudentsActivity" />
         <activity
             android:name=".AssignSubjectActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".StudentInfoActivity"></activity>
+        <activity android:name=".StudentInfoActivity" />
+        <activity android:name=".AddParticipationActivity" />
+        <activity android:name=".AddHomeworkActivity" />
+        <activity android:name=".AddTestActivity"></activity>
     </application>
 
 </manifest>

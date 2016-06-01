@@ -21,7 +21,8 @@
         android:singleLine="true"
         android:imeActionId="@+id/class_name"
         android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone" />
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -35,7 +36,8 @@
         android:singleLine="true"
         android:imeActionId="@+id/teacher"
         android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone" />
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences" />
 
     <EditText
         android:layout_width="match_parent"
@@ -50,7 +52,8 @@
         android:singleLine="true"
         android:imeActionId="@+id/note"
         android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone" />
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences"/>
 
     <Button
         android:layout_width="wrap_content"
