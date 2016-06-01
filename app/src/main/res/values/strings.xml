@@ -1,7 +1,9 @@
 <resources>
+    <string name="heading_add_new_subject">Add new subject:</string>
     <string name="app_name">Teachingaid47plus</string>
+    <string name="promt_done">done</string>
     <string name="prompt_username">Username</string>
-    <string name="prompt_subject">Add new Subject</string>
+    <string name="prompt_subject">subject name</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_class">Class name</string>
     <string name="prompt_teacher">Class teacher</string>

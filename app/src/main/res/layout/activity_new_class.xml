@@ -30,15 +30,12 @@
                     android:text="Add class:"
                     android:textSize="25dp"
                     android:id="@+id/add_students_textView" />
-
             </android.support.v7.widget.ButtonBarLayout>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/class_edittext"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
                 android:hint="@string/prompt_class"
                 android:maxLines="1"
