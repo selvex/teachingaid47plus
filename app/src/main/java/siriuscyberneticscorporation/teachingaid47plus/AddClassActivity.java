@@ -20,6 +20,8 @@ public class AddClassActivity extends AppCompatActivity implements View.OnClickL
 
         buttonNewClass = (Button) findViewById(R.id.new_class_button);
         buttonExistingClass = (Button) findViewById(R.id.existing_class_button);
+        buttonNewClass.setBackgroundResource(R.drawable.mybutton);
+        buttonExistingClass.setBackgroundResource(R.drawable.mybutton);
 
 
         buttonNewClass.setOnClickListener(this);
