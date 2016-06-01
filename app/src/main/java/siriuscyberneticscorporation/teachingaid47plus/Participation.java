@@ -1,5 +1,7 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import android.util.Log;
+
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -79,8 +81,12 @@ public class Participation extends SugarRecord{
         this.rating = rating;
     }
 
-    public String getDate() {
-        return dateFormat.format(date);
+    public Date getDate() {
+        Log.d("Zeug","Datum: " + date);
+        Log.d("Zeug2","Datum2: " + date.toString());
+        //Log.d("Zeug3","Datum3: " + dateFormat.format(date).toString());
+        //return dateFormat.format(date);
+        return date;
     }
 
     public void setDate(String date) {
