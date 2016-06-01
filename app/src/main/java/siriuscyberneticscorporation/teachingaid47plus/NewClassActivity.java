@@ -36,10 +36,10 @@ public class NewClassActivity extends AppCompatActivity implements View.OnClickL
         if (clickedButton.getId() == R.id.done_button) {
 
 
-            if (textName.getText().toString().isEmpty() || textTeacher.getText().toString().isEmpty()) {
+            if (textName.getText().toString().isEmpty()) {
                 new AlertDialog.Builder(NewClassActivity.this)
                         .setTitle("Error - Empty Fields")
-                        .setMessage("Please fill out the name-field and the teacher-field!")
+                        .setMessage("Please fill out the name-field!")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {}
                         })

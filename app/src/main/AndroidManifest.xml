@@ -47,8 +47,7 @@
             android:name=".AddSubjectActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NewClassActivity"
-            android:screenOrientation="portrait" />
+            android:name=".NewClassActivity" />
         <activity
             android:name=".ExistingClassActivity"
             android:screenOrientation="portrait" />
