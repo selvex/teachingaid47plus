@@ -3,6 +3,7 @@ package siriuscyberneticscorporation.teachingaid47plus;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Telephony;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,8 +24,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -164,8 +167,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             List<Subject> subjects = Subject.find(Subject.class, "name=?", subjectDropdown.getSelectedItem().toString());
             for(Subject s: subjects) {
                 if(s.getSchoolClass().getName().equals(schoolClass.getName())) {
-                    Log.d("No plan","Really no plan");
-                    showInputDialog(schoolClass,s);
+                    Log.d("No plan", "Really no plan");
+                    showInputDialog(schoolClass, s);
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
                 }
                 Log.d("Why doesn't it work?","Subject" + s.getName());
             }
@@ -250,13 +256,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         row.addView(date);
 
-        List<Participation> participations = Participation.find(Participation.class,"student=?",students.get(0).getName());
+        List<Participation> participations = Participation.find(Participation.class,"student=?", String.valueOf(students.get(0).getId()));
 
         for(Participation p: participations) {
             TextView dateStudent = new TextView(this);
-            dateStudent.setText(p.getDate());
+
+            dateStudent.setText(p.getDate().toString());
 
             row.addView(dateStudent);
+            Log.d("YYYYYYYYYYYYYYYYYYY","YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
         }
 
         addDate = new Button(this);
@@ -320,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             counterRows++;
         }
     }
-    protected void showInputDialog(SchoolClass schoolClass, Subject subject) {
+    protected void showInputDialog(final SchoolClass schoolClass, final Subject subject) {
 
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
@@ -334,15 +342,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
-                            SimpleDateFormat date = (SimpleDateFormat) editText.getText();
-                            Log.d("Try","Try");
+                            String date = editText.getText().toString();
+
+                            List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(schoolClass.getId()));
+
+                            for (Student s: students){
+                                Participation participation = new Participation(s, subject, date, 0);
+                                participation.save();
+                            }
+
                             dialog.cancel();
                         }
-                        catch (ClassCastException e) {
-                            Log.d("Catch","Catch");
+                        catch (ParseException e) {
+
                             TextView errorText = (TextView) promptView.findViewById(R.id.error_textView);
-                            errorText.setText("Please, enter a correct date!");
-                            //dialog.
+
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle("Attention")
+                                    .setMessage("Please enter a valid date!")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
                         }
                     }
                 })
