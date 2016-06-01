@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -256,15 +257,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         for(Participation p: participations) {
             TextView dateStudent = new TextView(this);
-            Log.d("Date", "Date: " + p.getDate());
-
             Date dateAndTime = p.getDate();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            String onlyDate = dateFormat.format(dateAndTime);
-
-
+            SimpleDateFormat dayAndMonth = new SimpleDateFormat("dd.MM.");
+            SimpleDateFormat year = new SimpleDateFormat("yyyy");
+            String onlyDate = dayAndMonth.format(dateAndTime) + "\n" + year.format(dateAndTime);
+            dateStudent.setTextSize(18);
+            dateStudent.setPadding(1,20,1,50);
+            dateStudent.setGravity(Gravity.CENTER);
 
             dateStudent.setText(onlyDate);
+
 
             row.addView(dateStudent);
         }
@@ -315,27 +317,35 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 switch (p.getRating()) {
                     case -3:
                         rating = "- - -";
+                        ratingStudent.setTextColor(getResources().getColor(R.color.colorNegative));
                         break;
                     case -2:
                         rating = "- -";
+                        ratingStudent.setTextColor(getResources().getColor(R.color.colorNegative));
                         break;
                     case -1:
                         rating = "-";
+                        ratingStudent.setTextColor(getResources().getColor(R.color.colorNegative));
                         break;
                     case 0:
                         rating = "~";
+                        ratingStudent.setTextColor(getResources().getColor(R.color.colorBlack));
                         break;
                     case 1:
                         rating = "+";
+                        ratingStudent.setTextColor(getResources().getColor(R.color.colorPositive));
                         break;
                     case 2:
                         rating = "+ +";
+                        ratingStudent.setTextColor(getResources().getColor(R.color.colorPositive));
                         break;
                     case 3:
                         rating = "+ + +";
+                        ratingStudent.setTextColor(getResources().getColor(R.color.colorPositive));
                         break;
                 }
                 ratingStudent.setText(rating);
+                ratingStudent.setTextSize(40);
                 ratingStudent.setOnClickListener(this);
                 buttonsParticipation.add(ratingStudent);
                 row.addView(ratingStudent);
