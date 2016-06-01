@@ -3,17 +3,14 @@ package siriuscyberneticscorporation.teachingaid47plus;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.browse.MediaBrowser;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -58,11 +55,11 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String selectedItem = parent.getItemAtPosition(position).toString();
+
     }
 
     public void onNothingSelected(AdapterView<?> arg0) {
-        //TODO Auto-generated method stub
+
     }
 
     public void onClick(View v) {
