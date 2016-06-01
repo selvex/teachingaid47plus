@@ -54,8 +54,7 @@
             android:name=".ExistingClassActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddStudentsActivity"
-            android:screenOrientation="portrait" />
+            android:name=".AddStudentsActivity" />
         <activity
             android:name=".AssignSubjectActivity"
             android:screenOrientation="portrait" />
