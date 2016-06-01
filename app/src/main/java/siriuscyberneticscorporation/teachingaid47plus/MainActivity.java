@@ -169,11 +169,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 if(s.getSchoolClass().getName().equals(schoolClass.getName())) {
                     Log.d("No plan", "Really no plan");
                     showInputDialog(schoolClass, s);
-                    Intent intent = getIntent();
-                    finish();
-                    startActivity(intent);
                 }
-                Log.d("Why doesn't it work?","Subject" + s.getName());
             }
 
 
@@ -260,11 +256,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         for(Participation p: participations) {
             TextView dateStudent = new TextView(this);
+            Log.d("Date", "Date: " + p.getDate());
 
-            dateStudent.setText(p.getDate().toString());
+            Date dateAndTime = p.getDate();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            String onlyDate = dateFormat.format(dateAndTime);
+
+
+
+            dateStudent.setText(onlyDate);
 
             row.addView(dateStudent);
-            Log.d("YYYYYYYYYYYYYYYYYYY","YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
         }
 
         addDate = new Button(this);
@@ -307,7 +309,33 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             for(Participation p: participations) {
                 Button ratingStudent = new Button(this);
-                ratingStudent.setText(p.getRating());
+                
+
+                String rating = "~";
+                switch (p.getRating()) {
+                    case -3:
+                        rating = "- - -";
+                        break;
+                    case -2:
+                        rating = "- -";
+                        break;
+                    case -1:
+                        rating = "-";
+                        break;
+                    case 0:
+                        rating = "~";
+                        break;
+                    case 1:
+                        rating = "+";
+                        break;
+                    case 2:
+                        rating = "+ +";
+                        break;
+                    case 3:
+                        rating = "+ + +";
+                        break;
+                }
+                ratingStudent.setText(rating);
                 ratingStudent.setOnClickListener(this);
                 buttonsParticipation.add(ratingStudent);
                 row.addView(ratingStudent);
@@ -350,6 +378,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 Participation participation = new Participation(s, subject, date, 0);
                                 participation.save();
                             }
+
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
 
                             dialog.cancel();
                         }
