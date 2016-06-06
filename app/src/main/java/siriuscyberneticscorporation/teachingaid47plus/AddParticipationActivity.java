@@ -25,11 +25,11 @@ public class AddParticipationActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_participation);
-        buttonDone = (Button) findViewById(R.id.participation_button_done);
+        //buttonDone = (Button) findViewById(R.id.participation_button_done);
         buttonDone.setOnClickListener(this);
         ratingDropdown = (Spinner) findViewById(R.id.participation_spinner);
-        dateEdit = (EditText) findViewById(R.id.participation_date_edit);
-        noteEdit = (EditText) findViewById(R.id.participation_note_edit);
+        //dateEdit = (EditText) findViewById(R.id.participation_date_edit);
+        //noteEdit = (EditText) findViewById(R.id.participation_note_edit);
         ArrayList<String> ratings = new ArrayList<String>();
         ratings.add("~");
         ratings.add("- - -");
@@ -46,7 +46,7 @@ public class AddParticipationActivity extends AppCompatActivity implements Adapt
     public void onClick(View v) {
         Button clickedButton = (Button) v;
 
-        if (clickedButton.getId() == R.id.participation_button_done) {
+        /*if (clickedButton.getId() == R.id.participation_button_done) {
             if(dateEdit.getText().toString().isEmpty()) {
                 new AlertDialog.Builder(AddParticipationActivity.this)
                         .setTitle("Invalid Date")
@@ -103,7 +103,7 @@ public class AddParticipationActivity extends AppCompatActivity implements Adapt
                 startActivity(intent);
             }
 
-        }
+        }*/
     }
 
     @Override

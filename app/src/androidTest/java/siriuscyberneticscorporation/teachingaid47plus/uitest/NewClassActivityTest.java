@@ -83,7 +83,7 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
 
         mySolo.enterText(className, "25e");
         mySolo.enterText(classTeacher, "P");
-        mySolo.sleep(200);
+        mySolo.sleep(1000);
         mySolo.clickOnButton("done");
         mySolo.sleep(200);
         EditText studentName = (EditText) mySolo.getCurrentActivity().findViewById(R.id.name_edittext);
