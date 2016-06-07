@@ -138,12 +138,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         createTableParticipation(students);
                     }
                     else if (buttonSelected == 1) {
-
+                        createTableHomework(students);
                     }
                     else if (buttonSelected == 2) {
                         createTableTests(students);
                     }
-
                 }
                 break;
         }
@@ -185,6 +184,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     participationButton.setBackgroundResource(R.color.colorTransparent);
                     testButton.setBackgroundResource(R.color.colorTransparent);
                     buttonSelected = 1;
+                    if(students != null) {
+                        createTableHomework(students);
+                    }
 
                     break;
                 case R.id.test_button:
@@ -201,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     checkifStudentsClicked(v);
                     checkifPartisipationsClicked(v);
                     checkifTestsClicked(v);
+                    checkifHomeworkClicked(v);
                     break;
             }
         }
@@ -301,6 +304,33 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
+    public void createTableHomework(List<Student> students){
+        studentTable.removeAllViews();
+        buttonsHomeworkMatrix = new ArrayList<>();
+        int counterRows = 0;
+        int counterStudents = 0;
+
+        TableRow row = new TableRow(this);
+        List<Homework> homework = Homework.find(Homework.class, "student=?", String.valueOf(students.get(0).getId()));
+
+        fillFirstRowHomework(homework, row);
+
+        for(Student s : students) {
+
+            row = new TableRow(this);
+
+            homework = Homework.find(Homework.class,"student=?", String.valueOf(students.get(counterStudents).getId()));
+            counterStudents++;
+
+            createStudentsColumn(counterRows, row, s);
+
+            createHomeworkEntries(homework, row);
+
+            studentTable.addView(row);
+            counterRows++;
+        }
+    }
+
     protected void showDateInputDialog(final SchoolClass schoolClass, final Subject subject) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
@@ -327,6 +357,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             }
                             else if (buttonSelected == 1) {
 
+                                for (Student s : students) {
+                                    Homework homework = new Homework(s, subject, date, Homework.Tags.NONE, "");
+                                    homework.save();
+                                }
+                                createTableHomework(students);
 
                             }
                             else if (buttonSelected == 2) {
@@ -334,7 +369,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 for (Student s : students) {
                                     SchoolTest test = new SchoolTest(date, s, 0, subject, "");
                                     test.save();
-                                    System.out.println("Test saved");
                                 }
                                 createTableTests(students);
                             }
@@ -447,10 +481,66 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         alert.show();
     }
 
+    protected void showHomeworkInputDialog(final Homework homework, final List<Student> students) {
+
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        final View promptView = layoutInflater.inflate(R.layout.homework_input_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setView(promptView);
+
+        final TextView date = (TextView) promptView.findViewById(R.id.homework_date_label);
+        final EditText comment = (EditText) promptView.findViewById(R.id.homework_comment_edit);
+        comment.setText(homework.getNote());
+
+
+        Date dateAndTime = homework.getDate();
+        SimpleDateFormat dateHomework = new SimpleDateFormat("dd.MM.yyyy");
+        String onlyDate = dateHomework.format(dateAndTime);
+        date.setText(onlyDate);
+
+        ratingDropdown = (Spinner) promptView.findViewById(R.id.homework_spinner);
+
+        ArrayList<String> ratings = new ArrayList<String>();
+        ratings.add("none");
+        ratings.add("excellent");
+        ratings.add("ok");
+        ratings.add("late");
+        ratings.add("incomplete");
+        ratings.add("missing");
+
+
+        fillRatingsDropdown(ratings);
+
+        ratingDropdown.setSelection(homework.getTag().getValue());
+
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        homework.setTag(ratingDropdown.getSelectedItemPosition());
+                        homework.setNote(comment.getText().toString());
+                        homework.save();
+
+                        createTableHomework(students);
+
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+
     protected void showTestInputDialog(final SchoolTest test, final List<Student> students) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-        final View promptView = layoutInflater.inflate(R.layout.activity_add_test, null);
+        final View promptView = layoutInflater.inflate(R.layout.test_input_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilder.setView(promptView);
 
@@ -754,7 +844,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
                 if (v == b) {
-                    //showTestInputDialog(tests.get(counter_columns), students);
+
                     showTestInputDialog(tests.get(counter_columns), students);
                 }
                 counter_columns++;
@@ -762,6 +852,94 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             counter_rows++;
         }
     }
-}
 
+    protected void fillFirstRowHomework(List<Homework> homeworks, TableRow row) {
+
+        TextView date = new TextView(this);
+        date.setText("Date:");
+        date.setTextSize(40);
+
+        if(date.getParent()!= null) {
+
+            ((ViewGroup) date.getParent()).removeView(date);
+        }
+        row.addView(date);
+
+
+
+        for(Homework h: homeworks) {
+            TextView dateStudent = new TextView(this);
+            Date dateAndTime = h.getDate();
+            SimpleDateFormat dayAndMonth = new SimpleDateFormat("dd.MM.");
+            SimpleDateFormat year = new SimpleDateFormat("yyyy");
+            String onlyDate = dayAndMonth.format(dateAndTime) + "\n" + year.format(dateAndTime);
+            dateStudent.setTextSize(18);
+            dateStudent.setPadding(1,20,1,50);
+            dateStudent.setGravity(Gravity.CENTER);
+
+            dateStudent.setText(onlyDate);
+
+
+            row.addView(dateStudent);
+        }
+
+        addDate = new Button(this);
+        addDate.setText("+");
+        addDate.setTextSize(40);
+        addDate.setOnClickListener(this);
+
+        row.addView(addDate);
+        studentTable.addView(row);
+
+    }
+
+    protected void  createHomeworkEntries(List<Homework> homework, TableRow row) {
+
+        ArrayList<Button> buttonsHomework = new ArrayList<Button>();
+
+        for(Homework h: homework) {
+
+            Button tagStudent = new Button(this);
+
+            tagStudent.setText(String.valueOf(h.getTag()));
+            tagStudent.setTextSize(20);
+            tagStudent.setOnClickListener(this);
+            buttonsHomework.add(tagStudent);
+            row.addView(tagStudent);
+        }
+
+        Button addDateForStudent = new Button(this);
+        addDateForStudent.setText("");
+        addDateForStudent.setTextSize(40);
+
+        row.addView(addDateForStudent);
+
+        buttonsHomeworkMatrix.add(buttonsHomework);
+    }
+
+    protected void checkifHomeworkClicked(View v) {
+        int counter_rows = 0;
+        int counter_columns = 0;
+        for(ArrayList<Button> arrayList : buttonsHomeworkMatrix) {
+            counter_columns = 0;
+            for (Button b : arrayList) {
+
+                Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
+                String selected_class = class_spinner.getSelectedItem().toString();
+                List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
+                SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
+                List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
+                List<Homework> homework = Homework.find(Homework.class, "student = ?", String.valueOf(students.get(counter_rows).getId()));
+
+
+
+                if (v == b) {
+                    showHomeworkInputDialog(homework.get(counter_columns), students);
+                }
+                counter_columns++;
+            }
+            counter_rows++;
+        }
+    }
+}
 

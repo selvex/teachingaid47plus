@@ -21,20 +21,15 @@
             android:layout_height="wrap_content"
             android:text="Date:"
             android:id="@+id/test_date_label"
-            android:textSize="20sp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rating:"
             android:id="@+id/test_rating_label"
+            android:layout_marginTop="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:maxLines="1"
             android:singleLine="true"
             android:inputType="number"/>
@@ -43,9 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/test_rating_edit"
-            android:layout_below="@+id/test_date_label"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+
             android:layout_gravity="center_horizontal"
             android:inputType="number"/>
 
@@ -54,18 +47,12 @@
             android:layout_height="wrap_content"
             android:text="Comment:"
             android:id="@+id/test_comment_label"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/test_comment_edit"
-            android:layout_below="@+id/test_date_label"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:inputType="textMultiLine"
             android:ems="10"
             android:layout_gravity="center_horizontal" />

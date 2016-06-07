@@ -59,7 +59,7 @@ public class HomeworkClassTest extends TestCase {
         }
         homework.setStudent(michael);
         homework.setSubject(chinesisch);
-        homework.setTag(Homework.Tags.EXCELLENT);
+        homework.setTag(1);
 
         assertEquals("11.11.1111", homework.getDate());
         assertEquals("michael", homework.getStudent().getName());
