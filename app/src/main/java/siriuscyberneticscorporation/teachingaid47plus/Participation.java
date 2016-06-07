@@ -82,10 +82,6 @@ public class Participation extends SugarRecord{
     }
 
     public Date getDate() {
-        Log.d("Zeug","Datum: " + date);
-        Log.d("Zeug2","Datum2: " + date.toString());
-        //Log.d("Zeug3","Datum3: " + dateFormat.format(date).toString());
-        //return dateFormat.format(date);
         return date;
     }
 
