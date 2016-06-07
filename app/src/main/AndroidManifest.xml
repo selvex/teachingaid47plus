@@ -54,7 +54,6 @@
             android:name=".AssignSubjectActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".StudentInfoActivity" />
-        <activity android:name=".AddHomeworkActivity" />
     </application>
 
 </manifest>

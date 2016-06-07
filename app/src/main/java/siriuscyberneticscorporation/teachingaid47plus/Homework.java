@@ -20,7 +20,17 @@ public class Homework extends SugarRecord{
     private SimpleDateFormat dateFormat;
 
     public enum Tags {
-        NONE, EXCELLENT, OK, LATE, INCOMPLETE, MISSING
+
+        NONE (0), EXCELLENT (1), OK (2), LATE (3), INCOMPLETE (4), MISSING (5);
+
+        private final int value;
+        private Tags(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 
     public Homework() {
@@ -69,8 +79,8 @@ public class Homework extends SugarRecord{
         this.subject = subject;
     }
 
-    public String getDate() {
-        return dateFormat.format(date);
+    public Date getDate() {
+        return date;
     }
 
     public void setDate(String date) throws ParseException {
@@ -81,8 +91,8 @@ public class Homework extends SugarRecord{
         return tag;
     }
 
-    public void setTag(Tags tag) {
-        this.tag = tag;
+    public void setTag(int tag) {
+        this.tag = Tags.values()[tag];
     }
 
     public String getNote() {
