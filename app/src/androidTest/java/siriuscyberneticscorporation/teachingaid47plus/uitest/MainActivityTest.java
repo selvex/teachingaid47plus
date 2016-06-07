@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,6 +30,11 @@ import siriuscyberneticscorporation.teachingaid47plus.Subject;
 public class MainActivityTest extends ActivityInstrumentationTestCase2 {
 
     private Solo mySolo;
+    private EditText className;
+    private EditText classTeacher;
+    private EditText studentName;
+    private EditText addSubject;
+    private EditText date;
 
     public MainActivityTest()
     {
@@ -114,5 +120,50 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
     public void testZKeepDbClean()
     {
         getActivity().getBaseContext().deleteDatabase("sugar_db_55.db");
+    }
+
+    public void testWalkthrough(){
+
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_add_class));
+        mySolo.clickOnButton("new class");
+        mySolo.sleep(200);
+        className  = (EditText) mySolo.getCurrentActivity().findViewById(R.id.class_edittext);
+        classTeacher = (EditText) mySolo.getCurrentActivity().findViewById(R.id.teacher_edittext);
+        mySolo.enterText(className, "7U");
+        mySolo.enterText(classTeacher, "Schulte");
+        mySolo.sleep(1000);
+        mySolo.clickOnButton("done");
+        mySolo.sleep(200);
+        studentName = (EditText) mySolo.getCurrentActivity().findViewById(R.id.name_edittext);
+        mySolo.enterText(studentName, "Lisa");
+        mySolo.sleep(200);
+        mySolo.clickOnButton("Add Student");
+        mySolo.clickOnButton("Done");
+        mySolo.sleep(200);
+        addSubject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subjects_editText);
+        mySolo.enterText(addSubject, "DG");
+        mySolo.sleep(200);
+        mySolo.clickOnButton("Done");
+        mySolo.sleep(200);
+        View dropdown_class = mySolo.getView(Spinner.class, 0);
+        mySolo.clickOnView(dropdown_class);
+        mySolo.scrollToTop();
+        mySolo.clickOnView(mySolo.getView(TextView.class, 1));
+        mySolo.sleep(200);
+        mySolo.clickOnButton("+");
+        date  = (EditText) mySolo.getView(R.id.date_editText);
+        mySolo.sleep(200);
+        mySolo.enterText(date, "12.08.2015");
+        mySolo.sleep(200);
+        mySolo.clickOnView(mySolo.getView(android.R.id.button1));
+        mySolo.clickOnButton("~");
+        mySolo.sleep(200);
+        View dropdownRating = mySolo.getView(Spinner.class, 0);
+        mySolo.clickOnView(dropdownRating);
+        mySolo.scrollToTop();
+        mySolo.clickOnView(mySolo.getView(TextView.class, 5));
+        mySolo.sleep(200);
+        mySolo.clickOnView(mySolo.getView(android.R.id.button1));
+        mySolo.sleep(1000);
     }
 }
