@@ -30,6 +30,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
+    private int buttonSelected;
     private Spinner classDropdown;
     private Spinner subjectDropdown;
     private Spinner ratingDropdown;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private TextView errorMsg;
     private ArrayList<TextView> textViewsStudents = new ArrayList<TextView>();
     private ArrayList<ArrayList<Button>> buttonsParticipationsMatrix = new ArrayList<>();
+    private ArrayList<ArrayList<Button>> buttonsTestsMatrix = new ArrayList<>();
+    private ArrayList<ArrayList<Button>> buttonsHomeworkMatrix = new ArrayList<>();
     private ArrayList<TextView> textViewsDate = new ArrayList<TextView>();
     private TableLayout studentTable;
 
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         homeworkButton = (Button) findViewById(R.id.homework_button);
         testButton = (Button) findViewById(R.id.test_button);
         studentTable = (TableLayout) findViewById(R.id.student_table);
+        buttonSelected = 0;
 
 
         classDropdown.setOnItemSelectedListener(this);
@@ -120,24 +124,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 fillSubjectsDropdown(subjectArray);
                 break;
             case R.id.subject_spinner:
-                Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
-                String selected_class = class_spinner.getSelectedItem().toString();
 
-                if(selected_class.equals("-----"))
-                    return;
-                List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
-
-                if(schoolClassestoCheck.isEmpty()) {
+                List <Student> students = getStudents();
+                if (students == null) {
                     return;
                 }
-                SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
-                List <Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
 
                 if(students.isEmpty()) {
                     return;
                 }
                 else {
-                    createTableParticipation(students);
+                    if (buttonSelected == 0) {
+                        createTableParticipation(students);
+                    }
+                    else if (buttonSelected == 1) {
+
+                    }
+                    else if (buttonSelected == 2) {
+                        createTableTests(students);
+                    }
+
                 }
                 break;
         }
@@ -149,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onClick (View v) {
-
+        List<Student> students = getStudents();
         if(v == addDate) {
             SimpleDateFormat dateFromUser;
 
@@ -168,23 +174,33 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     participationButton.setBackgroundResource(R.drawable.mybutton);
                     homeworkButton.setBackgroundResource(R.color.colorTransparent);
                     testButton.setBackgroundResource(R.color.colorTransparent);
+                    buttonSelected = 0;
+                    if (students != null) {
+                        createTableParticipation(students);
+                    }
 
                     break;
                 case R.id.homework_button:
                     homeworkButton.setBackgroundResource(R.drawable.mybutton);
                     participationButton.setBackgroundResource(R.color.colorTransparent);
                     testButton.setBackgroundResource(R.color.colorTransparent);
+                    buttonSelected = 1;
 
                     break;
                 case R.id.test_button:
                     testButton.setBackgroundResource(R.drawable.mybutton);
                     participationButton.setBackgroundResource(R.color.colorTransparent);
                     homeworkButton.setBackgroundResource(R.color.colorTransparent);
+                    buttonSelected = 2;
+                    if (students != null) {
+                        createTableTests(students);
+                    }
 
                     break;
                 default:
                     checkifStudentsClicked(v);
                     checkifPartisipationsClicked(v);
+                    checkifTestsClicked(v);
                     break;
             }
         }
@@ -238,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         int counterStudents = 0;
 
         TableRow row = new TableRow(this);
-        List<Participation> participations = Participation.find(Participation.class,"student=?", String.valueOf(students.get(0).getId()));
+        List<Participation> participations = Participation.find(Participation.class, "student=?", String.valueOf(students.get(0).getId()));
 
         fillFirstRowParticipations(participations, row);
 
@@ -257,6 +273,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             counterRows++;
         }
     }
+
+    public void createTableTests(List<Student> students){
+        studentTable.removeAllViews();
+        buttonsTestsMatrix = new ArrayList<>();
+        int counterRows = 0;
+        int counterStudents = 0;
+
+        TableRow row = new TableRow(this);
+        List<SchoolTest> tests = SchoolTest.find(SchoolTest.class, "student=?", String.valueOf(students.get(0).getId()));
+
+        fillFirstRowTests(tests, row);
+
+        for(Student s : students) {
+
+            row = new TableRow(this);
+
+            tests = SchoolTest.find(SchoolTest.class,"student=?", String.valueOf(students.get(counterStudents).getId()));
+            counterStudents++;
+
+            createStudentsColumn(counterRows, row, s);
+
+            createTestEntries(tests, row);
+
+            studentTable.addView(row);
+            counterRows++;
+        }
+    }
+
     protected void showDateInputDialog(final SchoolClass schoolClass, final Subject subject) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
@@ -273,12 +317,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                             List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(schoolClass.getId()));
 
-                            for (Student s : students) {
-                                Participation participation = new Participation(s, subject, date, 0);
-                                participation.save();
+                            if (buttonSelected == 0) {
+
+                                for (Student s : students) {
+                                    Participation participation = new Participation(s, subject, date, 0);
+                                    participation.save();
+                                }
+                                createTableParticipation(students);
+                            }
+                            else if (buttonSelected == 1) {
+
+
+                            }
+                            else if (buttonSelected == 2) {
+
+                                for (Student s : students) {
+                                    SchoolTest test = new SchoolTest(date, s, 0, subject, "");
+                                    test.save();
+                                    System.out.println("Test saved");
+                                }
+                                createTableTests(students);
                             }
 
-                            createTableParticipation(students);
 
                             dialog.cancel();
                         } catch (ParseException e) {
@@ -310,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void showParticipationInputDialog(final Participation participation, final List<Student> students) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-        final View promptView = layoutInflater.inflate(R.layout.activity_add_participation, null);
+        final View promptView = layoutInflater.inflate(R.layout.participation_input_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilder.setView(promptView);
 
@@ -386,6 +446,81 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
+
+    protected void showTestInputDialog(final SchoolTest test, final List<Student> students) {
+
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        final View promptView = layoutInflater.inflate(R.layout.activity_add_test, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setView(promptView);
+
+        final TextView date = (TextView) promptView.findViewById(R.id.test_date_label);
+        final EditText comment = (EditText) promptView.findViewById(R.id.test_comment_edit);
+        final EditText rating = (EditText) promptView.findViewById(R.id.test_rating_edit);
+        comment.setText(test.getNote());
+        rating.setText(String.valueOf(test.getRating()));
+
+
+        Date dateAndTime = test.getTestDate();
+        SimpleDateFormat dateParticipation = new SimpleDateFormat("dd.MM.yyyy");
+        String onlyDate = dateParticipation.format(dateAndTime);
+        date.setText(onlyDate);
+
+
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+
+                        try {
+                            test.setRating(Integer.valueOf(rating.getText().toString()));
+                            test.setNote(comment.getText().toString());
+                            test.save();
+
+                            createTableTests(students);
+                        }
+                        catch (NumberFormatException e) {
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle("Attention")
+                                    .setMessage("Please enter a valid rating!")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+
+
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+
+    protected List<Student> getStudents () {
+        Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
+        String selected_class = class_spinner.getSelectedItem().toString();
+
+        if(selected_class.equals("-----"))
+            return null;
+        List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
+
+        if(schoolClassestoCheck.isEmpty()) {
+            return null;
+        }
+        SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
+        return Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
+    }
+
     protected void fillFirstRowParticipations(List<Participation> participations, TableRow row) {
 
         TextView date = new TextView(this);
@@ -532,6 +667,95 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 if (v == b) {
                     showParticipationInputDialog(participations.get(counter_columns), students);
+                }
+                counter_columns++;
+            }
+            counter_rows++;
+        }
+    }
+
+    protected void fillFirstRowTests(List<SchoolTest> tests, TableRow row) {
+
+        TextView date = new TextView(this);
+        date.setText("Date:");
+        date.setTextSize(40);
+
+        if(date.getParent()!= null) {
+
+            ((ViewGroup) date.getParent()).removeView(date);
+        }
+        row.addView(date);
+
+
+
+        for(SchoolTest t: tests) {
+            TextView dateStudent = new TextView(this);
+            Date dateAndTime = t.getTestDate();
+            SimpleDateFormat dayAndMonth = new SimpleDateFormat("dd.MM.");
+            SimpleDateFormat year = new SimpleDateFormat("yyyy");
+            String onlyDate = dayAndMonth.format(dateAndTime) + "\n" + year.format(dateAndTime);
+            dateStudent.setTextSize(18);
+            dateStudent.setPadding(1,20,1,50);
+            dateStudent.setGravity(Gravity.CENTER);
+
+            dateStudent.setText(onlyDate);
+
+
+            row.addView(dateStudent);
+        }
+
+        addDate = new Button(this);
+        addDate.setText("+");
+        addDate.setTextSize(40);
+        addDate.setOnClickListener(this);
+
+        row.addView(addDate);
+        studentTable.addView(row);
+
+    }
+
+    protected void  createTestEntries(List<SchoolTest> tests, TableRow row) {
+
+        ArrayList<Button> buttonsTests = new ArrayList<Button>();
+
+        for(SchoolTest t: tests) {
+            Button ratingStudent = new Button(this);
+
+            ratingStudent.setText(String.valueOf(t.getRating()));
+            ratingStudent.setTextSize(40);
+            ratingStudent.setOnClickListener(this);
+            buttonsTests.add(ratingStudent);
+            row.addView(ratingStudent);
+        }
+
+        Button addDateForStudent = new Button(this);
+        addDateForStudent.setText("");
+        addDateForStudent.setTextSize(40);
+
+        row.addView(addDateForStudent);
+
+        buttonsTestsMatrix.add(buttonsTests);
+    }
+
+    protected void checkifTestsClicked(View v) {
+        int counter_rows = 0;
+        int counter_columns = 0;
+        for(ArrayList<Button> arrayList : buttonsTestsMatrix) {
+            counter_columns = 0;
+            for (Button b : arrayList) {
+
+                Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
+                String selected_class = class_spinner.getSelectedItem().toString();
+                List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
+                SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
+                List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
+                List<SchoolTest> tests = SchoolTest.find(SchoolTest.class, "student = ?", String.valueOf(students.get(counter_rows).getId()));
+
+
+
+                if (v == b) {
+                    //showTestInputDialog(tests.get(counter_columns), students);
+                    showTestInputDialog(tests.get(counter_columns), students);
                 }
                 counter_columns++;
             }

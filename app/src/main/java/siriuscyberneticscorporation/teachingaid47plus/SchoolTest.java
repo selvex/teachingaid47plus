@@ -44,8 +44,8 @@ public class SchoolTest extends SugarRecord {
         this.note = note;
     }
 
-    public String getTestDate() {
-        return dateFormat.format(testDate);
+    public Date getTestDate() {
+        return testDate;
     }
 
     public void setTestDate(String testDate) throws ParseException {
