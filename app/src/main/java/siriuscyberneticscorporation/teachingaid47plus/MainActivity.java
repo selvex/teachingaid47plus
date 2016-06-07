@@ -64,24 +64,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         homeworkButton.setOnClickListener(this);
         testButton.setOnClickListener(this);
 
+        //Create Database
         SchoolClass add = new SchoolClass("ewq", "ew", "ew");
         add.save();
         add.delete();
-        Iterator<SchoolClass> classes = SchoolClass.findAll(SchoolClass.class);
-        Iterator<Subject> subjects = Subject.findAll(Subject.class);
-        ArrayList<String> classArray = new ArrayList<String>();
-        ArrayList<String> subjectArray = new ArrayList<String>();
 
+        Iterator<SchoolClass> classes = SchoolClass.findAll(SchoolClass.class);
+        ArrayList<String> classArray = new ArrayList<String>();
         classArray.add("-----");
-        subjectArray.add("-----");
         while(classes.hasNext())
         {
             classArray.add(classes.next().getName());
         }
+
+
+        Iterator<Subject> subjects = Subject.findAll(Subject.class);
+        ArrayList<String> subjectArray = new ArrayList<String>();
+        subjectArray.add("-----");
+
         while(subjects.hasNext())
         {
             subjectArray.add(subjects.next().getName());
         }
+
+
         fillClassDropdown(classArray);
         fillSubjectsDropdown(subjectArray);
 
@@ -90,49 +96,44 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = parent.getItemAtPosition(position).toString();
-        System.out.println("Looking for: " + selectedItem);
-        if (selectedItem == "-----")
+
+        if (selectedItem.equals("-----"))
             return;
+
         switch (parent.getId())
         {
             case R.id.class_spinner:
                 List<SchoolClass> list_to_check = SchoolClass.find(SchoolClass.class, "name = ?", selectedItem);
                 if(list_to_check.isEmpty()) {
-                    System.out.println("list was empty");
                     return;
                 }
                 SchoolClass selected = list_to_check.get(0);
                 ArrayList<String> subjectArray = new ArrayList<String>();
-
                 List<Subject> subjects = Subject.find(Subject.class, "school_class = ?", String.valueOf(selected.getId()));
 
                 for(Subject s : subjects) {
-                    System.out.println("Subject found: " + s.getName());
                     subjectArray.add(s.getName());
                 }
                 if(subjects.isEmpty()) {
-                    subjectArray.add("   ---  ");
+                    subjectArray.add("-----");
                 }
                 fillSubjectsDropdown(subjectArray);
                 break;
             case R.id.subject_spinner:
-                System.out.println("Subject 123 ;)");
                 Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
                 String selected_class = class_spinner.getSelectedItem().toString();
-                if(selected_class == "-----")
+
+                if(selected_class.equals("-----"))
                     return;
                 List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
-                System.out.println("class : " + selected_class);
 
                 if(schoolClassestoCheck.isEmpty()) {
-                    System.out.println("list was empty");
                     return;
                 }
                 SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
                 List <Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
 
                 if(students.isEmpty()) {
-                    System.out.println("Student list empty");
                     return;
                 }
                 else {
@@ -148,16 +149,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onClick (View v) {
-        for(TextView tx : textViewsStudents) {
 
-            if (v == tx) {
-                String studentName = tx.getText().toString();
-                Student student = Student.find(Student.class, "name = ?", studentName).get(0);
-                Intent student_intent = new Intent(MainActivity.this, StudentInfoActivity.class);
-                student_intent.putExtra("default", student.getId());
-                startActivity(student_intent);
-            }
-        }
         if(v == addDate) {
             SimpleDateFormat dateFromUser;
 
@@ -169,52 +161,32 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
             }
         }
-        int counter_rows = 0;
-        int counter_columns = 0;
-        for(ArrayList<Button> arrayList : buttonsParticipationsMatrix) {
-            counter_columns = 0;
-            for (Button b : arrayList) {
+        else {
 
-                Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
-                String selected_class = class_spinner.getSelectedItem().toString();
-                List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
-                SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
-                List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
-                System.out.println(counter_rows);
-                List<Participation> participations = Participation.find(Participation.class, "student = ?", String.valueOf(students.get(counter_rows).getId()));
+            switch (v.getId()) {
+                case R.id.participation_button:
+                    participationButton.setBackgroundResource(R.drawable.mybutton);
+                    homeworkButton.setBackgroundResource(R.color.colorTransparent);
+                    testButton.setBackgroundResource(R.color.colorTransparent);
 
+                    break;
+                case R.id.homework_button:
+                    homeworkButton.setBackgroundResource(R.drawable.mybutton);
+                    participationButton.setBackgroundResource(R.color.colorTransparent);
+                    testButton.setBackgroundResource(R.color.colorTransparent);
 
+                    break;
+                case R.id.test_button:
+                    testButton.setBackgroundResource(R.drawable.mybutton);
+                    participationButton.setBackgroundResource(R.color.colorTransparent);
+                    homeworkButton.setBackgroundResource(R.color.colorTransparent);
 
-                if (v == b) {
-                    System.out.println("--------------------------------------------------------------------");
-                    showParticipationInputDialog(participations.get(counter_columns), students);
-                }
-                counter_columns++;
+                    break;
+                default:
+                    checkifStudentsClicked(v);
+                    checkifPartisipationsClicked(v);
+                    break;
             }
-            counter_rows++;
-        }
-        switch (v.getId()) {
-            case R.id.participation_button:
-                participationButton.setBackgroundResource(R.drawable.mybutton);
-                homeworkButton.setBackgroundResource(R.color.colorTransparent);
-                testButton.setBackgroundResource(R.color.colorTransparent);
-
-                break;
-            case R.id.homework_button:
-                homeworkButton.setBackgroundResource(R.drawable.mybutton);
-                participationButton.setBackgroundResource(R.color.colorTransparent);
-                testButton.setBackgroundResource(R.color.colorTransparent);
-
-                break;
-            case R.id.test_button:
-                testButton.setBackgroundResource(R.drawable.mybutton);
-                participationButton.setBackgroundResource(R.color.colorTransparent);
-                homeworkButton.setBackgroundResource(R.color.colorTransparent);
-
-                break;
-
-            default:
-                break;
         }
     }
 
@@ -261,52 +233,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void createTableParticipation(List<Student> students){
         studentTable.removeAllViews();
-        buttonsParticipationsMatrix = new ArrayList<>();;
-
+        buttonsParticipationsMatrix = new ArrayList<>();
         int counterRows = 0;
+        int counterStudents = 0;
 
         TableRow row = new TableRow(this);
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
-        TextView date = new TextView(this);
-        date.setId(counterRows + 1);
-        date.setText("Date:");
-        date.setTextSize(40);
-        if(date.getParent()!= null) {
-
-            ((ViewGroup) date.getParent()).removeView(date);
-        }
-        row.addView(date);
-
         List<Participation> participations = Participation.find(Participation.class,"student=?", String.valueOf(students.get(0).getId()));
 
-        for(Participation p: participations) {
-            TextView dateStudent = new TextView(this);
-            Date dateAndTime = p.getDate();
-            SimpleDateFormat dayAndMonth = new SimpleDateFormat("dd.MM.");
-            SimpleDateFormat year = new SimpleDateFormat("yyyy");
-            String onlyDate = dayAndMonth.format(dateAndTime) + "\n" + year.format(dateAndTime);
-            dateStudent.setTextSize(18);
-            dateStudent.setPadding(1,20,1,50);
-            dateStudent.setGravity(Gravity.CENTER);
+        fillFirstRowParticipations(participations, row);
 
-            dateStudent.setText(onlyDate);
-
-
-            row.addView(dateStudent);
-        }
-
-        addDate = new Button(this);
-        addDate.setText("+");
-        addDate.setTextSize(40);
-        addDate.setOnClickListener(this);
-
-        row.addView(addDate);
-
-
-
-        studentTable.addView(row);
-
-        int counterStudents = 0;
         for(Student s : students) {
 
             row = new TableRow(this);
@@ -314,90 +249,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             participations = Participation.find(Participation.class,"student=?", String.valueOf(students.get(counterStudents).getId()));
             counterStudents++;
 
-            if(counterRows % 2 == 0) {
-                row.setBackgroundResource(R.color.colorStudentTable);
-            }
-            row.setLayoutParams(lp);
-            TextView tx = new TextView(this);
-            textViewsStudents.add(tx);
-            textViewsStudents.get(counterRows).setId(counterRows + 1);
-            textViewsStudents.get(counterRows).setOnClickListener(this);
-            textViewsStudents.get(counterRows).setText(s.getName());
-            textViewsStudents.get(counterRows).setTextSize(40);
-            if(textViewsStudents.get(counterRows).getParent()!= null) {
+            createStudentsColumn(counterRows, row, s);
 
-                ((ViewGroup) textViewsStudents.get(counterRows).getParent()).removeView(textViewsStudents.get(counterRows));
-            }
-            row.addView(textViewsStudents.get(counterRows));
+            createParticipationEntries(participations, row);
 
-            ArrayList<Button> buttonsParticipation = new ArrayList<Button>();
-
-
-            for(Participation p: participations) {
-                Button ratingStudent = new Button(this);
-                
-
-                String rating = "~";
-                switch (p.getRating()) {
-                    case -3:
-                        rating = "- - -";
-                        ratingStudent.setTextColor(getResources().getColor(R.color.colorNegative));
-                        break;
-                    case -2:
-                        rating = "- -";
-                        ratingStudent.setTextColor(getResources().getColor(R.color.colorNegative));
-                        break;
-                    case -1:
-                        rating = "-";
-                        ratingStudent.setTextColor(getResources().getColor(R.color.colorNegative));
-                        break;
-                    case 0:
-                        rating = "~";
-                        ratingStudent.setTextColor(getResources().getColor(R.color.colorBlack));
-                        break;
-                    case 1:
-                        rating = "+";
-                        ratingStudent.setTextColor(getResources().getColor(R.color.colorPositive));
-                        break;
-                    case 2:
-                        rating = "+ +";
-                        ratingStudent.setTextColor(getResources().getColor(R.color.colorPositive));
-                        break;
-                    case 3:
-                        rating = "+ + +";
-                        ratingStudent.setTextColor(getResources().getColor(R.color.colorPositive));
-                        break;
-                }
-                ratingStudent.setText(rating);
-                ratingStudent.setTextSize(40);
-                ratingStudent.setOnClickListener(this);
-                buttonsParticipation.add(ratingStudent);
-                row.addView(ratingStudent);
-            }
-
-            Button addDateForStudent = new Button(this);
-            addDateForStudent.setText("");
-            addDateForStudent.setTextSize(40);
-
-            row.addView(addDateForStudent);
-
-            buttonsParticipationsMatrix.add(buttonsParticipation);
-
-            //row.addView();
             studentTable.addView(row);
             counterRows++;
         }
     }
     protected void showDateInputDialog(final SchoolClass schoolClass, final Subject subject) {
 
-        // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         final View promptView = layoutInflater.inflate(R.layout.date_input_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilder.setView(promptView);
 
         final EditText editText = (EditText) promptView.findViewById(R.id.date_editText);
-        // setup a dialog window
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -437,13 +304,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             }
                         });
 
-        // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
     protected void showParticipationInputDialog(final Participation participation, final List<Student> students) {
-
-        System.out.println("Es gibt doch keine Pizza :(");
 
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         final View promptView = layoutInflater.inflate(R.layout.activity_add_participation, null);
@@ -519,9 +383,160 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             }
                         });
 
-        // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
+    }
+    protected void fillFirstRowParticipations(List<Participation> participations, TableRow row) {
+
+        TextView date = new TextView(this);
+        date.setText("Date:");
+        date.setTextSize(40);
+
+        if(date.getParent()!= null) {
+
+            ((ViewGroup) date.getParent()).removeView(date);
+        }
+        row.addView(date);
+
+
+
+        for(Participation p: participations) {
+            TextView dateStudent = new TextView(this);
+            Date dateAndTime = p.getDate();
+            SimpleDateFormat dayAndMonth = new SimpleDateFormat("dd.MM.");
+            SimpleDateFormat year = new SimpleDateFormat("yyyy");
+            String onlyDate = dayAndMonth.format(dateAndTime) + "\n" + year.format(dateAndTime);
+            dateStudent.setTextSize(18);
+            dateStudent.setPadding(1,20,1,50);
+            dateStudent.setGravity(Gravity.CENTER);
+
+            dateStudent.setText(onlyDate);
+
+
+            row.addView(dateStudent);
+        }
+
+        addDate = new Button(this);
+        addDate.setText("+");
+        addDate.setTextSize(40);
+        addDate.setOnClickListener(this);
+
+        row.addView(addDate);
+        studentTable.addView(row);
+
+    }
+
+    protected void createStudentsColumn(int counterRows, TableRow row, Student s) {
+
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+        if(counterRows % 2 == 0) {
+            row.setBackgroundResource(R.color.colorStudentTable);
+        }
+        row.setLayoutParams(lp);
+        TextView tx = new TextView(this);
+        textViewsStudents.add(tx);
+        textViewsStudents.get(counterRows).setId(counterRows + 1);
+        textViewsStudents.get(counterRows).setOnClickListener(this);
+        textViewsStudents.get(counterRows).setText(s.getName());
+        textViewsStudents.get(counterRows).setTextSize(40);
+        if(textViewsStudents.get(counterRows).getParent()!= null) {
+
+            ((ViewGroup) textViewsStudents.get(counterRows).getParent()).removeView(textViewsStudents.get(counterRows));
+        }
+        row.addView(textViewsStudents.get(counterRows));
+    }
+
+    protected void  createParticipationEntries(List<Participation> participations, TableRow row) {
+
+        ArrayList<Button> buttonsParticipation = new ArrayList<Button>();
+
+        for(Participation p: participations) {
+            Button ratingStudent = new Button(this);
+
+
+            String rating = "~";
+            switch (p.getRating()) {
+                case -3:
+                    rating = "- - -";
+                    ratingStudent.setTextColor(getResources().getColor(R.color.colorNegative));
+                    break;
+                case -2:
+                    rating = "- -";
+                    ratingStudent.setTextColor(getResources().getColor(R.color.colorNegative));
+                    break;
+                case -1:
+                    rating = "-";
+                    ratingStudent.setTextColor(getResources().getColor(R.color.colorNegative));
+                    break;
+                case 0:
+                    rating = "~";
+                    ratingStudent.setTextColor(getResources().getColor(R.color.colorBlack));
+                    break;
+                case 1:
+                    rating = "+";
+                    ratingStudent.setTextColor(getResources().getColor(R.color.colorPositive));
+                    break;
+                case 2:
+                    rating = "+ +";
+                    ratingStudent.setTextColor(getResources().getColor(R.color.colorPositive));
+                    break;
+                case 3:
+                    rating = "+ + +";
+                    ratingStudent.setTextColor(getResources().getColor(R.color.colorPositive));
+                    break;
+            }
+            ratingStudent.setText(rating);
+            ratingStudent.setTextSize(40);
+            ratingStudent.setOnClickListener(this);
+            buttonsParticipation.add(ratingStudent);
+            row.addView(ratingStudent);
+        }
+
+        Button addDateForStudent = new Button(this);
+        addDateForStudent.setText("");
+        addDateForStudent.setTextSize(40);
+
+        row.addView(addDateForStudent);
+
+        buttonsParticipationsMatrix.add(buttonsParticipation);
+    }
+
+    protected void checkifStudentsClicked(View v) {
+        for(TextView tx : textViewsStudents) {
+
+            if (v == tx) {
+                String studentName = tx.getText().toString();
+                Student student = Student.find(Student.class, "name = ?", studentName).get(0);
+                Intent student_intent = new Intent(MainActivity.this, StudentInfoActivity.class);
+                student_intent.putExtra("default", student.getId());
+                startActivity(student_intent);
+            }
+        }
+    }
+
+    protected void checkifPartisipationsClicked(View v) {
+        int counter_rows = 0;
+        int counter_columns = 0;
+        for(ArrayList<Button> arrayList : buttonsParticipationsMatrix) {
+            counter_columns = 0;
+            for (Button b : arrayList) {
+
+                Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
+                String selected_class = class_spinner.getSelectedItem().toString();
+                List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
+                SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
+                List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
+                List<Participation> participations = Participation.find(Participation.class, "student = ?", String.valueOf(students.get(counter_rows).getId()));
+
+
+
+                if (v == b) {
+                    showParticipationInputDialog(participations.get(counter_columns), students);
+                }
+                counter_columns++;
+            }
+            counter_rows++;
+        }
     }
 }
 
