@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,6 +23,7 @@ public class AssignSubjectActivity extends AppCompatActivity implements View.OnC
     private Spinner subjectsDropdown;
     private EditText textSubject;
     private Intent prevIntent;
+    private TextView heading;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -30,6 +32,7 @@ public class AssignSubjectActivity extends AppCompatActivity implements View.OnC
         buttonDone = (Button) findViewById(R.id.done_button);
         subjectsDropdown = (Spinner) findViewById(R.id.subjects_spinner);
         textSubject = (EditText) findViewById(R.id.subjects_editText);
+        heading = (TextView) findViewById(R.id.heading_lable);
 
         prevIntent = getIntent();
 
@@ -48,14 +51,16 @@ public class AssignSubjectActivity extends AppCompatActivity implements View.OnC
             }
         }
         fillSubjectsDropdown(subjectArray);
+        long classID = prevIntent.getLongExtra("default",0);
+        //heading.setText("Choose a subject for " + classID + " or create a new one:");
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String selectedItem = parent.getItemAtPosition(position).toString();
+
     }
 
     public void onNothingSelected(AdapterView<?> arg0) {
-        //TODO Auto-generated method stub
+
     }
 
     public void onClick(View v) {
