@@ -3,6 +3,8 @@ package siriuscyberneticscorporation.teachingaid47plus;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -258,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         int counterStudents = 0;
 
         TableRow row = new TableRow(this);
+        row.setPadding(15,0,0,0);
         Spinner subject_spinner = (Spinner) findViewById(R.id.subject_spinner);
         String selected_subject = subject_spinner.getSelectedItem().toString();
         Spinner class_spinner = (Spinner) findViewById(R.id.class_spinner);
@@ -272,6 +276,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         for(Student s : students) {
 
             row = new TableRow(this);
+            row.setPadding(15,0,0,0);
+
 
             participations = Participation.find(Participation.class,"student = ? and subject = ?",
                     String.valueOf(s.getId()), String.valueOf(subject_from_db.getId()));
@@ -293,6 +299,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         int counterStudents = 0;
 
         TableRow row = new TableRow(this);
+        row.setPadding(15,0,0,0);
+
         List<SchoolTest> tests = SchoolTest.find(SchoolTest.class, "student=?", String.valueOf(students.get(0).getId()));
 
         fillFirstRowTests(tests, row);
@@ -300,6 +308,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         for(Student s : students) {
 
             row = new TableRow(this);
+            row.setPadding(15,0,0,0);
+
 
             tests = SchoolTest.find(SchoolTest.class,"student=?", String.valueOf(students.get(counterStudents).getId()));
             counterStudents++;
@@ -320,6 +330,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         int counterStudents = 0;
 
         TableRow row = new TableRow(this);
+        row.setPadding(15,0,0,0);
+
         List<Homework> homework = Homework.find(Homework.class, "student=?", String.valueOf(students.get(0).getId()));
 
         fillFirstRowHomework(homework, row);
@@ -327,6 +339,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         for(Student s : students) {
 
             row = new TableRow(this);
+            row.setPadding(15,0,0,0);
+
 
             homework = Homework.find(Homework.class,"student=?", String.valueOf(students.get(counterStudents).getId()));
             counterStudents++;
@@ -625,13 +639,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         TextView date = new TextView(this);
         date.setText("Date:");
         date.setTextSize(40);
+        date.setPadding(0, 30, 0, 0);
 
         if(date.getParent()!= null) {
 
             ((ViewGroup) date.getParent()).removeView(date);
         }
         row.addView(date);
-
 
 
         for(Participation p: participations) {
@@ -641,10 +655,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             SimpleDateFormat year = new SimpleDateFormat("yyyy");
             String onlyDate = dayAndMonth.format(dateAndTime) + "\n" + year.format(dateAndTime);
             dateStudent.setTextSize(18);
-            dateStudent.setPadding(1,20,1,50);
-            dateStudent.setGravity(Gravity.CENTER);
-
             dateStudent.setText(onlyDate);
+            dateStudent.setPadding(1,20,1,80);
+            dateStudent.setGravity(Gravity.CENTER);
 
 
             row.addView(dateStudent);
