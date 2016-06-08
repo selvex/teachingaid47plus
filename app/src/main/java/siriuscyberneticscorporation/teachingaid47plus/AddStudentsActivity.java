@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class AddStudentsActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -20,6 +21,8 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
     private EditText textAddress;
     private EditText textNote;
     private Intent prevIntent;
+    private TextView counterStudents;
+    private int studentCounter = 0 ;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -34,13 +37,18 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
         textContactPersonEMail = (EditText) findViewById(R.id.contactPersonEMail_edittext);
         textAddress = (EditText) findViewById(R.id.address_edittext);
         textNote = (EditText) findViewById(R.id.note_edittext);
+        counterStudents = (TextView) findViewById(R.id.student_counter_textView);
+
+        buttonAdd.setBackgroundResource(R.drawable.mybutton);
 
         buttonDone.setOnClickListener(this);
         buttonAdd.setOnClickListener(this);
         prevIntent = getIntent();
+
     }
 
     public void onClick(View v) {
+
         Button clickedButton = (Button) v;
 
         if (clickedButton.getId() == R.id.done_button) {
@@ -102,6 +110,7 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
                         textContactPersonTelNumber.getText().toString(), textContactPersonEMail.getText().toString(),
                         textAddress.getText().toString(), textNote.getText().toString(), schoolClass);
                 student.save();
+                studentCounter++;
 
                 textName.setText("");
                 textContactPersonName.setText("");
@@ -109,6 +118,8 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
                 textContactPersonEMail.setText("");
                 textAddress.setText("");
                 textNote.setText("");
+
+                counterStudents.setText("Already added: " + studentCounter);
             }
 
         }

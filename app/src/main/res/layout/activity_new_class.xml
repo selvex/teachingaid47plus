@@ -9,55 +9,83 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="siriuscyberneticscorporation.teachingaid47plus.NewClassActivity">
 
-    <EditText
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/class_edittext"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:hint="@string/prompt_class"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:imeActionId="@+id/class_name"
-        android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone" />
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView5" >
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/teacher_edittext"
-        android:layout_below="@+id/class_edittext"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:hint="@string/prompt_teacher"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:imeActionId="@+id/teacher"
-        android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/note_edittext"
-        android:layout_below="@+id/teacher_edittext"
-        android:layout_alignRight="@+id/done_button"
-        android:layout_alignEnd="@+id/done_button"
-        android:layout_marginTop="42dp"
-        android:hint="@string/prompt_note"
-        android:maxLines="3"
-        android:singleLine="true"
-        android:imeActionId="@+id/note"
-        android:imeActionLabel="@string/action_enter"
-        android:imeOptions="actionDone" />
+            <android.support.v7.widget.ButtonBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorApp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_height="30dp"
+                    android:text="Add class:"
+                    android:textSize="25dp"
+                    android:id="@+id/add_students_textView" />
+            </android.support.v7.widget.ButtonBarLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="done"
-        android:id="@+id/done_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/class_edittext"
+                android:layout_marginTop="80dp"
+                android:hint="@string/prompt_class"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeActionId="@+id/class_name"
+                android:imeActionLabel="@string/action_enter"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/teacher_edittext"
+                android:layout_below="@+id/class_edittext"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="42dp"
+                android:hint="@string/prompt_teacher"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeActionId="@+id/teacher"
+                android:imeActionLabel="@string/action_enter"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/note_edittext"
+                android:layout_below="@+id/teacher_edittext"
+                android:layout_alignRight="@+id/done_button"
+                android:layout_alignEnd="@+id/done_button"
+                android:layout_marginTop="42dp"
+                android:hint="@string/prompt_note"
+                android:maxLines="3"
+                android:singleLine="true"
+                android:imeActionId="@+id/note"
+                android:imeActionLabel="@string/action_enter"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="done"
+                android:layout_marginTop="50dp"
+                android:id="@+id/done_button"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="right" />
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

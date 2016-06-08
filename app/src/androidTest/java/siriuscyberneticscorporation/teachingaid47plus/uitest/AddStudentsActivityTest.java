@@ -76,6 +76,7 @@ public class AddStudentsActivityTest extends ActivityInstrumentationTestCase2 {
     public void testErrorMessage() {
         EditText name = (EditText) mySolo.getCurrentActivity().findViewById(R.id.name_edittext);
         mySolo.enterText(name, "Herbert");
+        mySolo.sleep(200);
         mySolo.clickOnButton("Done");
         mySolo.sleep(200);
         mySolo.clickOnView(mySolo.getView(android.R.id.button2));
@@ -84,7 +85,7 @@ public class AddStudentsActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testZKeepDbClean()
     {
-        getActivity().getBaseContext().deleteDatabase("sugar_example_53.db");
+        getActivity().getBaseContext().deleteDatabase("sugar_db_55.db");
     }
 
 }
