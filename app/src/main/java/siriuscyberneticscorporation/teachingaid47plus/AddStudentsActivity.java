@@ -22,6 +22,7 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
     private EditText textNote;
     private Intent prevIntent;
     private TextView counterStudents;
+    private int studentCounter = 0 ;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -43,10 +44,11 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
         buttonDone.setOnClickListener(this);
         buttonAdd.setOnClickListener(this);
         prevIntent = getIntent();
+
     }
 
     public void onClick(View v) {
-        int studentCounter =0 ;
+
         Button clickedButton = (Button) v;
 
         if (clickedButton.getId() == R.id.done_button) {
