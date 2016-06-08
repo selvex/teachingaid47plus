@@ -38,22 +38,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".SettingsActivity" />
-        <activity
-            android:name=".AddClassActivity"/>
-        <activity
-            android:name=".AddSubjectActivity" />
-        <activity
-            android:name=".NewClassActivity" />
-        <activity
-            android:name=".ExistingClassActivity" />
-        <activity
-            android:name=".AddStudentsActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".AddClassActivity" />
+        <activity android:name=".AddSubjectActivity" />
+        <activity android:name=".NewClassActivity" />
+        <activity android:name=".ExistingClassActivity" />
+        <activity android:name=".AddStudentsActivity" />
         <activity
             android:name=".AssignSubjectActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".StudentInfoActivity" />
+        <activity android:name=".ListSchoolClassesActivity" />
+        <activity android:name=".EditSchoolClassActivity"></activity>
     </application>
 
 </manifest>
