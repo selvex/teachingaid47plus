@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             SchoolClass schoolClass = SchoolClass.find(SchoolClass.class, "name = ?", classDropdown.getSelectedItem().toString()).get(0);
             List<Subject> subjects = Subject.find(Subject.class, "name=?", subjectDropdown.getSelectedItem().toString());
+            System.out.println("Number of subjects: " + String.valueOf(subjects.size()));
             for(Subject s: subjects) {
                 if(s.getSchoolClass().getName().equals(schoolClass.getName())) {
                     showDateInputDialog(schoolClass, s);
@@ -257,15 +258,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         int counterStudents = 0;
 
         TableRow row = new TableRow(this);
-        List<Participation> participations = Participation.find(Participation.class, "student=?", String.valueOf(students.get(0).getId()));
-
+        Spinner subject_spinner = (Spinner) findViewById(R.id.subject_spinner);
+        String selected_subject = subject_spinner.getSelectedItem().toString();
+        Spinner class_spinner = (Spinner) findViewById(R.id.class_spinner);
+        String selected_class = class_spinner.getSelectedItem().toString();
+        SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", selected_class).get(0);
+        Subject subject_from_db = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId())).get(0);
+        List<Participation> participations = Participation.find(Participation.class,
+                "student=? and subject = ?", String.valueOf(students.get(0).getId()),
+                String.valueOf(subject_from_db.getId()));
         fillFirstRowParticipations(participations, row);
 
         for(Student s : students) {
 
             row = new TableRow(this);
 
-            participations = Participation.find(Participation.class,"student=?", String.valueOf(students.get(counterStudents).getId()));
+            participations = Participation.find(Participation.class,"student = ? and subject = ?",
+                    String.valueOf(s.getId()), String.valueOf(subject_from_db.getId()));
             counterStudents++;
 
             createStudentsColumn(counterRows, row, s);

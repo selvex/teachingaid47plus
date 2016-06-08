@@ -85,16 +85,26 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
                 List<Subject> subject_getting_linked = Subject.find(Subject.class, "name = ?", s_subject);
 
                 boolean doesNotExist = true;
+                boolean emptyClass = false;
+                Subject existing_subject = null;
 
                 for (Subject s: subject_getting_linked) {
 
                     if (s.getSchoolClass() != null && s.getSchoolClass().getName().equals(class_to_link.getName())) {
                         doesNotExist = false;
                     }
+                    if(s.getSchoolClass() == null) {
+                        existing_subject = s;
+                        emptyClass = true;
+                    }
                 }
                 if (doesNotExist) {
+                    if(emptyClass) {
+                        existing_subject.delete();
+                    }
                     Subject newSubject = new Subject(s_subject,class_to_link);
                     newSubject.save();
+
 
                     Intent intent = new Intent(ExistingClassActivity.this, MainActivity.class);
                     startActivity(intent);
