@@ -124,7 +124,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testParticipation(){
-
         mySolo.clickOnView(getActivity().findViewById(R.id.action_add_class));
         mySolo.clickOnButton("new class");
         mySolo.sleep(200);
@@ -144,7 +143,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
         addSubject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subjects_editText);
         mySolo.enterText(addSubject, "DG");
         mySolo.sleep(200);
-        mySolo.clickOnButton("Done");
+        mySolo.clickOnButton("done");
         mySolo.sleep(200);
         View dropdown_class = mySolo.getView(Spinner.class, 0);
         mySolo.clickOnView(dropdown_class);
