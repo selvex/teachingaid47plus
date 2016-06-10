@@ -70,7 +70,7 @@ public class MainLoginActivityTest extends ActivityInstrumentationTestCase2 {
 
 
     }
-    public void testChangePassword()
+    public void testZChangePassword()
     {
         EditText password = (EditText) mySolo.getCurrentActivity().findViewById(R.id.password);
         mySolo.enterText(password, "");
