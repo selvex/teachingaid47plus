@@ -51,12 +51,11 @@ public class ListSchoolClassesActivity extends AppCompatActivity implements Adap
             class_note.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ruler));
             class_name.setOnClickListener(this);
             classTextViews.add(class_name);
+            TableRow row_for_ruler = new TableRow(this);
 
             row_for_name.addView(class_name);
             row_for_teacher.addView(teacher_name);
             row_for_note.addView(class_note);
-            View ruler = new View(this);
-            ruler.setBackgroundColor(0xFF00FF00);
             classListing.addView(row_for_name);
             classListing.addView(row_for_teacher);
             classListing.addView(row_for_note);
