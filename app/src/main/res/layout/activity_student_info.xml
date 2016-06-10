@@ -136,6 +136,34 @@
                 android:textSize="25dp"/>
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grading"
+                android:id="@+id/grading_textview"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/plus_textview"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/minus_textview"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/test_average_textview"
+                android:textSize="25dp"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,6 +188,7 @@
         </LinearLayout>
 
     </ScrollView>
+
 
 
 
