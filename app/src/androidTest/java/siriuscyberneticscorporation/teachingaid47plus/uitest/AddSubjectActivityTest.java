@@ -49,7 +49,9 @@ public class AddSubjectActivityTest extends ActivityInstrumentationTestCase2 {
     {
         EditText subject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subject_edittext);
         mySolo.enterText(subject, "physics");
+        mySolo.sleep(200);
         mySolo.clickOnButton("done");
+        mySolo.sleep(200);
         mySolo.goBack();
         mySolo.assertCurrentActivity("wrong activity", AddSubjectActivity.class);
         mySolo.sleep(200);
