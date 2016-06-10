@@ -40,7 +40,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/promt_done"
+        android:text="@string/prompt_done"
         android:id="@+id/done_button"
         android:layout_below="@+id/subject_edittext"
         android:layout_alignRight="@+id/subject_edittext"
