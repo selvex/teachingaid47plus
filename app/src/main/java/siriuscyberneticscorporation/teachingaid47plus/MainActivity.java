@@ -21,6 +21,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ArrayList<ArrayList<Button>> buttonsHomeworkMatrix = new ArrayList<>();
     private ArrayList<TextView> textViewsDate = new ArrayList<TextView>();
     private TableLayout studentTable;
+    private TextView explanationTextView;
 
 
 
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         testButton = (Button) findViewById(R.id.test_button);
         studentTable = (TableLayout) findViewById(R.id.student_table);
         buttonSelected = 0;
+        explanationTextView = (TextView) findViewById(R.id.explanation_textview);
 
 
         classDropdown.setOnItemSelectedListener(this);
@@ -76,7 +80,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Iterator<SchoolClass> classes = SchoolClass.findAll(SchoolClass.class);
         ArrayList<String> classArray = new ArrayList<String>();
         if(!classes.hasNext()) {
-            classArray.add("-----");
+            classArray.add("Class");
+            explanationTextView.setVisibility(View.VISIBLE);
+            explanationTextView.setText("Welcome to TeachingAid47+ \n  \n Add a new class, by clicking at the 'ADD CLASS' Button on top of the screen");
         }
         while(classes.hasNext())
         {
@@ -88,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayList<String> subjectArray = new ArrayList<String>();
 
         if(!subjects.hasNext()) {
-            subjectArray.add("-----");
+            subjectArray.add("Subject");
         }
 
         while(subjects.hasNext())
@@ -106,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = parent.getItemAtPosition(position).toString();
 
-        if (selectedItem.equals("-----"))
+        if (selectedItem.equals("Class") || selectedItem.equals("Subject"))
             return;
 
         switch (parent.getId())
@@ -124,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     subjectArray.add(s.getName());
                 }
                 if(subjects.isEmpty()) {
-                    subjectArray.add("-----");
+                    subjectArray.add("Subject");
                 }
                 fillSubjectsDropdown(subjectArray);
                 break;
