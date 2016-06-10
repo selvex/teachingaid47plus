@@ -75,7 +75,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Iterator<SchoolClass> classes = SchoolClass.findAll(SchoolClass.class);
         ArrayList<String> classArray = new ArrayList<String>();
-        classArray.add("-----");
+        if(!classes.hasNext()) {
+            classArray.add("-----");
+        }
         while(classes.hasNext())
         {
             classArray.add(classes.next().getName());
@@ -84,7 +86,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Iterator<Subject> subjects = Subject.findAll(Subject.class);
         ArrayList<String> subjectArray = new ArrayList<String>();
-        subjectArray.add("-----");
+
+        if(!subjects.hasNext()) {
+            subjectArray.add("-----");
+        }
 
         while(subjects.hasNext())
         {
