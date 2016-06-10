@@ -37,23 +37,35 @@ public class MainLoginActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testLogin() {
         EditText password = (EditText) mySolo.getCurrentActivity().findViewById(R.id.password);
-        mySolo.enterText(password, "1234");
+        mySolo.enterText(password, "");
         mySolo.clickOnButton("Sign in");
+        mySolo.sleep(500);
         mySolo.goBack();
+        mySolo.sleep(500);
+
     }
 
     public void testWalkTrough() {
         EditText password = (EditText) mySolo.getCurrentActivity().findViewById(R.id.password);
-        mySolo.enterText(password, "1234");
+        mySolo.sleep(200);
+        mySolo.enterText(password, "");
         mySolo.clickOnButton("Sign in");
+        mySolo.sleep(200);
         mySolo.clickOnMenuItem("settings");
         mySolo.assertCurrentActivity("wrong activity", SettingsActivity.class);
+        mySolo.sleep(200);
         mySolo.goBack();
+        mySolo.sleep(200);
         mySolo.clickOnMenuItem("add class");
+        mySolo.sleep(200);
         mySolo.goBack();
+        mySolo.sleep(200);
         mySolo.clickOnMenuItem("add subject");
+        mySolo.sleep(200);
         mySolo.goBack();
+        mySolo.sleep(200);
         mySolo.goBack();
+        mySolo.sleep(200);
 
 
     }

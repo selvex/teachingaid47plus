@@ -74,7 +74,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/promt_done"
+                android:text="@string/prompt_done"
                 android:layout_marginTop="50dp"
                 android:id="@+id/done_button"
                 android:layout_gravity="right" />
