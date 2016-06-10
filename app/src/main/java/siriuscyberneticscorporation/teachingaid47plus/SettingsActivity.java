@@ -63,6 +63,15 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     public void onClick(DialogInterface dialog, int id) {
                         if(new_password.getText().toString().equals(new_password_repeat.getText().toString()) ) {
                             setPassword(new_password.getText().toString());
+                            new AlertDialog.Builder(SettingsActivity.this)
+                                    .setTitle("Success")
+                                    .setMessage("Password successfully changed!")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
                         }
                         else
                         {
@@ -93,7 +102,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     protected void setPassword(String password) {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("user_login", 0);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString("user_password", password);
+        editor.putString("47plus_user_password", password);
         editor.commit();
     }
 }

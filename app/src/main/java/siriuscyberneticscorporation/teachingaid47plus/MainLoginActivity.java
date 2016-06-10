@@ -217,9 +217,9 @@ public class MainLoginActivity extends AppCompatActivity implements LoaderCallba
             SharedPreferences pref = getApplicationContext().getSharedPreferences("user_login", 0);
             SharedPreferences.Editor editor = pref.edit();
 
-            if(pref.contains("user_password"))
+            if(pref.contains("47plus_user_password"))
             {
-                return mPassword.equals(pref.getString("user_password", null));
+                return mPassword.equals(pref.getString("47plus_user_password", null));
             }
             else
             {

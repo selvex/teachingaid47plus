@@ -37,4 +37,5 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.clickOnButton("Change Password");
 
     }
+
 }
