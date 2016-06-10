@@ -1,10 +1,21 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -30,11 +41,68 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         if(clickedButton.getId() == R.id.change_pwd_button){
             //input dialog
+            showChangePasswordDialog();
         }
         else if(clickedButton.getId() == R.id.edit_class_button){
             Intent intent = new Intent(SettingsActivity.this, ListSchoolClassesActivity.class);
             startActivity(intent);
         }
 
+    }
+    protected void showChangePasswordDialog() {
+        LayoutInflater layoutInflater = LayoutInflater.from(SettingsActivity.this);
+        final View promptView = layoutInflater.inflate(R.layout.change_password, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SettingsActivity.this);
+        alertDialogBuilder.setView(promptView);
+        final EditText new_password = (EditText) promptView.findViewById(R.id.new_password);
+        final EditText new_password_repeat = (EditText) promptView.findViewById(R.id.new_password_repeat);
+
+
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if(new_password.getText().toString().equals(new_password_repeat.getText().toString()) ) {
+                            setPassword(new_password.getText().toString());
+                            new AlertDialog.Builder(SettingsActivity.this)
+                                    .setTitle("Success")
+                                    .setMessage("Password successfully changed!")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+                        else
+                        {
+                            new AlertDialog.Builder(SettingsActivity.this)
+                                    .setTitle("Attention")
+                                    .setMessage("Your provided passwords do not match!")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+
+    protected void setPassword(String password) {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("user_login", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("47plus_user_password", password);
+        editor.commit();
     }
 }

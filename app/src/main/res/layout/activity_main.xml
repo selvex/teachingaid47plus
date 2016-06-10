@@ -87,6 +87,18 @@
             </android.support.v7.widget.ButtonBarLayout>
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/explanation_textview"
+                android:layout_alignTop="@+id/scrollView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:textSize="25dp"
+                android:visibility="gone"
+                android:maxLines="5"/>
+
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,7 +121,9 @@
                     </TableRow>
                  </TableLayout>
             </HorizontalScrollView>
+
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>
 

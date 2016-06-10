@@ -54,7 +54,7 @@ public class ExistingClassActivityTest extends ActivityInstrumentationTestCase2 
         mySolo.scrollToTop();
         mySolo.clickOnView(mySolo.getView(TextView.class, 0));
 
-        mySolo.clickOnButton("Done");
+        mySolo.clickOnButton("done");
         mySolo.goBackToActivity("ExistingClassActivity");
     }
 

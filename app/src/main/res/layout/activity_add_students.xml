@@ -51,21 +51,6 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/contactPersonTelNumber_edittext"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/contactPersonName_edittext"
-                android:layout_centerHorizontal="true"
-                android:hint="@string/prompt_contact_person_tel_number"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:imeActionId="@+id/contactPersonTelNumber"
-                android:imeActionLabel="@string/action_enter"
-                android:imeOptions="actionDone"
-                android:inputType="number"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/contactPersonName_edittext"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/name_edittext"
@@ -77,6 +62,21 @@
                 android:imeActionLabel="@string/action_enter"
                 android:imeOptions="actionDone"
                 android:inputType="textCapSentences"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/contactPersonTelNumber_edittext"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/contactPersonName_edittext"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/prompt_contact_person_tel_number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeActionId="@+id/contactPersonTelNumber"
+                android:imeActionLabel="@string/action_enter"
+                android:imeOptions="actionDone"
+                android:inputType="number"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -152,7 +152,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Done"
+                android:text="@string/prompt_done"
                 android:id="@+id/done_button"
                 android:layout_gravity="right"
                 android:layout_above="@+id/add_student_button" />

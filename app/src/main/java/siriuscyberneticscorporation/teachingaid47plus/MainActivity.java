@@ -24,6 +24,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ArrayList<ArrayList<Button>> buttonsHomeworkMatrix = new ArrayList<>();
     private ArrayList<TextView> textViewsDate = new ArrayList<TextView>();
     private TableLayout studentTable;
+    private TextView explanationTextView;
 
 
 
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         testButton = (Button) findViewById(R.id.test_button);
         studentTable = (TableLayout) findViewById(R.id.student_table);
         buttonSelected = 0;
+        explanationTextView = (TextView) findViewById(R.id.explanation_textview);
 
 
         classDropdown.setOnItemSelectedListener(this);
@@ -78,7 +82,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Iterator<SchoolClass> classes = SchoolClass.findAll(SchoolClass.class);
         ArrayList<String> classArray = new ArrayList<String>();
-        classArray.add("-----");
+        if(!classes.hasNext()) {
+            classArray.add("Class");
+            explanationTextView.setVisibility(View.VISIBLE);
+            explanationTextView.setText("Welcome to TeachingAid47+ \n  \n Add a new class, by clicking at the 'ADD CLASS' Button on top of the screen");
+        }
         while(classes.hasNext())
         {
             classArray.add(classes.next().getName());
@@ -87,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Iterator<Subject> subjects = Subject.findAll(Subject.class);
         ArrayList<String> subjectArray = new ArrayList<String>();
-        subjectArray.add("-----");
+
+        if(!subjects.hasNext()) {
+            subjectArray.add("Subject");
+        }
 
         while(subjects.hasNext())
         {
@@ -104,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = parent.getItemAtPosition(position).toString();
 
-        if (selectedItem.equals("-----"))
+        if (selectedItem.equals("Class") || selectedItem.equals("Subject"))
             return;
 
         switch (parent.getId())
@@ -122,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     subjectArray.add(s.getName());
                 }
                 if(subjects.isEmpty()) {
-                    subjectArray.add("-----");
+                    subjectArray.add("Subject");
                 }
                 fillSubjectsDropdown(subjectArray);
                 break;
@@ -299,10 +310,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         int counterStudents = 0;
 
         TableRow row = new TableRow(this);
+
         row.setPadding(15,0,0,0);
 
-        List<SchoolTest> tests = SchoolTest.find(SchoolTest.class, "student=?", String.valueOf(students.get(0).getId()));
-
+        Spinner subject_spinner = (Spinner) findViewById(R.id.subject_spinner);
+        String selected_subject = subject_spinner.getSelectedItem().toString();
+        Spinner class_spinner = (Spinner) findViewById(R.id.class_spinner);
+        String selected_class = class_spinner.getSelectedItem().toString();
+        SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", selected_class).get(0);
+        Subject subject_from_db = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId())).get(0);
+        List<SchoolTest> tests = SchoolTest.find(SchoolTest.class,
+                "student=? and subject = ?", String.valueOf(students.get(0).getId()),
+                String.valueOf(subject_from_db.getId()));
         fillFirstRowTests(tests, row);
 
         for(Student s : students) {
@@ -311,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             row.setPadding(15,0,0,0);
 
 
-            tests = SchoolTest.find(SchoolTest.class,"student=?", String.valueOf(students.get(counterStudents).getId()));
+            tests = SchoolTest.find(SchoolTest.class,"student=? and subject = ?", String.valueOf(s.getId()), String.valueOf(subject_from_db.getId()));
             counterStudents++;
 
             createStudentsColumn(counterRows, row, s);
@@ -331,9 +350,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         TableRow row = new TableRow(this);
         row.setPadding(15,0,0,0);
-
-        List<Homework> homework = Homework.find(Homework.class, "student=?", String.valueOf(students.get(0).getId()));
-
+        Spinner subject_spinner = (Spinner) findViewById(R.id.subject_spinner);
+        String selected_subject = subject_spinner.getSelectedItem().toString();
+        Spinner class_spinner = (Spinner) findViewById(R.id.class_spinner);
+        String selected_class = class_spinner.getSelectedItem().toString();
+        SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", selected_class).get(0);
+        Subject subject_from_db = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId())).get(0);
+        List<Homework> homework = Homework.find(Homework.class,
+                "student=? and subject = ?", String.valueOf(students.get(0).getId()),
+                String.valueOf(subject_from_db.getId()));
         fillFirstRowHomework(homework, row);
 
         for(Student s : students) {
@@ -342,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             row.setPadding(15,0,0,0);
 
 
-            homework = Homework.find(Homework.class,"student=?", String.valueOf(students.get(counterStudents).getId()));
+            homework = Homework.find(Homework.class,"student=? and subject = ?", String.valueOf(s.getId()), String.valueOf(subject_from_db.getId()));
             counterStudents++;
 
             createStudentsColumn(counterRows, row, s);
@@ -768,12 +793,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             counter_columns = 0;
             for (Button b : arrayList) {
 
-                Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
+                // ---- new
+                Spinner subject_spinner = (Spinner) findViewById(R.id.subject_spinner);
+                String selected_subject = subject_spinner.getSelectedItem().toString();
+                Spinner class_spinner = (Spinner) findViewById(R.id.class_spinner);
                 String selected_class = class_spinner.getSelectedItem().toString();
-                List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
-                SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
-                List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
-                List<Participation> participations = Participation.find(Participation.class, "student = ?", String.valueOf(students.get(counter_rows).getId()));
+                SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", selected_class).get(0);
+                Subject subject_from_db = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId())).get(0);
+                List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(class_from_db.getId()));
+                List<Participation> participations = Participation.find(Participation.class,
+                        "student=? and subject = ?", String.valueOf(students.get(counter_rows).getId()),
+                        String.valueOf(subject_from_db.getId()));
+
+                // ---- new
 
 
 
@@ -856,14 +888,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             counter_columns = 0;
             for (Button b : arrayList) {
 
-                Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
+
+
+                Spinner subject_spinner = (Spinner) findViewById(R.id.subject_spinner);
+                String selected_subject = subject_spinner.getSelectedItem().toString();
+                Spinner class_spinner = (Spinner) findViewById(R.id.class_spinner);
                 String selected_class = class_spinner.getSelectedItem().toString();
-                List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
-                SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
-                List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
-                List<SchoolTest> tests = SchoolTest.find(SchoolTest.class, "student = ?", String.valueOf(students.get(counter_rows).getId()));
-
-
+                SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", selected_class).get(0);
+                Subject subject_from_db = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId())).get(0);
+                List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(class_from_db.getId()));
+                List<SchoolTest> tests = SchoolTest.find(SchoolTest.class,
+                        "student=? and subject = ?", String.valueOf(students.get(counter_rows).getId()),
+                        String.valueOf(subject_from_db.getId()));
 
                 if (v == b) {
 
@@ -946,14 +982,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             counter_columns = 0;
             for (Button b : arrayList) {
 
-                Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
+                Spinner subject_spinner = (Spinner) findViewById(R.id.subject_spinner);
+                String selected_subject = subject_spinner.getSelectedItem().toString();
+                Spinner class_spinner = (Spinner) findViewById(R.id.class_spinner);
                 String selected_class = class_spinner.getSelectedItem().toString();
-                List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
-                SchoolClass selectedSchoolClass = schoolClassestoCheck.get(0);
-                List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(selectedSchoolClass.getId()));
-                List<Homework> homework = Homework.find(Homework.class, "student = ?", String.valueOf(students.get(counter_rows).getId()));
-
-
+                SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", selected_class).get(0);
+                Subject subject_from_db = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId())).get(0);
+                List<Student> students = Student.find(Student.class, "school_class = ?", String.valueOf(class_from_db.getId()));
+                List<Homework> homework = Homework.find(Homework.class,
+                        "student=? and subject = ?", String.valueOf(students.get(counter_rows).getId()),
+                        String.valueOf(subject_from_db.getId()));
 
                 if (v == b) {
                     showHomeworkInputDialog(homework.get(counter_columns), students);

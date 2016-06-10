@@ -47,7 +47,7 @@ public class AddStudentsActivityTest extends ActivityInstrumentationTestCase2 {
         EditText address = (EditText) mySolo.getCurrentActivity().findViewById(R.id.address_edittext);
         EditText note = (EditText) mySolo.getCurrentActivity().findViewById(R.id.note_edittext);
 
-        mySolo.clickOnButton("Done");
+        mySolo.clickOnButton("done");
         mySolo.assertCurrentActivity("wrong activity", AssignSubjectActivity.class);
         mySolo.goBack();
         mySolo.enterText(name, "Der Schüler Gerber");
@@ -77,7 +77,7 @@ public class AddStudentsActivityTest extends ActivityInstrumentationTestCase2 {
         EditText name = (EditText) mySolo.getCurrentActivity().findViewById(R.id.name_edittext);
         mySolo.enterText(name, "Herbert");
         mySolo.sleep(200);
-        mySolo.clickOnButton("Done");
+        mySolo.clickOnButton("done");
         mySolo.sleep(200);
         mySolo.clickOnView(mySolo.getView(android.R.id.button2));
         mySolo.assertCurrentActivity("wrong activity", AddStudentsActivity.class);
