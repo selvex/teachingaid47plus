@@ -35,15 +35,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/student_name_textview"
-                android:layout_below="@+id/editText"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textSize="30dp" />
+                android:id="@+id/name_edittext"
+                android:textSize="25dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,18 +49,16 @@
                 android:id="@+id/contact_person_name_label"
                 android:layout_below="@+id/contact_person_name_textview"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:maxLines="1"
+                android:singleLine="true" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/contact_person_name_textview"
-                android:textSize="30dp"
-                android:layout_below="@+id/editText2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:id="@+id/cpname_edittext"
+                android:textSize="25dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,17 +68,17 @@
                 android:id="@+id/contact_person_phone_label"
                 android:layout_below="@+id/contact_person_name_textview"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:maxLines="1"
+                android:singleLine="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/contact_person_phone_textview"
-                android:textSize="30dp"
-                android:layout_below="@+id/editText2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:inputType="phone"
+                android:ems="10"
+                android:id="@+id/cpphone_edittext"
+                android:textSize="25dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -94,17 +88,17 @@
                 android:id="@+id/contact_person_email_label"
                 android:layout_below="@+id/contact_person_name_textview"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:maxLines="1"
+                android:singleLine="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/contact_person_email_textview"
-                android:textSize="30dp"
-                android:layout_below="@+id/editText2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/cpemail_edittext"
+                android:textSize="25dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -114,39 +108,59 @@
                 android:id="@+id/address_lable"
                 android:layout_below="@+id/contact_person_name_textview"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:maxLines="1"
+                android:singleLine="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/address_textview"
-                android:textSize="30dp"
-                android:layout_below="@+id/editText2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:id="@+id/adress_edittext"
+                android:textSize="25dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Note:"
+                android:text="Comment:"
                 android:id="@+id/note_label"
                 android:layout_below="@+id/contact_person_name_textview"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:maxLines="3"/>
 
-            <TextView
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/note_edittext"
+                android:textSize="25dp"/>
+
+
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/note_textview"
-                android:textSize="30dp"
-                android:layout_below="@+id/editText2"
+                android:text="delete student"
+                android:id="@+id/delete_button"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="save"
+                android:id="@+id/save_button"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="right"/>
+
+
+
         </LinearLayout>
+
     </ScrollView>
+
+
 
 </RelativeLayout>
