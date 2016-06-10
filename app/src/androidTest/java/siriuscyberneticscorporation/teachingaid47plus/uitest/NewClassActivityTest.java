@@ -96,12 +96,12 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.sleep(200);
         mySolo.clickOnButton("Add Student");
         mySolo.sleep(200);
-        mySolo.clickOnButton("Done");
+        mySolo.clickOnButton("done");
         EditText subject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subject_edittext);
         mySolo.enterText(0,"");
         mySolo.enterText(0, "Informatik");
         mySolo.sleep(200);
-        mySolo.clickOnButton("Done");
+        mySolo.clickOnButton("done");
         mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
         mySolo.sleep(500);
 

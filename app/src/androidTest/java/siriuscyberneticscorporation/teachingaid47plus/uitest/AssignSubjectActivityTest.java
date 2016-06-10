@@ -40,7 +40,7 @@ public class AssignSubjectActivityTest extends ActivityInstrumentationTestCase2 
     }
 
     public void testWalkTrough() {
-        mySolo.clickOnButton("Done");
+        mySolo.clickOnButton("done");
 
         EditText subject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subjects_editText);
         mySolo.enterText(subject, "Mathematik");

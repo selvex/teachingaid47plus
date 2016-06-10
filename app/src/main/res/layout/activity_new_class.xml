@@ -49,8 +49,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/teacher_edittext"
-                android:layout_below="@+id/class_edittext"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="42dp"
                 android:hint="@string/prompt_teacher"
                 android:maxLines="1"
@@ -64,9 +62,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/note_edittext"
-                android:layout_below="@+id/teacher_edittext"
-                android:layout_alignRight="@+id/done_button"
-                android:layout_alignEnd="@+id/done_button"
                 android:layout_marginTop="42dp"
                 android:hint="@string/prompt_note"
                 android:maxLines="3"
@@ -79,12 +74,9 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="done"
+                android:text="@string/promt_done"
                 android:layout_marginTop="50dp"
                 android:id="@+id/done_button"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
                 android:layout_gravity="right" />
         </LinearLayout>
     </ScrollView>
