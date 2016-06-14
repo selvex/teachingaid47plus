@@ -46,8 +46,16 @@ public class AssignSubjectActivityTest extends ActivityInstrumentationTestCase2 
         mySolo.enterText(subject, "Mathematik");
         assertEquals("Mathematik", subject.getText().toString());
 
+    }
 
-
+    public void testHomeButton() {
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_home));
+        mySolo.sleep(300);
+        mySolo.clickOnView(mySolo.getView(android.R.id.button1));
+        mySolo.sleep(300);
+        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
+        mySolo.goBack();
+        mySolo.assertCurrentActivity("wrong activity", AssignSubjectActivity.class);
     }
 
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 import siriuscyberneticscorporation.teachingaid47plus.AddStudentsActivity;
 import siriuscyberneticscorporation.teachingaid47plus.AddSubjectActivity;
+import siriuscyberneticscorporation.teachingaid47plus.AssignSubjectActivity;
 import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.NewClassActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
@@ -117,6 +118,21 @@ public class NewClassActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.goBack();
         mySolo.goBack();
         mySolo.sleep(200);
+    }
+
+    public void testHomeButton() {
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_home));
+        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
+        mySolo.goBack();
+        mySolo.sleep(500);
+        mySolo.enterText(className, "2b");
+        mySolo.sleep(300);
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_home));
+        mySolo.clickOnView(mySolo.getView(android.R.id.button1));
+        mySolo.sleep(300);
+        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
+        mySolo.goBack();
+        mySolo.assertCurrentActivity("wrong activity", NewClassActivity.class);
     }
 
 }

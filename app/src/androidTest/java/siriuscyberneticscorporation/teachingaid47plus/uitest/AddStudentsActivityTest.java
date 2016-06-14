@@ -12,6 +12,7 @@ import java.util.List;
 import siriuscyberneticscorporation.teachingaid47plus.AddStudentsActivity;
 import siriuscyberneticscorporation.teachingaid47plus.AddSubjectActivity;
 import siriuscyberneticscorporation.teachingaid47plus.AssignSubjectActivity;
+import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.NewClassActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
 import siriuscyberneticscorporation.teachingaid47plus.SchoolClass;
@@ -86,6 +87,15 @@ public class AddStudentsActivityTest extends ActivityInstrumentationTestCase2 {
     public void testZKeepDbClean()
     {
         getActivity().getBaseContext().deleteDatabase("sugar_db_55.db");
+    }
+
+    public void testHomeButton() {
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_home));
+        mySolo.sleep(300);
+        mySolo.clickOnView(mySolo.getView(android.R.id.button1));
+        mySolo.sleep(300);
+        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
+        mySolo.goBack();
     }
 
 }

@@ -116,7 +116,7 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
             delete.setOnClickListener(this);
             delete.setBackgroundResource(R.drawable.mybutton);
             row.addView(delete);
-            deleteStudent.add(delete);
+            deleteSubject.add(delete);
             subjectTable.addView(row);
         }
 
@@ -271,7 +271,6 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
                             "student = ?", String.valueOf(delStudent.getId()));
                     for (Participation p: participation_db) {
                         p.delete();
-                        System.out.println("Participation deleted");
                     }
                     for (SchoolTest t: test_db) {
                         t.delete();
@@ -282,6 +281,31 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
                     delStudent.delete();
                 }
                 studentCounter++;
+            }
+            int subjectCounter = 0;
+            for(Button ds : deleteSubject) {
+
+                if (v == ds) {
+                    List<Subject> subject_db = Subject.find(Subject.class, "school_class = ?", String.valueOf(from_db.getId()));
+                    Subject delSubject = subject_db.get(subjectCounter);
+                    List<Participation> participation_db = Participation.find(Participation.class,
+                            "subject = ?", String.valueOf(delSubject.getId()));
+                    List<SchoolTest> test_db = SchoolTest.find(SchoolTest.class,
+                            "subject = ?", String.valueOf(delSubject.getId()));
+                    List<Homework> homework_db = Homework.find(Homework.class,
+                            "subject = ?", String.valueOf(delSubject.getId()));
+                    for (Participation p: participation_db) {
+                        p.delete();
+                    }
+                    for (SchoolTest t: test_db) {
+                        t.delete();
+                    }
+                    for (Homework h: homework_db) {
+                        h.delete();
+                    }
+                    delSubject.delete();
+                }
+                subjectCounter++;
             }
             Intent intent = new Intent(EditSchoolClassActivity.this, EditSchoolClassActivity.class);
             intent.putExtra("default", from_db.getId());

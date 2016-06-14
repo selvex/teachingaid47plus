@@ -103,5 +103,10 @@ public class ExistingClassActivityTest extends ActivityInstrumentationTestCase2 
             c.delete();
         }
     }
+    public void testHomeButton() {
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_home));
+        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
+        mySolo.goBack();
+    }
 
 }
