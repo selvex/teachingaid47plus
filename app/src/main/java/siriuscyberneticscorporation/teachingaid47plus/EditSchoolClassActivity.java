@@ -1,8 +1,12 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,6 +29,7 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
     private TableLayout subjectTable;
     private ArrayList<Button> deleteStudent;
     private ArrayList<Button> deleteSubject;
+    SchoolClass from_db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +37,13 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_edit_school_class);
         addButton = (Button) findViewById(R.id.add_student_button);
         addButton.setBackgroundResource(R.drawable.mybutton);
+        addButton.setOnClickListener(this);
+        doneButton = (Button) findViewById(R.id.done_button);
+        doneButton.setOnClickListener(this);
         prevIntent = getIntent();
 
         long classID = prevIntent.getLongExtra("default", 0);
-        SchoolClass from_db = SchoolClass.findById(SchoolClass.class, classID);
+        from_db = SchoolClass.findById(SchoolClass.class, classID);
         className = (EditText) findViewById(R.id.class_edittext);
         className.setText(from_db.getName());
         classTeacher = (EditText) findViewById(R.id.teacher_edittext);
@@ -109,8 +117,79 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
         }
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                final Intent home_intent = new Intent(EditSchoolClassActivity.this, MainActivity.class);
+                if(from_db.getName().equals(className.getText().toString()) &&
+                        from_db.getClassTeacher().equals(classTeacher.getText().toString()) &&
+                        from_db.getNote().equals(classNote.getText().toString())) {
+                    startActivity(home_intent);
+                }
+                else{
+                    new AlertDialog.Builder(EditSchoolClassActivity.this)
+                            .setTitle("Attention")
+                            .setMessage("You have changed some information without saving it! If you continue " +
+                                        "the new information will be lost.")
+
+
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    startActivity(home_intent);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void onClick (View v) {
-        
+        Button clickedButton = (Button) v;
+
+        if (clickedButton.getId() == R.id.done_button) {
+
+            Intent intent = new Intent(EditSchoolClassActivity.this, ListSchoolClassesActivity.class);
+
+            if (className.getText().toString().equals("")){
+                new AlertDialog.Builder(EditSchoolClassActivity.this)
+                        .setTitle("Error - Empty name")
+                        .setMessage("Please, at least fill out the field 'name'.")
+
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+            else {
+                from_db.setName(className.getText().toString());
+                from_db.setClassTeacher(classTeacher.getText().toString());
+                from_db.setNote(classNote.getText().toString());
+                from_db.save();
+                startActivity(intent);
+            }
+
+
+        }
+
 
     }
 }
