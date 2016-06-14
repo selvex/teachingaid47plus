@@ -1,5 +1,7 @@
 package siriuscyberneticscorporation.teachingaid47plus;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
@@ -103,17 +105,30 @@ public class StudentInfoActivity extends AppCompatActivity implements View.OnCli
         if (clickedButton.getId() == R.id.save_button) {
 
             Intent intent = new Intent(StudentInfoActivity.this, MainActivity.class);
+            if(StudentNameEditText.getText().toString().equals("")) {
+                new AlertDialog.Builder(StudentInfoActivity.this)
+                        .setTitle("Error - Empty name")
+                        .setMessage("Please, at least fill out the field 'name'.")
 
-            Student newStudent = Student.find(Student.class, "name = ?", studentToShow.getName()).get(0);
-            newStudent.setName(StudentNameEditText.getText().toString());
-            newStudent.setContactPersonName(ContactPersonNameEditText.getText().toString());
-            newStudent.setContactPersonTelNumber(ContactPersonPhoneEditText.getText().toString());
-            newStudent.setContactPersonEMail(ContactPersonEmailEditText.getText().toString());
-            newStudent.setAddress(StudentAddressEditText.getText().toString());
-            newStudent.setNote(StudentNoteEditText.getText().toString());
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+            else {
+                Student newStudent = Student.find(Student.class, "name = ?", studentToShow.getName()).get(0);
+                newStudent.setName(StudentNameEditText.getText().toString());
+                newStudent.setContactPersonName(ContactPersonNameEditText.getText().toString());
+                newStudent.setContactPersonTelNumber(ContactPersonPhoneEditText.getText().toString());
+                newStudent.setContactPersonEMail(ContactPersonEmailEditText.getText().toString());
+                newStudent.setAddress(StudentAddressEditText.getText().toString());
+                newStudent.setNote(StudentNoteEditText.getText().toString());
 
-            newStudent.save();
-            startActivity(intent);
+                newStudent.save();
+                startActivity(intent);
+            }
 
         }
 

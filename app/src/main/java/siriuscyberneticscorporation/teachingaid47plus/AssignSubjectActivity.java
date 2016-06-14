@@ -51,8 +51,7 @@ public class AssignSubjectActivity extends AppCompatActivity implements View.OnC
             }
         }
         fillSubjectsDropdown(subjectArray);
-        long classID = prevIntent.getLongExtra("default",0);
-        //heading.setText("Choose a subject for " + classID + " or create a new one:");
+
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

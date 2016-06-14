@@ -29,5 +29,6 @@
     <string name="participation_button">"Participation"</string>
     <string name="homework_button">"Homework"</string>
     <string name="test_button">"Test"</string>
+    <string name="add_student">"Add Student"</string>
     <string name="heading_assign_subject">Select an existing subject or create a new subject to match with your new class.</string>
 </resources>
