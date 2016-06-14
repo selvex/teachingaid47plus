@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", selected_class).get(0);
         Subject subject_from_db = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId())).get(0);
         List<Participation> participations = Participation.find(Participation.class,
-                "student=? and subject = ?", String.valueOf(students.get(0).getId()),
+                "student = ? and subject = ?", String.valueOf(students.get(0).getId()),
                 String.valueOf(subject_from_db.getId()));
         fillFirstRowParticipations(participations, row);
 

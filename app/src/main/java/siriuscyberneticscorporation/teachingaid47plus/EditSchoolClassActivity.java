@@ -3,6 +3,7 @@ package siriuscyberneticscorporation.teachingaid47plus;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,7 +16,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EditSchoolClassActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,8 +31,8 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
     private EditText classNote;
     private TableLayout studentTable;
     private TableLayout subjectTable;
-    private ArrayList<Button> deleteStudent;
-    private ArrayList<Button> deleteSubject;
+    private ArrayList<Button> deleteStudent = new ArrayList<Button>();
+    private ArrayList<Button> deleteSubject = new ArrayList<Button>();
     SchoolClass from_db;
 
     @Override
@@ -79,7 +83,7 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
             delete.setOnClickListener(this);
             delete.setBackgroundResource(R.drawable.mybutton);
             row.addView(delete);
-            /*deleteStudent.add(delete);*/
+            deleteStudent.add(delete);
             studentTable.addView(row);
         }
 
@@ -112,7 +116,7 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
             delete.setOnClickListener(this);
             delete.setBackgroundResource(R.drawable.mybutton);
             row.addView(delete);
-            //deleteStudent.add(delete);
+            deleteStudent.add(delete);
             subjectTable.addView(row);
         }
 
@@ -167,7 +171,7 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
 
             Intent intent = new Intent(EditSchoolClassActivity.this, ListSchoolClassesActivity.class);
 
-            if (className.getText().toString().equals("")){
+            if (className.getText().toString().equals("")) {
                 new AlertDialog.Builder(EditSchoolClassActivity.this)
                         .setTitle("Error - Empty name")
                         .setMessage("Please, at least fill out the field 'name'.")
@@ -178,8 +182,7 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-            }
-            else {
+            } else {
                 from_db.setName(className.getText().toString());
                 from_db.setClassTeacher(classTeacher.getText().toString());
                 from_db.setNote(classNote.getText().toString());
@@ -189,6 +192,104 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
 
 
         }
+        else if (clickedButton.getId() == R.id.add_student_button) {
+
+            Intent intent = new Intent(EditSchoolClassActivity.this, StudentInfoActivity.class);
+            List<Student> students_db = Student.find(Student.class, "school_class = ?", String.valueOf(from_db.getId()));
+            List<Subject> subjects = Subject.find(Subject.class, "school_class = ?", String.valueOf(from_db.getId()));
+            Student student = new Student("","","","","","",from_db);
+            student.save();
+            if(!students_db.isEmpty()) {
+                Student student_db = students_db.get(0);
+                for(Subject s: subjects){
+                    List<Participation> participation_db = Participation.find(Participation.class,
+                            "student = ? and subject = ?", String.valueOf(student_db.getId()),
+                            String.valueOf(s.getId()));
+                    List<SchoolTest> test_db = SchoolTest.find(SchoolTest.class,
+                           "student = ? and subject = ?", String.valueOf(student_db.getId()),
+                           String.valueOf(s.getId()));
+                    List<Homework> homework_db = Homework.find(Homework.class,
+                            "student = ? and subject = ?", String.valueOf(student_db.getId()),
+                            String.valueOf(s.getId()));
+                    for (Participation p: participation_db) {
+                        try {
+                            Date dateAndTime = p.getDate();
+                            SimpleDateFormat dateParticipation = new SimpleDateFormat("dd.MM.yyyy");
+                            String onlyDate = dateParticipation.format(dateAndTime);
+                            Participation participation = new Participation(student, s, onlyDate, "", 0);
+                            participation.save();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            System.out.println("Irgendwas läuft hier nicht");
+                        }
+                    }
+                    for (Homework h: homework_db) {
+                        try {
+                            Date dateAndTime = h.getDate();
+                            SimpleDateFormat dateHomework = new SimpleDateFormat("dd.MM.yyyy");
+                            String onlyDate = dateHomework.format(dateAndTime);
+                            Homework homework = new Homework(student, s, onlyDate, Homework.Tags.NONE, "");
+                            homework.save();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    for (SchoolTest t: test_db) {
+                        try {
+                            Date dateAndTime = t.getTestDate();
+                            SimpleDateFormat dateTest = new SimpleDateFormat("dd.MM.yyyy");
+                            String onlyDate = dateTest.format(dateAndTime);
+                            SchoolTest test = new SchoolTest(onlyDate, student, 0, s, "");
+                            test.save();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                }
+
+            }
+            Intent student_intent = new Intent(EditSchoolClassActivity.this, StudentInfoActivity.class);
+            student_intent.putExtra("default", student.getId());
+            startActivity(student_intent);
+
+
+        }
+        else {
+            int studentCounter = 0;
+            for(Button ds : deleteStudent) {
+
+                if (v == ds) {
+                    List<Student> students_db = Student.find(Student.class, "school_class = ?", String.valueOf(from_db.getId()));
+                    Student delStudent = students_db.get(studentCounter);
+                    List<Participation> participation_db = Participation.find(Participation.class,
+                            "student = ?", String.valueOf(delStudent.getId()));
+                    List<SchoolTest> test_db = SchoolTest.find(SchoolTest.class,
+                            "student = ?", String.valueOf(delStudent.getId()));
+                    List<Homework> homework_db = Homework.find(Homework.class,
+                            "student = ?", String.valueOf(delStudent.getId()));
+                    for (Participation p: participation_db) {
+                        p.delete();
+                        System.out.println("Participation deleted");
+                    }
+                    for (SchoolTest t: test_db) {
+                        t.delete();
+                    }
+                    for (Homework h: homework_db) {
+                        h.delete();
+                    }
+                    delStudent.delete();
+                }
+                studentCounter++;
+            }
+            Intent intent = new Intent(EditSchoolClassActivity.this, EditSchoolClassActivity.class);
+            intent.putExtra("default", from_db.getId());
+            startActivity(intent);
+        }
+
+
+
 
 
     }
