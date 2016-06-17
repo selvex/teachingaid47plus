@@ -43,12 +43,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Button homeworkButton;
     private Button testButton;
     private Button addDate;
-    private TextView errorMsg;
     private ArrayList<TextView> textViewsStudents = new ArrayList<TextView>();
     private ArrayList<ArrayList<Button>> buttonsParticipationsMatrix = new ArrayList<>();
     private ArrayList<ArrayList<Button>> buttonsTestsMatrix = new ArrayList<>();
     private ArrayList<ArrayList<Button>> buttonsHomeworkMatrix = new ArrayList<>();
-    private ArrayList<TextView> textViewsDate = new ArrayList<TextView>();
     private TableLayout studentTable;
     private TextView explanationTextView;
 
@@ -115,8 +113,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selectedItem = parent.getItemAtPosition(position).toString();
 
-        if (selectedItem.equals("Class") || selectedItem.equals("Subject"))
+        if (selectedItem.equals("Class") || selectedItem.equals("Subject")) {
+            studentTable.removeAllViews();
             return;
+        }
 
         switch (parent.getId())
         {
@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case R.id.subject_spinner:
 
                 List <Student> students = getStudents();
+
                 if (students == null) {
                     return;
                 }
@@ -278,9 +279,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Spinner class_spinner = (Spinner) findViewById(R.id.class_spinner);
         String selected_class = class_spinner.getSelectedItem().toString();
         SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", selected_class).get(0);
-        Subject subject_from_db = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId())).get(0);
+        List<Subject> allSubjects = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId()));
+        if (allSubjects.isEmpty()) {
+            return;
+        }
+        Subject subject_from_db = allSubjects.get(0);
         List<Participation> participations = Participation.find(Participation.class,
-                "student=? and subject = ?", String.valueOf(students.get(0).getId()),
+                "student = ? and subject = ?", String.valueOf(students.get(0).getId()),
                 String.valueOf(subject_from_db.getId()));
         fillFirstRowParticipations(participations, row);
 
@@ -318,7 +323,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Spinner class_spinner = (Spinner) findViewById(R.id.class_spinner);
         String selected_class = class_spinner.getSelectedItem().toString();
         SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", selected_class).get(0);
-        Subject subject_from_db = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId())).get(0);
+        List<Subject> allSubjects = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId()));
+        if (allSubjects.isEmpty()) {
+            return;
+        }
+        Subject subject_from_db = allSubjects.get(0);
         List<SchoolTest> tests = SchoolTest.find(SchoolTest.class,
                 "student=? and subject = ?", String.valueOf(students.get(0).getId()),
                 String.valueOf(subject_from_db.getId()));
@@ -355,7 +364,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Spinner class_spinner = (Spinner) findViewById(R.id.class_spinner);
         String selected_class = class_spinner.getSelectedItem().toString();
         SchoolClass class_from_db = SchoolClass.find(SchoolClass.class, "name = ?", selected_class).get(0);
-        Subject subject_from_db = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId())).get(0);
+        List<Subject> allSubjects = Subject.find(Subject.class, "name = ? and school_class = ?", selected_subject, String.valueOf(class_from_db.getId()));
+        if (allSubjects.isEmpty()) {
+            return;
+        }
+        Subject subject_from_db = allSubjects.get(0);
+
         List<Homework> homework = Homework.find(Homework.class,
                 "student=? and subject = ?", String.valueOf(students.get(0).getId()),
                 String.valueOf(subject_from_db.getId()));
@@ -648,7 +662,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Spinner class_spinner = (Spinner)findViewById(R.id.class_spinner);
         String selected_class = class_spinner.getSelectedItem().toString();
 
-        if(selected_class.equals("-----"))
+        if(selected_class.equals("Subject"))
             return null;
         List<SchoolClass> schoolClassestoCheck = SchoolClass.find(SchoolClass.class, "name = ?", selected_class);
 

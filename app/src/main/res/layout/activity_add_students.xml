@@ -133,7 +133,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:text="Add Student"
+                    android:text="@string/add_student"
                     android:id="@+id/add_student_button"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"

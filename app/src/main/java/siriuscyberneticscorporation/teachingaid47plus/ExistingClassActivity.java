@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,6 +62,27 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
 
     public void onNothingSelected(AdapterView<?> arg0) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                final Intent home_intent = new Intent(ExistingClassActivity.this, MainActivity.class);
+
+                startActivity(home_intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     public void onClick(View v) {

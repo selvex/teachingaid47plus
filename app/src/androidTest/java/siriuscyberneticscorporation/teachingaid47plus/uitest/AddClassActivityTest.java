@@ -9,6 +9,7 @@ import junit.framework.TestCase;
 
 import siriuscyberneticscorporation.teachingaid47plus.AddClassActivity;
 import siriuscyberneticscorporation.teachingaid47plus.ExistingClassActivity;
+import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
 import siriuscyberneticscorporation.teachingaid47plus.MainLoginActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
 import siriuscyberneticscorporation.teachingaid47plus.SettingsActivity;
@@ -41,5 +42,11 @@ public class AddClassActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.assertCurrentActivity("wrong activity", ExistingClassActivity.class);
         mySolo.goBack();
         mySolo.assertCurrentActivity("wrong activity", AddClassActivity.class);
+    }
+
+    public void testHomeButton() {
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_home));
+        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
+        mySolo.goBack();
     }
 }

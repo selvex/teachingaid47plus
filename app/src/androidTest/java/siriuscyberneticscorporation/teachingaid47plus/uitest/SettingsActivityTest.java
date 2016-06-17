@@ -6,6 +6,8 @@ import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
+import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
+import siriuscyberneticscorporation.teachingaid47plus.R;
 import siriuscyberneticscorporation.teachingaid47plus.SettingsActivity;
 
 
@@ -36,6 +38,12 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.assertCurrentActivity("wrong activity", SettingsActivity.class);
         mySolo.clickOnButton("Change Password");
 
+    }
+
+    public void testHomeButton() {
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_home));
+        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
+        mySolo.goBack();
     }
 
 }

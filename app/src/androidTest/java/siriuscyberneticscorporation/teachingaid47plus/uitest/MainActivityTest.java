@@ -400,4 +400,54 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2 {
         List<Student> students = Student.find(Student.class, "name = ?", "Lilith");
         assertEquals(students.size(),0);
     }
+
+    public void testDeleteStudent(){
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_add_class));
+        mySolo.clickOnButton("new class");
+        mySolo.sleep(1000);
+        className  = (EditText) mySolo.getCurrentActivity().findViewById(R.id.class_edittext);
+        classTeacher = (EditText) mySolo.getCurrentActivity().findViewById(R.id.teacher_edittext);
+        mySolo.enterText(className, "90U");
+        mySolo.sleep(1000);
+        mySolo.enterText(classTeacher, "Schulte");
+        mySolo.sleep(1000);
+        mySolo.clickOnButton("done");
+        mySolo.sleep(1000);
+        studentName = (EditText) mySolo.getCurrentActivity().findViewById(R.id.name_edittext);
+        mySolo.enterText(studentName, "Lisa");
+        mySolo.sleep(1000);
+        mySolo.clickOnButton("Add Student");
+        mySolo.sleep(1000);
+        mySolo.clickOnButton("done");
+        mySolo.sleep(1000);
+
+        SchoolClass class_db = SchoolClass.find(SchoolClass.class, "name = ?", "90U").get(0);
+        List<Student> students_db = Student.find(Student.class, "school_class = ?", String.valueOf(class_db.getId()));
+        assertEquals(students_db.size(), 1);
+
+        addSubject = (EditText) mySolo.getCurrentActivity().findViewById(R.id.subjects_editText);
+        mySolo.enterText(addSubject, "DG");
+        mySolo.sleep(1000);
+        mySolo.clickOnButton("done");
+        mySolo.sleep(1000);
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_settings));
+        mySolo.sleep(1000);
+        mySolo.clickOnButton("Edit class");
+        mySolo.sleep(1000);
+        mySolo.clickOnText("90U");
+        mySolo.sleep(1000);
+        mySolo.clickOnButton("-");
+        mySolo.sleep(1000);
+        mySolo.goBack();
+        mySolo.sleep(1000);
+        mySolo.goBack();
+        mySolo.sleep(1000);
+        mySolo.goBack();
+        mySolo.sleep(1000);
+        mySolo.goBack();
+        mySolo.sleep(1000);
+
+        List<Student> students_db_new = Student.find(Student.class, "school_class = ?", String.valueOf(class_db.getId()));
+        assertEquals(students_db_new.size(), 0);
+    }
 }

@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +37,23 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         buttonEditClass.setOnClickListener(this);
         buttonChangePwd.setOnClickListener(this);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return super.onCreateOptionsMenu(menu);
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                final Intent home_intent = new Intent(SettingsActivity.this, MainActivity.class);
+                startActivity(home_intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     public void onClick(View v){
         Button clickedButton = (Button) v;
 
