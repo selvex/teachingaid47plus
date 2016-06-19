@@ -83,6 +83,7 @@ public class AssignSubjectActivity extends AppCompatActivity implements View.OnC
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
+                                textSubject.setText("");
                                 startActivity(home_intent);
                             }
                         })

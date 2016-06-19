@@ -55,6 +55,9 @@ public class NewClassActivity extends AppCompatActivity implements View.OnClickL
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
 
+                                    textName.setText("");
+                                    textTeacher.setText("");
+                                    textNote.setText("");
                                     startActivity(home_intent);
                                 }
                             })
@@ -88,7 +91,7 @@ public class NewClassActivity extends AppCompatActivity implements View.OnClickL
             }
             else {
                 SchoolClass schoolClass = new SchoolClass(textName.getText().toString(), textTeacher.getText().toString(),textNote.getText().toString());
-                boolean doesNotExist = true;
+
                 List<SchoolClass> existingClasses = SchoolClass.find(SchoolClass.class, "name = ?", textName.getText().toString());
 
                 if (existingClasses.isEmpty()) {

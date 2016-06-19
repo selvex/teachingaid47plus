@@ -142,10 +142,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 List <Student> students = getStudents();
 
                 if (students == null) {
+                    studentTable.removeAllViews();
                     return;
                 }
 
                 if(students.isEmpty()) {
+                    studentTable.removeAllViews();
                     return;
                 }
                 else {
