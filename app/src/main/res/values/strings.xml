@@ -1,9 +1,9 @@
 <resources>
+    <string name="heading_add_new_subject">Add new subject:</string>
     <string name="app_name">Teachingaid47plus</string>
-
-    <!-- Strings related to login -->
+    <string name="prompt_done">done</string>
     <string name="prompt_username">Username</string>
-    <string name="prompt_subject">Add new Subject</string>
+    <string name="prompt_subject">subject name</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_class">Class name</string>
     <string name="prompt_teacher">Class teacher</string>
@@ -26,4 +26,9 @@
     <string name="title_activity_add_students">AddStudentsActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="action_settings">Settings</string>
+    <string name="participation_button">"Participation"</string>
+    <string name="homework_button">"Homework"</string>
+    <string name="test_button">"Test"</string>
+    <string name="add_student">"Add Student"</string>
+    <string name="heading_assign_subject">Select an existing subject or create a new subject to match with your new class.</string>
 </resources>

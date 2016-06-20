@@ -9,4 +9,43 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".SettingsActivity">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="300dp"
+        android:layout_height="270dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView4" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="300dp"
+                android:layout_height="255dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="120dp"
+                    android:text="Edit class"
+                    android:id="@+id/edit_class_button"
+                    android:textStyle="bold"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:text="Change Password"
+                    android:id="@+id/change_pwd_button"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/edit_class_button"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="15dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </RelativeLayout>

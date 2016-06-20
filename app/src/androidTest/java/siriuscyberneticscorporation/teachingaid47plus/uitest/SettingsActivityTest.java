@@ -1,29 +1,26 @@
 package siriuscyberneticscorporation.teachingaid47plus.uitest;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.EditText;
 
 import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
-import siriuscyberneticscorporation.teachingaid47plus.AddClassActivity;
-import siriuscyberneticscorporation.teachingaid47plus.ExistingClassActivity;
 import siriuscyberneticscorporation.teachingaid47plus.MainActivity;
-import siriuscyberneticscorporation.teachingaid47plus.MainLoginActivity;
 import siriuscyberneticscorporation.teachingaid47plus.R;
 import siriuscyberneticscorporation.teachingaid47plus.SettingsActivity;
 
+
 /**
- * Created by Bettina on 04.05.2016.
+ * Created by Bettina on 08.06.2016.
  */
-public class AddClassActivityTest extends ActivityInstrumentationTestCase2 {
+public class SettingsActivityTest extends ActivityInstrumentationTestCase2 {
 
     private Solo mySolo;
 
-    public AddClassActivityTest()
+    public SettingsActivityTest()
     {
-        super(AddClassActivity.class);
+        super(SettingsActivity.class);
     }
 
     public void setUp() throws Exception {
@@ -35,13 +32,12 @@ public class AddClassActivityTest extends ActivityInstrumentationTestCase2 {
         super.tearDown();
     }
 
-    public void testWalkTrough() {
-        mySolo.clickOnButton("new class");
+    public void testClickButtons() {
+        mySolo.clickOnButton("Edit class");
         mySolo.goBack();
-        mySolo.clickOnMenuItem("assign subject to class");
-        mySolo.assertCurrentActivity("wrong activity", ExistingClassActivity.class);
-        mySolo.goBack();
-        mySolo.assertCurrentActivity("wrong activity", AddClassActivity.class);
+        mySolo.assertCurrentActivity("wrong activity", SettingsActivity.class);
+        mySolo.clickOnButton("Change Password");
+
     }
 
     public void testHomeButton() {
@@ -49,4 +45,5 @@ public class AddClassActivityTest extends ActivityInstrumentationTestCase2 {
         mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
         mySolo.goBack();
     }
+
 }

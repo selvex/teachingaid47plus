@@ -13,10 +13,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="DATABASE"
-            android:value="sugar_db_53.db" />
+            android:value="sugar_db_55.db" />
         <meta-data
             android:name="VERSION"
             android:value="20" />
@@ -38,28 +38,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".SettingsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".AddClassActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".AddSubjectActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NewClassActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ExistingClassActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".AddStudentsActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".AddClassActivity" />
+        <activity android:name=".AddSubjectActivity" />
+        <activity android:name=".NewClassActivity" />
+        <activity android:name=".ExistingClassActivity" />
+        <activity android:name=".AddStudentsActivity" />
         <activity
             android:name=".AssignSubjectActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".StudentInfoActivity"></activity>
+        <activity android:name=".StudentInfoActivity" />
+        <activity android:name=".ListSchoolClassesActivity" />
+        <activity android:name=".EditSchoolClassActivity"></activity>
     </application>
 
 </manifest>

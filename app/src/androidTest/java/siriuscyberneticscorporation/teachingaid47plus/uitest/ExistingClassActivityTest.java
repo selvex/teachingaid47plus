@@ -54,7 +54,7 @@ public class ExistingClassActivityTest extends ActivityInstrumentationTestCase2 
         mySolo.scrollToTop();
         mySolo.clickOnView(mySolo.getView(TextView.class, 0));
 
-        mySolo.clickOnButton("Done");
+        mySolo.clickOnButton("done");
         mySolo.goBackToActivity("ExistingClassActivity");
     }
 
@@ -102,6 +102,11 @@ public class ExistingClassActivityTest extends ActivityInstrumentationTestCase2 
         {
             c.delete();
         }
+    }
+    public void testHomeButton() {
+        mySolo.clickOnView(getActivity().findViewById(R.id.action_home));
+        mySolo.assertCurrentActivity("wrong activity", MainActivity.class);
+        mySolo.goBack();
     }
 
 }

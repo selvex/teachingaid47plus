@@ -5,9 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class AddStudentsActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -20,6 +23,8 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
     private EditText textAddress;
     private EditText textNote;
     private Intent prevIntent;
+    private TextView counterStudents;
+    private int studentCounter = 0 ;
 
 
     protected void onCreate(Bundle savedInstanceState){
@@ -34,13 +39,58 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
         textContactPersonEMail = (EditText) findViewById(R.id.contactPersonEMail_edittext);
         textAddress = (EditText) findViewById(R.id.address_edittext);
         textNote = (EditText) findViewById(R.id.note_edittext);
+        counterStudents = (TextView) findViewById(R.id.student_counter_textView);
+
+        buttonAdd.setBackgroundResource(R.drawable.mybutton);
 
         buttonDone.setOnClickListener(this);
         buttonAdd.setOnClickListener(this);
         prevIntent = getIntent();
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                final Intent home_intent = new Intent(AddStudentsActivity.this, MainActivity.class);
+                new AlertDialog.Builder(AddStudentsActivity.this)
+                        .setTitle("Attention")
+                        .setMessage("If you stop here, your class has no subjects!")
+
+
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                textName.setText("");
+                                textContactPersonName.setText("");
+                                textContactPersonTelNumber.setText("");
+                                textContactPersonEMail.setText("");
+                                textAddress.setText("");
+                                textNote.setText("");
+                                startActivity(home_intent);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void onClick(View v) {
+
         Button clickedButton = (Button) v;
 
         if (clickedButton.getId() == R.id.done_button) {
@@ -102,6 +152,7 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
                         textContactPersonTelNumber.getText().toString(), textContactPersonEMail.getText().toString(),
                         textAddress.getText().toString(), textNote.getText().toString(), schoolClass);
                 student.save();
+                studentCounter++;
 
                 textName.setText("");
                 textContactPersonName.setText("");
@@ -109,6 +160,8 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
                 textContactPersonEMail.setText("");
                 textAddress.setText("");
                 textNote.setText("");
+
+                counterStudents.setText("Already added: " + studentCounter);
             }
 
         }

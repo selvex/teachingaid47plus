@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00695C</color>
+    <color name="colorAccent">#E57373</color>
     <color name="colorStudentTable">#D9D9D9</color>
+    <color name="colorApp">#B2DFDB</color>
+    <color name="colorButtons">#9FA8DA</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorPositive">#7cdc00</color>
+    <color name="colorNegative">#ff3030</color>
+    <color name="colorBar">#009688</color>
+    <color name="colorTransparent">#00ffffff</color>
 </resources>

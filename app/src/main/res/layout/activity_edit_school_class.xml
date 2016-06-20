@@ -7,36 +7,30 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="siriuscyberneticscorporation.teachingaid47plus.NewClassActivity">
+    tools:context="siriuscyberneticscorporation.teachingaid47plus.StudentInfoActivity">
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView5" >
+        android:id="@+id/scrollView2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="33dp">
+
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.ButtonBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_height="30dp"
-                    android:text="Add class:"
-                    android:textSize="25dp"
-                    android:id="@+id/add_students_textView" />
-            </android.support.v7.widget.ButtonBarLayout>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/class_edittext"
-                android:layout_marginTop="80dp"
+                android:textSize="25dp"
                 android:hint="@string/prompt_class"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -49,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/teacher_edittext"
-                android:layout_marginTop="42dp"
+                android:textSize="25dp"
                 android:hint="@string/prompt_teacher"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -62,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/note_edittext"
-                android:layout_marginTop="42dp"
+                android:textSize="25dp"
                 android:hint="@string/prompt_note"
                 android:maxLines="3"
                 android:singleLine="true"
@@ -71,13 +65,61 @@
                 android:imeOptions="actionDone"
                 android:inputType="textCapSentences"/>
 
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/student_table"
+                android:stretchColumns="2">
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    ​
+                </TableRow>
+            </TableLayout>
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/subject_table"
+                android:stretchColumns="2">
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    ​
+                </TableRow>
+            </TableLayout>
+            <android.support.v7.widget.ButtonBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/add_student_button_bar"
+                >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/add_student"
+                android:id="@+id/add_student_button"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                />
+
+
+            </android.support.v7.widget.ButtonBarLayout>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_done"
-                android:layout_marginTop="50dp"
                 android:id="@+id/done_button"
-                android:layout_gravity="right" />
+                android:layout_gravity="right"
+                />
         </LinearLayout>
+
     </ScrollView>
+
+
 </RelativeLayout>

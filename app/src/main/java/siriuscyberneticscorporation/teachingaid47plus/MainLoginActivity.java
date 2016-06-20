@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -37,7 +38,6 @@ public class MainLoginActivity extends AppCompatActivity implements LoaderCallba
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "", "admin"
     };
@@ -124,7 +124,7 @@ public class MainLoginActivity extends AppCompatActivity implements LoaderCallba
 
     private boolean isPasswordValid(String password) {
 
-        return password.length() > 2;
+        return password.length() > 0;
     }
 
     /**
@@ -214,12 +214,22 @@ public class MainLoginActivity extends AppCompatActivity implements LoaderCallba
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("user_login", 0);
+            SharedPreferences.Editor editor = pref.edit();
 
-            for (String password : DUMMY_CREDENTIALS) {
-
-                return password.equals(mPassword);
-
+            if(pref.contains("47plus_user_password"))
+            {
+                return mPassword.equals(pref.getString("47plus_user_password", null));
             }
+            else
+            {
+                for (String password : DUMMY_CREDENTIALS) {
+
+                    return password.equals(mPassword);
+
+                }
+            }
+
 
             return true;
         }

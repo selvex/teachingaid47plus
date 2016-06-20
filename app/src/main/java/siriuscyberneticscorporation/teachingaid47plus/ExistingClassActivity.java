@@ -3,17 +3,16 @@ package siriuscyberneticscorporation.teachingaid47plus;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.browse.MediaBrowser;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -58,11 +57,32 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String selectedItem = parent.getItemAtPosition(position).toString();
+
     }
 
     public void onNothingSelected(AdapterView<?> arg0) {
-        //TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                final Intent home_intent = new Intent(ExistingClassActivity.this, MainActivity.class);
+
+                startActivity(home_intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     public void onClick(View v) {
@@ -88,16 +108,26 @@ public class ExistingClassActivity extends AppCompatActivity implements View.OnC
                 List<Subject> subject_getting_linked = Subject.find(Subject.class, "name = ?", s_subject);
 
                 boolean doesNotExist = true;
+                boolean emptyClass = false;
+                Subject existing_subject = null;
 
                 for (Subject s: subject_getting_linked) {
 
                     if (s.getSchoolClass() != null && s.getSchoolClass().getName().equals(class_to_link.getName())) {
                         doesNotExist = false;
                     }
+                    if(s.getSchoolClass() == null) {
+                        existing_subject = s;
+                        emptyClass = true;
+                    }
                 }
                 if (doesNotExist) {
+                    if(emptyClass) {
+                        existing_subject.delete();
+                    }
                     Subject newSubject = new Subject(s_subject,class_to_link);
                     newSubject.save();
+
 
                     Intent intent = new Intent(ExistingClassActivity.this, MainActivity.class);
                     startActivity(intent);
