@@ -59,6 +59,27 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
         TableRow row = new TableRow(this);
         row.setPadding(15, 0, 0, 0);
 
+        if (students.isEmpty()){
+            final Intent intent = new Intent(EditSchoolClassActivity.this, ListSchoolClassesActivity.class);
+            new AlertDialog.Builder(EditSchoolClassActivity.this)
+                    .setTitle("Attention")
+                    .setMessage("This class has no students. Do you want to delete this class?")
+
+
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            from_db.delete();
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+
         TextView studentTextView = new TextView(this);
         studentTextView.setText("Students:");
         studentTextView.setTextSize(40);
@@ -75,7 +96,6 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
             TextView student_db = new TextView(this);
             student_db.setText(s.getName());
             student_db.setTextSize(30);
-            student_db.setOnClickListener(this);
             row.addView(student_db);
             Button delete = new Button(this);
             delete.setText("-");
@@ -109,7 +129,6 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
             TextView subject_db = new TextView(this);
             subject_db.setText(s.getName());
             subject_db.setTextSize(30);
-            subject_db.setOnClickListener(this);
             row.addView(subject_db);
             Button delete = new Button(this);
             delete.setText("-");
@@ -183,11 +202,28 @@ public class EditSchoolClassActivity extends AppCompatActivity implements View.O
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
             } else {
-                from_db.setName(className.getText().toString());
-                from_db.setClassTeacher(classTeacher.getText().toString());
-                from_db.setNote(classNote.getText().toString());
-                from_db.save();
-                startActivity(intent);
+
+                List<SchoolClass> existingClasses = SchoolClass.find(SchoolClass.class, "name = ?", className.getText().toString());
+
+                if (existingClasses.size() == 0 || from_db.getName().equals(className.getText().toString())) {
+                    from_db.setName(className.getText().toString());
+                    from_db.setClassTeacher(classTeacher.getText().toString());
+                    from_db.setNote(classNote.getText().toString());
+                    from_db.save();
+                    startActivity(intent);
+                }
+                else {
+                    new AlertDialog.Builder(EditSchoolClassActivity.this)
+                            .setTitle("Attention")
+                            .setMessage("This name is already taken. Please choose another class")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+
             }
 
 

@@ -67,6 +67,12 @@ public class AddStudentsActivity extends AppCompatActivity implements View.OnCli
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
+                                textName.setText("");
+                                textContactPersonName.setText("");
+                                textContactPersonTelNumber.setText("");
+                                textContactPersonEMail.setText("");
+                                textAddress.setText("");
+                                textNote.setText("");
                                 startActivity(home_intent);
                             }
                         })

@@ -19,6 +19,7 @@ import java.util.List;
 
 public class StudentInfoActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private boolean fromMainActivity = true;
 
     private Button buttonSave;
     private Button buttonDelete;
@@ -64,9 +65,12 @@ public class StudentInfoActivity extends AppCompatActivity implements View.OnCli
         if(StudentID == 0) {
             return;
         }
+
         studentToShow = Student.findById(Student.class, StudentID);
 
-
+        if (studentToShow.getName().equals("")){
+            fromMainActivity = false;
+        }
 
         StudentNameEditText.setText(studentToShow.getName());
         ContactPersonNameEditText.setText(studentToShow.getContactPersonName());
@@ -151,7 +155,16 @@ public class StudentInfoActivity extends AppCompatActivity implements View.OnCli
 
         if (clickedButton.getId() == R.id.save_button) {
 
-            Intent intent = new Intent(StudentInfoActivity.this, MainActivity.class);
+            Intent intent;
+            if (fromMainActivity) {
+                intent = new Intent(StudentInfoActivity.this, MainActivity.class);
+            }
+            else {
+                intent = new Intent(StudentInfoActivity.this, EditSchoolClassActivity.class);
+                Student newStudent = Student.find(Student.class, "name = ?", studentToShow.getName()).get(0);
+                intent.putExtra("default", newStudent.getSchoolClass().getId() );
+            }
+
             if(StudentNameEditText.getText().toString().equals("")) {
                 new AlertDialog.Builder(StudentInfoActivity.this)
                         .setTitle("Error - Empty name")
